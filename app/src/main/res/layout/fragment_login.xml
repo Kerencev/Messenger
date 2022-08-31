@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.login.LoginFragment">
+
+    <ImageView
+        android:id="@+id/ivAstronaut"
+        android:layout_width="@dimen/activity_login_width_iv_astronaut"
+        android:layout_height="@dimen/activity_login_height_iv_astronaut"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_login_margin_top_iv_astronaut"
+        android:contentDescription="@string/astronaut"
+        android:src="@drawable/astronaut" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignIn"
+        android:layout_width="@dimen/activity_login_btn_sign_in_width"
+        android:layout_height="@dimen/activity_login_btn_sign_in_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_login_btn_sign_in_margin_top"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/sign_in"
+        android:textColor="@color/primary_background"
+        app:cornerRadius="@dimen/activity_login_btn_sign_in_corner_radius" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSignUp"
+        android:layout_width="@dimen/activity_login_btn_sign_up_width"
+        android:layout_height="@dimen/activity_login_btn_sign_up_height"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_login_btn_sign_up_margin_top"
+        android:backgroundTint="@color/primary_background"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/sign_up"
+        android:textColor="@color/white"
+        app:cornerRadius="@dimen/activity_login_btn_sign_up_corner_radius"
+        app:strokeColor="@color/white"
+        app:strokeWidth="@dimen/activity_login_btn_sign_up_stroke_width" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

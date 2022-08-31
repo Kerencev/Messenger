@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "605631111958",
+    "firebase_url": "https://messenger-af48b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "messenger-af48b",
+    "storage_bucket": "messenger-af48b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605631111958:android:90788587de7c7bcdb82637",
+        "android_client_info": {
+          "package_name": "com.kerencev.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605631111958-fuglj5tb3odku677ius17ul11p245icl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kerencev.messenger",
+            "certificate_hash": "ac4c3a894cf692518befe722792d6ff09de4a080"
+          }
+        },
+        {
+          "client_id": "605631111958-2est93a9etmifpidjsk8oukcdrbp6i9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6nfoBptdkKiVBDwshf6tjZ9yyI97pLUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605631111958-2est93a9etmifpidjsk8oukcdrbp6i9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

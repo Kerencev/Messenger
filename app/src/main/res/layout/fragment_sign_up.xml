@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.login.signin.SignInFragment">
+
+    <ImageView
+        android:id="@+id/signUpActionBack"
+        android:layout_width="@dimen/sign_up_iv_back_width"
+        android:layout_height="@dimen/sign_up_iv_back_height"
+        android:layout_marginStart="@dimen/sign_up_iv_back_margin_start"
+        android:layout_marginTop="@dimen/sign_up_iv_back_margin_top"
+        android:contentDescription="@string/come_back"
+        android:src="@drawable/icon_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sign_up_tv_registration_margin_start"
+        android:layout_marginTop="@dimen/sign_up_tv_registration_margin_top"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="top"
+        android:text="@string/registration"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sign_up_tv_registration_text_size" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/signUpEditLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sign_up_iv_edit_login_height"
+            android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_iv_edit_login_margin_top"
+            android:backgroundTint="@color/unselected_white"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/login"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColorHint="@color/unselected_white" />
+
+        <EditText
+            android:id="@+id/signUpEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sign_up_edit_text_email_height"
+            android:layout_marginHorizontal="@dimen/sign_up_edit_text_email_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_edit_text_email_margin_top"
+            android:backgroundTint="@color/unselected_white"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/email"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/unselected_white" />
+
+        <EditText
+            android:id="@+id/signUpEditPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sign_up_edit_text_password_height"
+            android:layout_marginHorizontal="@dimen/sign_up_edit_text_password_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_edit_text_password_margin_top"
+            android:backgroundTint="@color/unselected_white"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textColorHint="@color/unselected_white" />
+
+        <EditText
+            android:id="@+id/signUpEditPasswordAgain"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sign_up_edit_text_password_again_height"
+            android:layout_marginHorizontal="@dimen/sign_up_edit_text_password_again_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_edit_text_password_again_margin_top"
+            android:backgroundTint="@color/unselected_white"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/password_again"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:textColorHint="@color/unselected_white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sign_up_btn_height"
+            android:layout_marginHorizontal="@dimen/sign_up_btn_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_btn_margin_top"
+            android:backgroundTint="@color/btn_sign_in"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sign_up_btn_text_size"
+            app:cornerRadius="@dimen/activity_login_btn_sign_in_corner_radius" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>

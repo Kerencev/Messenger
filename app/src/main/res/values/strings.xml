@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Messenger</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="sign_out">Выйти из аккаунта</string>
+    <string name="astronaut">astronaut</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="enter">Вход</string>
+    <string name="come_back">Вернуться назад</string>
+    <string name="login">Логин</string>
+    <string name="do_not_have_account">У вас нет аккаунта?</string>
+    <string name="registration">Регистрация</string>
+    <string name="password_again">Повторите пароль</string>
+</resources>
