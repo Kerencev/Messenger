@@ -27,6 +27,15 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sign_up_tv_registration_text_size" />
 
+    <ImageView
+        android:id="@+id/ivSelectPhoto"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_add"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="200dp"
+        android:background="@color/white"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

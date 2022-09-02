@@ -1,8 +1,15 @@
 package com.kerencev.messenger.ui.login.signin
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.storage.FirebaseStorage
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignInBinding
@@ -11,6 +18,7 @@ import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.presenters.login.SignInPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
+import java.util.*
 
 class SignInFragment :
     ViewBindingFragment<FragmentSignInBinding>(FragmentSignInBinding::inflate),
@@ -63,6 +71,7 @@ class SignInFragment :
     override fun onBackPressed() = presenter.onBackPressed()
 
     companion object {
+        private const val TAG = "SignInFragment"
         fun getInstance(): SignInFragment {
             return SignInFragment()
         }
