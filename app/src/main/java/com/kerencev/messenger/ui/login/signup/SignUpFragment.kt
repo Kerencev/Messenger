@@ -94,15 +94,6 @@ class SignUpFragment :
         ).show()
     }
 
-    override fun navigateToChatFragment() {
-        Snackbar.make(
-            requireContext(),
-            binding.root,
-            "Перешли во фрагмент чата",
-            Snackbar.LENGTH_SHORT
-        ).show()
-    }
-
     override fun showErrorMessage() {
         Snackbar.make(
             requireContext(),

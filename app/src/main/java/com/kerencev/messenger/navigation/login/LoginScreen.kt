@@ -6,6 +6,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.kerencev.messenger.ui.login.LoginFragment
 import com.kerencev.messenger.ui.login.signin.SignInFragment
 import com.kerencev.messenger.ui.login.signup.SignUpFragment
+import com.kerencev.messenger.ui.login.signup.WelcomeFragment
 
 object LoginScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
@@ -22,5 +23,11 @@ object SignInScreen : FragmentScreen {
 object SignUpScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return SignUpFragment.getInstance()
+    }
+}
+
+object WelcomeScreen : FragmentScreen {
+    override fun createFragment(factory: FragmentFactory): Fragment {
+        return WelcomeFragment()
     }
 }

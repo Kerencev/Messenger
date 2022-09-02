@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/fragment_welcome_iv_rocket_width"
+        android:layout_height="@dimen/fragment_welcome_iv_rocket_height"
+        android:layout_marginTop="@dimen/fragment_welcome_iv_rocket_margin_top"
+        android:contentDescription="@string/rocket"
+        android:src="@drawable/rocket" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_welcome_tv_success_margin_top"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/success"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fragment_welcome_tv_success_text_size" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnWelcome"
+        android:layout_width="@dimen/fragment_welcome_btn_welcome_width"
+        android:layout_height="@dimen/fragment_welcome_btn_welcome_height"
+        android:layout_marginTop="@dimen/fragment_welcome_btn_welcome_margin_top"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/welcome"
+        android:textColor="@color/primary_background"
+        android:textSize="@dimen/fragment_welcome_btn_welcome_text_size"
+        app:cornerRadius="@dimen/fragment_welcome_btn_welcome_corner_radius" />
+
+</LinearLayout>

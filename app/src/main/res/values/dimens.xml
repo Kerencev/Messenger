@@ -58,4 +58,14 @@
     <dimen name="sign_up_btn_margin_horizontal">56dp</dimen>
     <dimen name="sign_up_btn_margin_top">30dp</dimen>
     <dimen name="sign_up_btn_text_size">16sp</dimen>
+    <dimen name="fragment_welcome_iv_rocket_width">160dp</dimen>
+    <dimen name="fragment_welcome_iv_rocket_height">204dp</dimen>
+    <dimen name="fragment_welcome_iv_rocket_margin_top">100dp</dimen>
+    <dimen name="fragment_welcome_tv_success_margin_top">32dp</dimen>
+    <dimen name="fragment_welcome_tv_success_text_size">24sp</dimen>
+    <dimen name="fragment_welcome_btn_welcome_width">248dp</dimen>
+    <dimen name="fragment_welcome_btn_welcome_height">56dp</dimen>
+    <dimen name="fragment_welcome_btn_welcome_margin_top">68dp</dimen>
+    <dimen name="fragment_welcome_btn_welcome_text_size">16sp</dimen>
+    <dimen name="fragment_welcome_btn_welcome_corner_radius">100dp</dimen>
 </resources>

@@ -2,6 +2,8 @@ package com.kerencev.messenger.presenters.login
 
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.FirebaseRepository
+import com.kerencev.messenger.navigation.login.LoginScreen
+import com.kerencev.messenger.navigation.login.WelcomeScreen
 import com.kerencev.messenger.ui.login.signup.SignUpView
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
@@ -33,7 +35,7 @@ class SignUpPresenter(
             .subscribeByDefault()
             .subscribe(
                 {
-                    viewState.navigateToChatFragment()
+                    router.navigateTo(WelcomeScreen)
                 },
                 {
                     viewState.showErrorMessage()
