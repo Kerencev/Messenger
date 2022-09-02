@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
-    tools:context=".ui.login.signin.SignInFragment">
+    android:orientation="vertical"
+    tools:context=".ui.login.signin.SignInFragment"
+    tools:ignore="ScrollViewCount">
 
     <ImageView
         android:id="@+id/signInActionBack"
@@ -32,16 +34,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/signInEditLogin"
+        android:id="@+id/signInEditEmail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sign_in_iv_et_login_height"
         android:layout_marginHorizontal="@dimen/sign_in_iv_et_login_margin_horizontal"
         android:layout_marginTop="@dimen/sign_in_et_login_margin_top"
         android:backgroundTint="@color/unselected_white"
         android:fontFamily="@font/roboto_regular"
-        android:hint="@string/login"
+        android:hint="@string/email"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/unselected_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
