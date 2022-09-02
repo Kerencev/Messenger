@@ -6,5 +6,8 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface SignUpView : MvpView {
-
+    fun showEmptyFieldsMessage()
+    fun showNotCorrectPasswordMessage()
+    fun navigateToChatFragment()
+    fun showErrorMessage()
 }

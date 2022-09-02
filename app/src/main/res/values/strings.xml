@@ -13,4 +13,8 @@
     <string name="do_not_have_account">У вас нет аккаунта?</string>
     <string name="registration">Регистрация</string>
     <string name="password_again">Повторите пароль</string>
+    <string name="not_all_fields_are_filled_in">Заполнены не все поля</string>
+    <string name="password_must_match_in_both_fields">Пароль должен совпадать в обоих полях</string>
+    <string name="failed_to_register_check_the_validity_of_the_email">Не удалось зарегистрироваться.\nПроверьте корректность введённого Email адреса</string>
+    <string name="faild_to_enter_check_validity_of_the_data">Не удалось ввойти.\nПроверьте корректность введённых данных</string>
 </resources>

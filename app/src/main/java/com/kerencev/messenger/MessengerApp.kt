@@ -3,6 +3,7 @@ package com.kerencev.messenger
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 
 class MessengerApp : Application() {
 
@@ -13,6 +14,9 @@ class MessengerApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        RxJavaPlugins.setErrorHandler {
+        }
     }
 
     companion object {
