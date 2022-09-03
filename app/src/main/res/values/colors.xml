@@ -11,4 +11,5 @@
     <color name="status_bar">#008A9A</color>
     <color name="unselected_white">#DEFFFFFF</color>
     <color name="btn_sign_in">#FFCC80</color>
+    <color name="mtrl_textinput_default_box_stroke_color" override="true">#DEFFFFFF</color>
 </resources>

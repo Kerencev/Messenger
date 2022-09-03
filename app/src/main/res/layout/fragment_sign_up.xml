@@ -27,84 +27,117 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sign_up_tv_registration_text_size" />
 
-    <ImageView
-        android:id="@+id/ivSelectPhoto"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/ic_add"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="200dp"
-        android:background="@color/white"/>
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/signUpEditLogin"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/sign_up_iv_edit_login_height"
             android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
             android:layout_marginTop="@dimen/sign_up_iv_edit_login_margin_top"
-            android:backgroundTint="@color/unselected_white"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/login"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:textColorHint="@color/unselected_white" />
+            android:hint="@string/login">
 
-        <EditText
-            android:id="@+id/signUpEditEmail"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpEditLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_background"
+                android:fontFamily="@font/roboto_regular"
+                android:inputType="text"
+                android:textColor="@color/unselected_white"
+                android:textSize="@dimen/sign_up_input_text_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sign_up_edit_text_email_height"
-            android:layout_marginHorizontal="@dimen/sign_up_edit_text_email_margin_horizontal"
+            android:layout_height="@dimen/sign_up_iv_edit_login_height"
+            android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
             android:layout_marginTop="@dimen/sign_up_edit_text_email_margin_top"
-            android:backgroundTint="@color/unselected_white"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/email"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/unselected_white" />
+            android:hint="@string/email">
 
-        <EditText
-            android:id="@+id/signUpEditPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpEditEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_background"
+                android:fontFamily="@font/roboto_regular"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/unselected_white"
+                android:textSize="@dimen/sign_up_input_text_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sign_up_edit_text_password_height"
-            android:layout_marginHorizontal="@dimen/sign_up_edit_text_password_margin_horizontal"
-            android:layout_marginTop="@dimen/sign_up_edit_text_password_margin_top"
-            android:backgroundTint="@color/unselected_white"
-            android:fontFamily="@font/roboto_regular"
+            android:layout_height="@dimen/sign_up_iv_edit_login_height"
+            android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_edit_text_email_margin_top"
             android:hint="@string/password"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:textColorHint="@color/unselected_white" />
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/unselected_white">
 
-        <EditText
-            android:id="@+id/signUpEditPasswordAgain"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpEditPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_background"
+                android:fontFamily="@font/roboto_regular"
+                android:inputType="textPassword"
+                android:textColor="@color/unselected_white"
+                android:textSize="@dimen/sign_up_input_text_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sign_up_edit_text_password_again_height"
-            android:layout_marginHorizontal="@dimen/sign_up_edit_text_password_again_margin_horizontal"
-            android:layout_marginTop="@dimen/sign_up_edit_text_password_again_margin_top"
-            android:backgroundTint="@color/unselected_white"
-            android:fontFamily="@font/roboto_regular"
+            android:layout_height="@dimen/sign_up_iv_edit_login_height"
+            android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
+            android:layout_marginTop="@dimen/sign_up_edit_text_email_margin_top"
             android:hint="@string/password_again"
-            android:importantForAutofill="no"
-            android:inputType="textPassword"
-            android:textColorHint="@color/unselected_white" />
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/unselected_white">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/signUpBtn"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signUpEditPasswordAgain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_background"
+                android:fontFamily="@font/roboto_regular"
+                android:inputType="textPassword"
+                android:textColor="@color/unselected_white"
+                android:textSize="@dimen/sign_up_input_text_size" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/sign_up_btn_height"
-            android:layout_marginHorizontal="@dimen/sign_up_btn_margin_horizontal"
-            android:layout_marginTop="@dimen/sign_up_btn_margin_top"
-            android:backgroundTint="@color/btn_sign_in"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/register"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sign_up_btn_text_size"
-            app:cornerRadius="@dimen/activity_login_btn_sign_in_corner_radius" />
+            android:layout_marginTop="@dimen/sign_up_btn_margin_top">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signUpBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/sign_up_btn_margin_horizontal"
+                android:backgroundTint="@color/btn_sign_in"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_up_btn_text_size"
+                app:cornerRadius="@dimen/activity_login_btn_sign_in_corner_radius" />
+
+            <ProgressBar
+                android:id="@+id/signUpProgress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -13,5 +13,6 @@
         <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:navigationBarColor">@color/black</item>
         <!-- Customize your theme here. -->
+        <item name="textInputStyle">@style/RegisterTextInputLayoutStyle</item>
     </style>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RegisterTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxBackgroundColor">@color/unselected_white</item>
+        <item name="boxStrokeColor">@color/unselected_white</item>
+        <item name="hintTextColor">@color/unselected_white</item>
+        <item name="android:textColorHint">@color/unselected_white</item>
+        <item name="android:textColor">@color/unselected_white</item>
+    </style>
+</resources>

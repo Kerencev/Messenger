@@ -1,8 +1,8 @@
 package com.kerencev.messenger.presenters.login
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.FirebaseRepository
-import com.kerencev.messenger.navigation.login.LoginScreen
 import com.kerencev.messenger.navigation.login.WelcomeScreen
 import com.kerencev.messenger.ui.login.signup.SignUpView
 import com.kerencev.messenger.utils.disposeBy
@@ -23,21 +23,35 @@ class SignUpPresenter(
     }
 
     fun authWithFirebase(login: String, email: String, password: String, passwordAgain: String) {
+        viewState.showProgressBar()
         if (!checkFillAllFields(login, email, password, passwordAgain)) {
+            viewState.hideProgressBar()
             viewState.showEmptyFieldsMessage()
             return
         }
         if (password != passwordAgain) {
             viewState.showNotCorrectPasswordMessage()
+            viewState.hideProgressBar()
             return
         }
         repository.createUserWithEmailAndPassword(email, password)
             .subscribeByDefault()
             .subscribe(
                 {
-                    router.navigateTo(WelcomeScreen)
+                    repository.saveUserToFirebaseDatabase(login = login, email = email)
+                        .subscribeByDefault()
+                        .subscribe(
+                            {
+                                router.navigateTo(WelcomeScreen)
+                            },
+                            {
+                                viewState.hideProgressBar()
+                                Log.d(TAG, "${it.message}")
+                            }
+                        )
                 },
                 {
+                    viewState.hideProgressBar()
                     viewState.showErrorMessage()
                 }
 

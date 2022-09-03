@@ -33,37 +33,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/signInEditEmail"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/sign_in_iv_et_login_height"
-        android:layout_marginHorizontal="@dimen/sign_in_iv_et_login_margin_horizontal"
+        android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
         android:layout_marginTop="@dimen/sign_in_et_login_margin_top"
-        android:backgroundTint="@color/unselected_white"
-        android:fontFamily="@font/roboto_regular"
         android:hint="@string/email"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/unselected_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/signInEditPassword"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_background"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/unselected_white"
+            android:textSize="@dimen/sign_up_input_text_size" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/sign_in_edit_text_password_height"
         android:layout_marginHorizontal="@dimen/sign_in_edit_text_password_margin_horizontal"
         android:layout_marginTop="@dimen/sign_in_edit_text_password_margin_top"
-        android:backgroundTint="@color/unselected_white"
-        android:fontFamily="@font/roboto_regular"
         android:hint="@string/password"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:textColorHint="@color/unselected_white"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/unselected_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInEditPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_background"
+            android:fontFamily="@font/roboto_regular"
+            android:inputType="textPassword"
+            android:textColor="@color/unselected_white"
+            android:textSize="@dimen/sign_up_input_text_size" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signInBtnEnter"

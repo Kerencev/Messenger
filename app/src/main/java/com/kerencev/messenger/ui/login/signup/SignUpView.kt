@@ -9,4 +9,6 @@ interface SignUpView : MvpView {
     fun showEmptyFieldsMessage()
     fun showNotCorrectPasswordMessage()
     fun showErrorMessage()
+    fun showProgressBar()
+    fun hideProgressBar()
 }
