@@ -6,6 +6,7 @@ import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.databinding.FragmentWelcomeBinding
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.navigation.login.LoginScreen
+import com.kerencev.messenger.navigation.main.ChatListScreen
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 
 class WelcomeFragment :
@@ -15,7 +16,7 @@ class WelcomeFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnWelcome.setOnClickListener {
-            MessengerApp.instance.router.navigateTo(LoginScreen)
+            MessengerApp.instance.router.replaceScreen(ChatListScreen)
         }
     }
 

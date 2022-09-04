@@ -4,6 +4,7 @@ import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.FirebaseRepository
 import com.kerencev.messenger.navigation.login.SignUpScreen
+import com.kerencev.messenger.navigation.main.ChatListScreen
 import com.kerencev.messenger.ui.login.signin.SignInView
 import com.kerencev.messenger.utils.subscribeByDefault
 import moxy.MvpPresenter
@@ -31,7 +32,7 @@ class SignInPresenter(
             .subscribeByDefault()
             .subscribe(
                 {
-                    Log.d(TAG, "Вошли")
+                    viewState.startMainActivity()
                 },
                 {
                     viewState.showErrorMessage()

@@ -1,5 +1,6 @@
 package com.kerencev.messenger.ui.login.signin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
@@ -7,9 +8,11 @@ import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignInBinding
 import com.kerencev.messenger.model.FirebaseRepositoryImpl
+import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.presenters.login.SignInPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.ui.main.MainActivity
 import moxy.ktx.moxyPresenter
 
 class SignInFragment :
@@ -22,6 +25,13 @@ class SignInFragment :
             MessengerApp.instance.router,
             FirebaseRepositoryImpl()
         )
+    }
+
+    private var loginActivity: FinishActivity? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loginActivity = (activity as? FinishActivity)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +68,10 @@ class SignInFragment :
             getString(R.string.faild_to_enter_check_validity_of_the_data),
             Snackbar.LENGTH_SHORT
         ).show()
+    }
+
+    override fun startMainActivity() {
+        loginActivity?.startMainActivity()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

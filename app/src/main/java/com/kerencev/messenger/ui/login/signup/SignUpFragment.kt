@@ -7,6 +7,7 @@ import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignUpBinding
 import com.kerencev.messenger.model.FirebaseRepositoryImpl
+import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.presenters.login.SignUpPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
@@ -22,6 +23,13 @@ class SignUpFragment :
             MessengerApp.instance.router,
             FirebaseRepositoryImpl()
         )
+    }
+
+    private var loginActivity: FinishActivity? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loginActivity = (activity as? FinishActivity)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,6 +88,10 @@ class SignUpFragment :
             signUpBtn.visibility = View.VISIBLE
             signUpProgress.visibility = View.GONE
         }
+    }
+
+    override fun startMainActivity() {
+        loginActivity?.startMainActivity()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

@@ -1,12 +1,8 @@
-package com.kerencev.messenger.ui.login.signin
+package com.kerencev.messenger.ui.main
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface SignInView : MvpView {
-    fun showEmptyFieldsMessage()
-    fun showErrorMessage()
-    fun startMainActivity()
-}
+interface MainView : MvpView

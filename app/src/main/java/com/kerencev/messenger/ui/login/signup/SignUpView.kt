@@ -11,4 +11,5 @@ interface SignUpView : MvpView {
     fun showErrorMessage()
     fun showProgressBar()
     fun hideProgressBar()
+    fun startMainActivity()
 }
