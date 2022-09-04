@@ -24,7 +24,7 @@ class SignUpPresenter(
 
     fun authWithFirebase(login: String, email: String, password: String, passwordAgain: String) {
         viewState.showProgressBar()
-        if (!checkFillAllFields(login, email, password, passwordAgain)) {
+        if (login.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()) {
             viewState.hideProgressBar()
             viewState.showEmptyFieldsMessage()
             return
@@ -34,6 +34,7 @@ class SignUpPresenter(
             viewState.hideProgressBar()
             return
         }
+
         repository.createUserWithEmailAndPassword(email, password)
             .subscribeByDefault()
             .subscribe(
@@ -53,21 +54,10 @@ class SignUpPresenter(
                 {
                     viewState.hideProgressBar()
                     viewState.showErrorMessage()
+                    Log.d(TAG, "Failed to create user with Firebase")
                 }
 
             ).disposeBy(bag)
-    }
-
-    private fun checkFillAllFields(
-        login: String,
-        email: String,
-        password: String,
-        passwordAgain: String
-    ): Boolean {
-        if (login.isEmpty() || email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty()) {
-            return false
-        }
-        return true
     }
 
     override fun onDestroy() {

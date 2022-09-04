@@ -70,4 +70,6 @@
     <dimen name="fragment_welcome_btn_welcome_corner_radius">100dp</dimen>
     <dimen name="sign_up_hint_text_size">16sp</dimen>
     <dimen name="sign_up_input_text_size">20sp</dimen>
+    <dimen name="sign_in_tv_register_margin_bottom">16dp</dimen>
+    <dimen name="scroll_padding_bottom">16dp</dimen>
 </resources>
