@@ -37,7 +37,7 @@ class SignInFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            signInActionBack.setOnClickListener {
+            signInToolbar.setNavigationOnClickListener {
                 presenter.onBackPressed()
             }
             signInBtnEnter.setOnClickListener {

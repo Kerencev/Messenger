@@ -3,10 +3,24 @@ package com.kerencev.messenger.model
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.kerencev.messenger.model.entities.User
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 class FirebaseRepositoryImpl : FirebaseRepository {
+
+    override fun verifyUserIsLoggedIn(): Single<Boolean> {
+        return Single.create {
+            val uid = FirebaseAuth.getInstance().uid
+            if (uid == null) {
+                it.onSuccess(false)
+            } else {
+                it.onSuccess(true)
+            }
+        }
+    }
+
     override fun createUserWithEmailAndPassword(email: String, password: String): Completable {
         return Completable.create { emitter ->
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)

@@ -9,31 +9,17 @@
     tools:context=".ui.login.signin.SignInFragment"
     tools:ignore="ScrollViewCount">
 
-
-    <!--TODO: Use the toolbar and refactor the scroll according to it-->
-    <ImageView
-        android:id="@+id/signInActionBack"
-        android:layout_width="@dimen/sign_in_iv_back_width"
-        android:layout_height="@dimen/sign_in_iv_back_height"
-        android:layout_marginStart="@dimen/sign_in_iv_back_margin_start"
-        android:layout_marginTop="@dimen/sign_in_iv_back_margin_top"
-        android:contentDescription="@string/come_back"
-        android:src="@drawable/icon_back"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/signInToolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/sign_in_tv_enter_margin_start"
-        android:layout_marginTop="@dimen/sign_in_tv_enter_margin_top"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="top"
-        android:text="@string/enter"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sign_in_tv_enter_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/icon_back"
+        app:title="@string/enter"
+        app:titleTextAppearance="@style/TitleToolbarTextAppearance"
+        app:titleTextColor="@color/white" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -41,7 +27,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/signInToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

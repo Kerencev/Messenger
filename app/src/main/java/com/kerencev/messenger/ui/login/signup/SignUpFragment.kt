@@ -35,7 +35,7 @@ class SignUpFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            signUpActionBack.setOnClickListener {
+            signUpToolbar.setNavigationOnClickListener {
                 presenter.onBackPressed()
             }
             signUpBtn.setOnClickListener {

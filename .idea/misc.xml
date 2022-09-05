@@ -7,7 +7,9 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_btn_sign_up.xml" value="0.1295" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_input.xml" value="0.1295" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_input_login.xml" value="0.1955" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_add.xml" value="0.1425" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1295" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_contacts.xml" value="0.1425" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1295" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_back.xml" value="0.124" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/font/roboto.xml" value="0.23981481481481481" />
@@ -15,11 +17,12 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/activity_login_container.xml" value="0.1885245901639344" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/activity_sign_in.xml" value="0.264" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_chat_list.xml" value="0.253125" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_chat_list.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_sign_in.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_welcome.xml" value="0.253125" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/bottom_navigation_main.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/main_menu.xml" value="0.1" />
       </map>
     </option>

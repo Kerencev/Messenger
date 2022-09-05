@@ -13,7 +13,7 @@ import com.kerencev.messenger.ui.main.MainActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class LoginContainerActivity : MvpAppCompatActivity(), LoginContainerView, FinishActivity {
+class LoginActivity : MvpAppCompatActivity(), LoginContainerView, FinishActivity {
 
     private lateinit var binding: ActivityLoginContainerBinding
     private val navigator = AppNavigator(this, R.id.activityLoginContainer)
@@ -49,8 +49,8 @@ class LoginContainerActivity : MvpAppCompatActivity(), LoginContainerView, Finis
     }
 
     override fun startMainActivity() {
-        val intent = Intent(this@LoginContainerActivity, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-        finish()
     }
 }

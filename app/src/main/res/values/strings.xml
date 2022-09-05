@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Messenger</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
@@ -20,4 +20,8 @@
     <string name="rocket">Ракета</string>
     <string name="success">Успешно</string>
     <string name="welcome">Добро пожаловать</string>
+    <string name="space_messenger">SpaceMessenger</string>
+    <string name="chats">Чаты</string>
+    <string name="groups">Группы</string>
+    <string name="contacts">Контакты</string>
 </resources>
