@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:icon="@drawable/bot_nav_icon_chat"
         android:title="@string/chats"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/icon_chats"/>
+        app:showAsAction="ifRoom" />
 
     <item
+        android:icon="@drawable/bot_nav_icon_groups"
         android:title="@string/groups"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/icon_groups"/>
+        app:showAsAction="ifRoom" />
 
     <item
+        android:icon="@drawable/bot_nav_icon_contacts"
         android:title="@string/contacts"
-        app:showAsAction="always|withText"
-        android:icon="@drawable/icon_contacts"/>
+        app:showAsAction="always|withText" />
 </menu>

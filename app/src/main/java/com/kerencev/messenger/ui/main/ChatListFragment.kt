@@ -12,6 +12,7 @@ class ChatListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
+            //The solution is to make the icons visible
             chatListBottomNavigation.itemIconTintList = null;
             btnSignOut.setOnClickListener {
                 FirebaseAuth.getInstance().signOut()

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="RegisterTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundMode">filled</item>
         <item name="boxBackgroundColor">@color/unselected_white</item>
@@ -15,5 +16,19 @@
         <item name="android:textSize">20sp</item>
         <item name="textFillColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="BottomNavigationTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceInactive">@style/BottomNavigationTextAppearance</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavigationTextAppearance</item>
+        <item name="itemIconTint">@null</item>
+        <item name="itemTextColor">@drawable/bottom_navigation_text_color</item>
+        <item name="itemPaddingBottom">12dp</item>
+        <item name="itemPaddingTop">10dp</item>
     </style>
 </resources>
