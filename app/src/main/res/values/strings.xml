@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Messenger</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
@@ -24,4 +24,6 @@
     <string name="chats">Чаты</string>
     <string name="groups">Группы</string>
     <string name="contacts">Контакты</string>
+    <string name="write_new_message">Написать новое сообщение</string>
+    <string name="new_message">Новое сообщение</string>
 </resources>

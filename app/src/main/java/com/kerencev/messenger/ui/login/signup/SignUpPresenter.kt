@@ -1,10 +1,9 @@
-package com.kerencev.messenger.presenters.login
+package com.kerencev.messenger.ui.login.signup
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.FirebaseRepository
 import com.kerencev.messenger.navigation.login.WelcomeScreen
-import com.kerencev.messenger.ui.login.signup.SignUpView
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -43,13 +42,13 @@ class SignUpPresenter(
                         .subscribeByDefault()
                         .subscribe(
                             {
-                                viewState.startMainActivity()
+                                router.navigateTo(WelcomeScreen)
                             },
                             {
                                 viewState.hideProgressBar()
                                 Log.d(TAG, "${it.message}")
                             }
-                        )
+                        ).disposeBy(bag)
                 },
                 {
                     viewState.hideProgressBar()

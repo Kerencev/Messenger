@@ -1,32 +1,31 @@
-package com.kerencev.messenger.ui.main
+package com.kerencev.messenger.ui.login.loginactivity
 
 import android.content.Intent
 import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
-import com.kerencev.messenger.model.FirebaseRepositoryImpl
+import com.kerencev.messenger.databinding.ActivityLoginContainerBinding
+import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.presenters.login.LoginContainerPresenter
-import com.kerencev.messenger.presenters.main.MainPresenter
-import com.kerencev.messenger.ui.login.LoginActivity
+import com.kerencev.messenger.ui.main.activity.MainActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class LoginActivity : MvpAppCompatActivity(), LoginContainerView, FinishActivity {
 
-    private val navigator = AppNavigator(this, R.id.activityMainContainer)
+    private lateinit var binding: ActivityLoginContainerBinding
+    private val navigator = AppNavigator(this, R.id.activityLoginContainer)
     private val presenter by moxyPresenter {
-        MainPresenter(
-            MessengerApp.instance.router,
-            FirebaseRepositoryImpl()
+        LoginContainerPresenter(
+            MessengerApp.instance.router
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        presenter.verifyUserIsLoggedIn()
+        binding = ActivityLoginContainerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onResumeFragments() {
@@ -48,8 +47,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         presenter.onBackPressed()
     }
 
-    override fun startLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java)
+    override fun startMainActivity() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

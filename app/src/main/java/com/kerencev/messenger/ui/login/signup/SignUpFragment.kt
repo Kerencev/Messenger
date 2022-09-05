@@ -9,7 +9,6 @@ import com.kerencev.messenger.databinding.FragmentSignUpBinding
 import com.kerencev.messenger.model.FirebaseRepositoryImpl
 import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.presenters.login.SignUpPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
 

@@ -1,10 +1,10 @@
-package com.kerencev.messenger.ui.main
+package com.kerencev.messenger.ui.login.loginfragment
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface MainView : MvpView {
-    fun startLoginActivity()
+interface LoginView : MvpView {
+
 }

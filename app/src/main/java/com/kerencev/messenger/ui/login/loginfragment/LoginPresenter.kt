@@ -1,9 +1,8 @@
-package com.kerencev.messenger.presenters.login
+package com.kerencev.messenger.ui.login.loginfragment
 
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.navigation.login.SignInScreen
 import com.kerencev.messenger.navigation.login.SignUpScreen
-import com.kerencev.messenger.ui.login.LoginView
 import moxy.MvpPresenter
 
 class LoginPresenter(

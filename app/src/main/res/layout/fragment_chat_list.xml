@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             app:title="@string/space_messenger"
             app:titleTextAppearance="@style/TitleToolbarTextAppearance"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -31,6 +31,17 @@
         android:text="Выйти"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbarLayout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/chatListFabNewMessage"
+        android:layout_width="@dimen/fragment_chat_list_fab_width"
+        android:layout_height="@dimen/fragment_chat_list_fab_height"
+        android:layout_marginEnd="@dimen/fragment_chat_list_fab_margin_end"
+        android:layout_marginBottom="@dimen/fragment_chat_list_fab_margin_bottom"
+        android:contentDescription="@string/write_new_message"
+        android:src="@drawable/icon_edit"
+        app:layout_constraintBottom_toTopOf="@id/chatListBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/chatListBottomNavigation"

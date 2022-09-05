@@ -1,18 +1,19 @@
-package com.kerencev.messenger.presenters.login
+package com.kerencev.messenger.ui.login.signin
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.FirebaseRepository
 import com.kerencev.messenger.navigation.login.SignUpScreen
-import com.kerencev.messenger.navigation.main.ChatListScreen
-import com.kerencev.messenger.ui.login.signin.SignInView
+import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
 class SignInPresenter(
     private val router: Router,
     private val repository: FirebaseRepository
 ) : MvpPresenter<SignInView>() {
+
+    private val bag = CompositeDisposable()
 
     fun onBackPressed(): Boolean {
         router.exit()
@@ -37,7 +38,12 @@ class SignInPresenter(
                 {
                     viewState.showErrorMessage()
                 }
-            )
+            ).disposeBy(bag)
+    }
+
+    override fun onDestroy() {
+        bag.dispose()
+        super.onDestroy()
     }
 
     companion object {

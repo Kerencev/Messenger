@@ -28,7 +28,11 @@
         <item name="itemTextAppearanceActive">@style/BottomNavigationTextAppearance</item>
         <item name="itemIconTint">@null</item>
         <item name="itemTextColor">@drawable/bottom_navigation_text_color</item>
-        <item name="itemPaddingBottom">12dp</item>
-        <item name="itemPaddingTop">10dp</item>
+        <item name="itemPaddingBottom">8dp</item>
+    </style>
+
+    <style name="FloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/fab_background</item>
+        <item name="tint">@color/white</item>
     </style>
 </resources>

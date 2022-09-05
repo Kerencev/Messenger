@@ -1,11 +1,10 @@
-package com.kerencev.messenger.ui.login
+package com.kerencev.messenger.ui.login.loginfragment
 
 import android.os.Bundle
 import android.view.View
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.databinding.FragmentLoginBinding
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.presenters.login.LoginPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
 

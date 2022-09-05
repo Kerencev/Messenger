@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Messenger" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Messenger" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -15,5 +15,6 @@
         <!-- Customize your theme here. -->
         <item name="textInputStyle">@style/RegisterTextInputLayoutStyle</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
+        <item name="floatingActionButtonStyle">@style/FloatingActionButtonStyle</item>
     </style>
 </resources>

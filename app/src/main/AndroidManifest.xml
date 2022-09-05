@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Messenger"
         tools:targetApi="31">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.main.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.login.loginactivity.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" >
         </activity>

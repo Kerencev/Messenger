@@ -13,4 +13,5 @@
     <color name="btn_sign_in">#FFCC80</color>
     <color name="mtrl_textinput_default_box_stroke_color" override="true">#DEFFFFFF</color>
     <color name="bottom_navigation_text">#9E9E9E</color>
+    <color name="fab_background">#02C2A5</color>
 </resources>
