@@ -1,6 +1,7 @@
 package com.kerencev.messenger.ui.main.chatlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.databinding.FragmentChatListBinding
@@ -9,6 +10,8 @@ import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
 import moxy.ktx.moxyPresenter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChatListFragment :
     ViewBindingFragment<FragmentChatListBinding>(FragmentChatListBinding::inflate),
@@ -29,7 +32,7 @@ class ChatListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-//            The solution is to make the icons visible
+            //The solution is to make the icons visible
             chatListBottomNavigation.itemIconTintList = null;
             btnSignOut.setOnClickListener {
                 presenter.signOutWithFirebaseAuth()

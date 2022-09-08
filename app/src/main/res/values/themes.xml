@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Messenger" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/primary_background</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -13,8 +13,8 @@
         <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:navigationBarColor">@color/black</item>
         <!-- Customize your theme here. -->
-        <item name="textInputStyle">@style/RegisterTextInputLayoutStyle</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
         <item name="floatingActionButtonStyle">@style/FloatingActionButtonStyle</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 </resources>

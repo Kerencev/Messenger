@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/item_chat_to_user_linear_margin_vertical"
+        android:layout_marginStart="@dimen/item_chat_to_user_linear_margin_start"
+        android:layout_marginEnd="@dimen/item_chat_to_user_linear_margin_end"
+        android:background="@drawable/background_chat_input_text"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvChatToUserMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingHorizontal="@dimen/item_chat_to_user_tv_message_padding_horizontal"
+            android:paddingVertical="@dimen/item_chat_to_user_tv_message_padding_vertical"
+            android:textColor="@color/black"
+            android:textSize="@dimen/item_chat_to_user_tv_message_text_size" />
+
+        <TextView
+            android:id="@+id/tvChatToUserTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingHorizontal="@dimen/item_chat_to_user_tv_time_padding_horizontal"
+            android:paddingBottom="@dimen/item_chat_to_user_tv_time_padding_bottom"
+            android:textColor="@color/tv_time_to_user"
+            android:textSize="@dimen/item_chat_to_user_tv_time_text_size" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>

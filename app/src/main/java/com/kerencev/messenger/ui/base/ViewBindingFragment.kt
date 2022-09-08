@@ -12,8 +12,7 @@ abstract class ViewBindingFragment<T : ViewBinding>(
         inflater: LayoutInflater, root: ViewGroup?, attachToRoot: Boolean
     ) -> T
 ) : MvpAppCompatFragment() {
-    private var _binding: T? = null
-
+    protected var _binding: T? = null
     protected val binding: T
         get() = _binding!!
 
@@ -27,7 +26,7 @@ abstract class ViewBindingFragment<T : ViewBinding>(
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 }

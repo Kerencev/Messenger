@@ -26,4 +26,9 @@
     <string name="contacts">Контакты</string>
     <string name="write_new_message">Написать новое сообщение</string>
     <string name="new_message">Новое сообщение</string>
+    <string name="search">Поиск</string>
+    <string name="wallpapers">Обои</string>
+    <string name="message">Сообщение</string>
+    <string name="background">Обои</string>
+    <string name="send_message">Отправить сообщение</string>
 </resources>

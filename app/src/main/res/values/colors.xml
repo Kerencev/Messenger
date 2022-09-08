@@ -14,4 +14,10 @@
     <color name="mtrl_textinput_default_box_stroke_color" override="true">#DEFFFFFF</color>
     <color name="bottom_navigation_text">#9E9E9E</color>
     <color name="fab_background">#02C2A5</color>
+    <color name="user_name_text">#DE000000</color>
+    <color name="user_status_online">#00C147</color>
+    <color name="hint_message">#BDBDBD</color>
+    <color name="background_chat_from_user">#86F1D5</color>
+    <color name="tv_time_from_user">#32AE8D</color>
+    <color name="tv_time_to_user">#AFAFAF</color>
 </resources>
