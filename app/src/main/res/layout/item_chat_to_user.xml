@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/tvChatToUserMessage"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
             android:paddingHorizontal="@dimen/item_chat_to_user_tv_message_padding_horizontal"

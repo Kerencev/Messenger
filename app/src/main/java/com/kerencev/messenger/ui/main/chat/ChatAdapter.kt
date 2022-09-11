@@ -12,6 +12,7 @@ import com.kerencev.messenger.utils.MyDate
 private const val FROM_USER_TYPE = 1
 private const val TO_USER_TYPE = 2
 
+//TODO: Add DiffUtil nad Room Cache
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
 
     private val data = ArrayList<ChatMessage>()
@@ -84,7 +85,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
         override fun bind(chatMessage: ChatMessage) {
             with(binding) {
                 tvChatFromUserMessage.text = chatMessage.message
-                tvChatFromUserTime.text = chatMessage.time
+                tvChatFromUserTime.text = MyDate.getTime(chatMessage.timesTamp)
             }
         }
     }
@@ -94,7 +95,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
         override fun bind(chatMessage: ChatMessage) {
             with(binding) {
                 tvChatToUserMessage.text = chatMessage.message
-                tvChatToUserTime.text = chatMessage.time
+                tvChatToUserTime.text = MyDate.getTime(chatMessage.timesTamp)
             }
         }
     }

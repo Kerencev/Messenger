@@ -26,13 +26,12 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivAvatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/fragment_chat_iv_avatar_width"
+                android:layout_height="@dimen/fragment_chat_iv_avatar_height"
                 android:layout_gravity="end"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_user_place_holder"
-                app:civ_border_color="@color/unselected_white"
-                app:civ_border_width="1dp" />
+                app:civ_border_color="@color/unselected_white" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 

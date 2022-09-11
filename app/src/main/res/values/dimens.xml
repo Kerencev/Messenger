@@ -112,4 +112,23 @@
     <dimen name="item_chat_from_user_tv_time_text_size">10sp</dimen>
     <dimen name="item_chat_from_user_linear_margin_vertical">4dp</dimen>
     <dimen name="item_chat_to_user_linear_margin_vertical">4dp</dimen>
+    <dimen name="item_chat_list_iv_avatar_width">40dp</dimen>
+    <dimen name="item_chat_list_iv_avatar_height">40dp</dimen>
+    <dimen name="item_chat_list_iv_avatar_margin_vertical">10dp</dimen>
+    <dimen name="item_chat_list_iv_avatar_margin_start">24dp</dimen>
+    <dimen name="item_chat_list_tv_login_margin_start">8dp</dimen>
+    <dimen name="item_chat_list_tv_login_margin_top">8dp</dimen>
+    <dimen name="item_chat_list_tv_login_text_size">16sp</dimen>
+    <dimen name="item_chat_list_tv_message_margin_end">8dp</dimen>
+    <dimen name="item_chat_list_tv_message_text_size">14sp</dimen>
+    <dimen name="item_chat_list_iv_notice_oval_width">20dp</dimen>
+    <dimen name="item_chat_list_iv_notice_oval_height">20dp</dimen>
+    <dimen name="item_chat_list_iv_notice_oval_margin_top">8dp</dimen>
+    <dimen name="item_chat_list_iv_notice_oval_margin_end">26dp</dimen>
+    <dimen name="item_chat_list_tv_notice_count_text_size">10sp</dimen>
+    <dimen name="item_chat_list_tv_time_margin_top">4dp</dimen>
+    <dimen name="item_chat_list_tv_time_margin_end">16dp</dimen>
+    <dimen name="item_chat_list_tv_time_margin_bottom">16dp</dimen>
+    <dimen name="fragment_chat_iv_avatar_width">48dp</dimen>
+    <dimen name="fragment_chat_iv_avatar_height">48dp</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package com.kerencev.messenger.model
 
 import com.kerencev.messenger.model.entities.ChatMessage
+import com.kerencev.messenger.model.entities.LatestMessage
 import com.kerencev.messenger.model.entities.User
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -14,8 +15,9 @@ interface FirebaseRepository {
     fun signOut(): Completable
     fun getAllUsers(): Single<List<User>>
     fun getCurrentUserId(): Single<String>
-    fun saveMessageFromId(message: String, fromId: String, toId: String): Single<ChatMessage>
-    fun saveMessageToId(message: ChatMessage): Completable
+    fun saveMessageToFireBase(message: String, fromId: String, toId: String): Completable
     fun listenForNewMessages(fromId: String, toId: String): Observable<ChatMessage>
     fun getAllMessages(fromId: String, toId: String): Single<List<ChatMessage>>
+    fun listenForLatestMessages(): Observable<LatestMessage>
+    fun resetUnreadMessages(toId: String, fromId: String): Completable
 }

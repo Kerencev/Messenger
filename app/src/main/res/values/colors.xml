@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primary_background">#00ACC1</color>
-    <color name="status_bar">#008A9A</color>
+    <color name="status_bar">#80000000</color>
     <color name="unselected_white">#DEFFFFFF</color>
     <color name="btn_sign_in">#FFCC80</color>
     <color name="mtrl_textinput_default_box_stroke_color" override="true">#DEFFFFFF</color>
@@ -20,4 +20,6 @@
     <color name="background_chat_from_user">#86F1D5</color>
     <color name="tv_time_from_user">#32AE8D</color>
     <color name="tv_time_to_user">#AFAFAF</color>
+    <color name="item_chat_list_message">#626262</color>
+    <color name="item_chat_list_time">#9E9E9E</color>
 </resources>

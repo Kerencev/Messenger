@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Messenger</string>
+    <string name="app_name">Space\nMessenger</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
     <string name="register">Зарегистрироваться</string>
@@ -31,4 +31,5 @@
     <string name="message">Сообщение</string>
     <string name="background">Обои</string>
     <string name="send_message">Отправить сообщение</string>
+    <string name="unread_notification">Непрочитанное уведомление</string>
 </resources>

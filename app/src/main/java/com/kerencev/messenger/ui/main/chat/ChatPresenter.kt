@@ -35,22 +35,14 @@ class ChatPresenter(
             ).disposeBy(bag)
     }
 
+    //TODO: Add status of sending message with Diffutil
     fun performSendMessages(message: String, fromId: String, toId: String) {
         if (message.isEmpty()) return
-        repository.saveMessageFromId(message, fromId, toId)
+        repository.saveMessageToFireBase(message, fromId, toId)
             .subscribeByDefault()
             .subscribe(
-                { chatMessage ->
-                    repository.saveMessageToId(chatMessage)
-                        .subscribeByDefault()
-                        .subscribe(
-                            {
-                                //TODO: Show that message has been delivered
-                            },
-                            {
-                                Log.d(TAG, "Failed to save message to id to the Firebase")
-                            }
-                        ).disposeBy(bag)
+                {
+
                 },
                 {
                     Log.d(TAG, "Failed to save message from id to the Firebase")
@@ -64,7 +56,8 @@ class ChatPresenter(
             .subscribe(
                 { data ->
                     viewState.setAdapterData(data)
-                    listenForMessagesFromFirebase(fromId, toId, data.size.toLong())
+                    resetUnreadMessagesWithFirebase(toId, fromId)
+                    listenForNewMessagesFromFirebase(fromId, toId, data.size.toLong())
                 },
                 {
                     Log.d(TAG, "Failed to load all messages from Firebase")
@@ -72,7 +65,13 @@ class ChatPresenter(
             ).disposeBy(bag)
     }
 
-    private fun listenForMessagesFromFirebase(fromId: String, toId: String, skipCount: Long) {
+    fun resetUnreadMessagesWithFirebase(toId: String, fromId: String) {
+        repository.resetUnreadMessages(toId, fromId)
+            .subscribeByDefault()
+            .subscribe()
+    }
+
+    private fun listenForNewMessagesFromFirebase(fromId: String, toId: String, skipCount: Long) {
         repository.listenForNewMessages(fromId, toId)
             .subscribeByDefault()
             //Skip already uploaded messages

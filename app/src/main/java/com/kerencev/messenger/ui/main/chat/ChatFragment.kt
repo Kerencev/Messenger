@@ -1,14 +1,9 @@
 package com.kerencev.messenger.ui.main.chat
 
 import android.os.Bundle
-import android.view.*
-import androidx.recyclerview.widget.RecyclerView
+import android.view.MenuItem
+import android.view.View
 import com.bumptech.glide.Glide
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatBinding
@@ -17,8 +12,6 @@ import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
-import de.hdodenhof.circleimageview.CircleImageView
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBinding::inflate),
@@ -96,6 +89,12 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     override fun onBackPressed() = presenter.onBackPressed()
 
     override fun onDestroyView() {
+        //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
+        toUserId?.let {
+            fromUSerId?.let {
+                presenter.resetUnreadMessagesWithFirebase(toUserId!!, fromUSerId!!)
+            }
+        }
         _binding = null
         requireActivity().window?.setBackgroundDrawableResource(R.color.white)
         super.onDestroyView()
