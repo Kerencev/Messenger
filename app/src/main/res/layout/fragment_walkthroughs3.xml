@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_walkthroughs3">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/fragment_walkthroughs1_iv_width"
+            android:layout_height="@dimen/fragment_walkthroughs1_iv_height"
+            android:contentDescription="@string/antenna"
+            android:src="@drawable/planet_with_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_walkthroughs1_tv1_margin_top"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/amazing_hubble"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fragment_walkthroughs1_tv1_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/fragment_walkthroughs1_tv2_margin_horizontal"
+            android:layout_marginTop="@dimen/fragment_walkthroughs1_tv2_margin_top"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:text="@string/walkthroughs_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fragment_walkthroughs1_tv2_text_size" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSkip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_walkthroughs1_btn_margin_top"
+            android:backgroundTint="@color/primary_background"
+            android:text="@string/skip"
+            app:cornerRadius="@dimen/fragment_walkthroughs1_btn_corner_radius" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ImageView
+        android:layout_width="@dimen/fragment_walkthroughs1_iv_paiging_width"
+        android:layout_height="@dimen/fragment_walkthroughs1_iv_paiging_height"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/fragment_walkthroughs1_iv_paiging_margin_bottom"
+        android:contentDescription="@string/paiging"
+        android:src="@drawable/paiging3" />
+
+</FrameLayout>

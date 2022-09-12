@@ -22,4 +22,8 @@
     <color name="tv_time_to_user">#AFAFAF</color>
     <color name="item_chat_list_message">#626262</color>
     <color name="item_chat_list_time">#9E9E9E</color>
+    <color name="btn_skip_walkthroughs1">#FFCC80</color>
+    <color name="btn_skip_walkthroughs2">#FF8A65</color>
+    <color name="background_walkthroughs2">#FFCC80</color>
+    <color name="background_walkthroughs3">#FF8A65</color>
 </resources>

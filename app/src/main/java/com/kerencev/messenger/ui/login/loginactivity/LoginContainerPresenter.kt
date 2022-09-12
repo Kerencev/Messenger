@@ -10,6 +10,7 @@ class LoginContainerPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        //TODO: replace LoginScreen
         router.replaceScreen(LoginScreen)
     }
 

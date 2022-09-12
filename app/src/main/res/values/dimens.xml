@@ -131,4 +131,16 @@
     <dimen name="item_chat_list_tv_time_margin_bottom">16dp</dimen>
     <dimen name="fragment_chat_iv_avatar_width">48dp</dimen>
     <dimen name="fragment_chat_iv_avatar_height">48dp</dimen>
+    <dimen name="fragment_walkthroughs1_iv_width">160dp</dimen>
+    <dimen name="fragment_walkthroughs1_iv_height">160dp</dimen>
+    <dimen name="fragment_walkthroughs1_tv1_margin_top">60dp</dimen>
+    <dimen name="fragment_walkthroughs1_tv1_text_size">24sp</dimen>
+    <dimen name="fragment_walkthroughs1_tv2_margin_horizontal">16dp</dimen>
+    <dimen name="fragment_walkthroughs1_tv2_margin_top">16dp</dimen>
+    <dimen name="fragment_walkthroughs1_tv2_text_size">16sp</dimen>
+    <dimen name="fragment_walkthroughs1_btn_margin_top">40dp</dimen>
+    <dimen name="fragment_walkthroughs1_btn_corner_radius">100dp</dimen>
+    <dimen name="fragment_walkthroughs1_iv_paiging_width">42dp</dimen>
+    <dimen name="fragment_walkthroughs1_iv_paiging_height">12dp</dimen>
+    <dimen name="fragment_walkthroughs1_iv_paiging_margin_bottom">22dp</dimen>
 </resources>

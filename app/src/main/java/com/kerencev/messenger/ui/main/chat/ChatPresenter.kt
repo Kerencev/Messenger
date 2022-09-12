@@ -6,7 +6,6 @@ import com.kerencev.messenger.model.FirebaseRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
-import io.reactivex.rxjava3.core.Completable
 
 private const val TAG = "ChatPresenter"
 

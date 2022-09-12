@@ -32,4 +32,11 @@
     <string name="background">Обои</string>
     <string name="send_message">Отправить сообщение</string>
     <string name="unread_notification">Непрочитанное уведомление</string>
+    <string name="antenna">Антенна</string>
+    <string name="space_the_final_frontier">Космос - последний рубеж</string>
+    <string name="skip">Пропустить</string>
+    <string name="walkthroughs_text">Asfjlsdfj sdfj fjfjfdjsfd jsdfnjnfdjsfd jsdfnjnfdjfdsklnknsfjnsdjfnjsdafnjjsdnfjknasdjkfnjjsndfjknasdjfkjksndfjnasdfjkjkasdfjnasdfjjaf</string>
+    <string name="paiging">Paiging</string>
+    <string name="how_to_look_up">Как посмотреть наверх</string>
+    <string name="amazing_hubble">Удивительный Хаббл</string>
 </resources>

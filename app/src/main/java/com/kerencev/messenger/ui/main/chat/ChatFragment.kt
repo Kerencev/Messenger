@@ -3,7 +3,6 @@ package com.kerencev.messenger.ui.main.chat
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R

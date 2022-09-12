@@ -42,7 +42,7 @@ class SignUpPresenter(
                         .subscribeByDefault()
                         .subscribe(
                             {
-                                router.navigateTo(WelcomeScreen)
+                                router.replaceScreen(WelcomeScreen)
                             },
                             {
                                 viewState.hideProgressBar()
