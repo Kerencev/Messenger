@@ -3,6 +3,7 @@ package com.kerencev.messenger.ui.main.chat
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
@@ -33,8 +34,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_1)
         toUser = arguments?.getParcelable(BUNDLE_KEY_USER)
         with(binding) {
+            chatToolbar.setNavigationOnClickListener {
+                presenter.onBackPressed()
+            }
             toUser?.let {
-                newMessageToolbar.title = it.login
+                chatToolbar.title = it.login
                 toUserId = it.uid
             }
             chatRv.adapter = adapter
@@ -90,9 +94,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun onDestroyView() {
         //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
-        toUserId?.let {
-            fromUSerId?.let {
-                presenter.resetUnreadMessagesWithFirebase(toUserId!!, fromUSerId!!)
+        if (adapter.itemCount > 0) {
+            toUserId?.let {
+                fromUSerId?.let {
+                    presenter.resetUnreadMessagesWithFirebase(toUserId!!, fromUSerId!!)
+                }
             }
         }
         _binding = null

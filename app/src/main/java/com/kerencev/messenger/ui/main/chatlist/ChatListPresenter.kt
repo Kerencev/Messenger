@@ -19,6 +19,7 @@ class ChatListPresenter(
 ) : MvpPresenter<ChatListView>() {
 
     private val bag = CompositeDisposable()
+    private val sortChatList = SortChatListData()
 
     fun signOutWithFirebaseAuth() {
         repository.signOut()
@@ -39,7 +40,7 @@ class ChatListPresenter(
             .subscribeByDefault()
             .subscribe(
                 {
-                    val sortedData = SortChatListData.getSortedData(it)
+                    val sortedData = sortChatList.getSortedData(it)
                     viewState.refreshRecyclerView(sortedData)
                 },
                 {

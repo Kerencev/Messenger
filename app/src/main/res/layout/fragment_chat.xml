@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/newMessageAppbarLayout"
+        android:id="@+id/chatAppbarLayout"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/newMessageToolbar"
+            android:id="@+id/chatToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/primary_background"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/newMessageAppbarLayout"
+        app:layout_constraintTop_toBottomOf="@id/chatAppbarLayout"
         tools:listitem="@layout/item_chat_from_user" />
 
     <com.google.android.material.textfield.TextInputLayout

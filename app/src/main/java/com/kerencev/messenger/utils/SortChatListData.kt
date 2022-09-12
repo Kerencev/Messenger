@@ -2,7 +2,10 @@ package com.kerencev.messenger.utils
 
 import com.kerencev.messenger.model.entities.LatestMessage
 
-object SortChatListData {
+/**
+ * Class to help filter latest messages and sort it
+ */
+class SortChatListData {
     private val latestMessagesMap = HashMap<String, LatestMessage>()
     private val data = ArrayList<LatestMessage>()
     private val sortByTimeComparator =  Comparator<LatestMessage> { a, b ->

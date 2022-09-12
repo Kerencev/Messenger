@@ -21,6 +21,11 @@ class NewMessageFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getAllUsersWithFirestore()
+        with(binding) {
+            newMessageToolbar.setNavigationOnClickListener {
+                presenter.onBackPressed()
+            }
+        }
     }
 
     override fun onBackPressed() = presenter.onBackPressed()
