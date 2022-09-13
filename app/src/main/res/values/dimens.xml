@@ -143,4 +143,8 @@
     <dimen name="fragment_walkthroughs1_iv_paiging_width">42dp</dimen>
     <dimen name="fragment_walkthroughs1_iv_paiging_height">12dp</dimen>
     <dimen name="fragment_walkthroughs1_iv_paiging_margin_bottom">22dp</dimen>
+    <dimen name="fragment_wallpapers_linear_padding">16dp</dimen>
+    <dimen name="fragment_wallpapers_iv_margin_end">8dp</dimen>
+    <dimen name="fragment_wallpapers_iv_margin_height">220dp</dimen>
+    <dimen name="fragment_wallpapers_linear_done_margin_top">100dp</dimen>
 </resources>

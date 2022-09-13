@@ -1,15 +1,14 @@
 package com.kerencev.messenger.ui.main.chat
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatBinding
-import com.kerencev.messenger.model.FirebaseRepositoryImpl
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
@@ -20,6 +19,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     private val presenter: ChatPresenter by moxyPresenter {
         ChatPresenter(
             FirebaseRepositoryImpl(),
+            WallpapersRepositoryImpl(),
             MessengerApp.instance.router
         )
     }
@@ -30,12 +30,9 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_1)
         toUser = arguments?.getParcelable(BUNDLE_KEY_USER)
+        setToolbarClicks()
         with(binding) {
-            chatToolbar.setNavigationOnClickListener {
-                presenter.onBackPressed()
-            }
             toUser?.let {
                 chatToolbar.title = it.login
                 toUserId = it.uid
@@ -48,6 +45,33 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                     chatEditText.text?.clear()
                 }
             }
+        }
+    }
+
+    private fun setToolbarClicks() = with(binding) {
+        chatToolbar.setNavigationOnClickListener {
+            presenter.onBackPressed()
+        }
+        chatToolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.actionWallpaper -> {
+                    presenter.navigateToWallpaperFragment()
+                }
+            }
+            true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getCurrentWallpaper(requireContext())
+    }
+
+    override fun setCurrentWallpaper(wallpaper: String) {
+        when (wallpaper) {
+            WALLPAPERS_ONE -> requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_1)
+            WALLPAPERS_TWO -> requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_2)
+            WALLPAPERS_THREE -> requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_3)
         }
     }
 
@@ -77,16 +101,6 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     override fun setAdapterData(data: List<ChatMessage>) {
         adapter.setData(data)
         binding.chatRv.scrollToPosition(adapter.itemCount - 1)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.actionWallpaper -> {
-                return true
-                //TODO: implement select wallpapers
-            }
-        }
-        return true
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

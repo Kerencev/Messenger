@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.ui.main.chat.ChatFragment
+import com.kerencev.messenger.ui.main.chat.wallpapers.WallpapersFragment
 import com.kerencev.messenger.ui.main.chatlist.ChatListFragment
 import com.kerencev.messenger.ui.main.newmessage.NewMessageFragment
 
@@ -23,5 +24,11 @@ object NewMessageScreen : FragmentScreen {
 class ChatScreen(private val user: User) : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return ChatFragment.newInstance(user)
+    }
+}
+
+object WallpapersScreen : FragmentScreen {
+    override fun createFragment(factory: FragmentFactory): Fragment {
+        return WallpapersFragment()
     }
 }

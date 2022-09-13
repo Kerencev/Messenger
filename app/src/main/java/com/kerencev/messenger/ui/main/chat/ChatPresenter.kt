@@ -1,8 +1,11 @@
 package com.kerencev.messenger.ui.main.chat
 
+import android.content.Context
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.FirebaseRepository
+import com.kerencev.messenger.model.repository.FirebaseRepository
+import com.kerencev.messenger.model.repository.WallpapersRepository
+import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
@@ -11,6 +14,7 @@ private const val TAG = "ChatPresenter"
 
 class ChatPresenter(
     private val repository: FirebaseRepository,
+    private val wallPaperRepository: WallpapersRepository,
     private val router: Router
 ) : BasePresenter<ChatView>(
     router
@@ -86,5 +90,14 @@ class ChatPresenter(
                     Log.d(TAG, "Failed to load new message from Firebase")
                 }
             ).disposeBy(bag)
+    }
+
+    fun getCurrentWallpaper(context: Context) {
+        val wallpaper = wallPaperRepository.getWallpaper(context)
+        viewState.setCurrentWallpaper(wallpaper)
+    }
+
+    fun navigateToWallpaperFragment() {
+        router.navigateTo(WallpapersScreen)
     }
 }

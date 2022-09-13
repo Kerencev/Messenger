@@ -1,4 +1,4 @@
-package com.kerencev.messenger.model
+package com.kerencev.messenger.model.repository
 
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.LatestMessage

@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_walkthroughs1_btn_margin_top"
             android:backgroundTint="@color/primary_background"
-            android:text="@string/skip"
+            android:text="@string/go"
             app:cornerRadius="@dimen/fragment_walkthroughs1_btn_corner_radius" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

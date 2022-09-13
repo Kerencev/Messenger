@@ -6,7 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignUpBinding
-import com.kerencev.messenger.model.FirebaseRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.FirebaseRepositoryImpl
 import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment

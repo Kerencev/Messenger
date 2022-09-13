@@ -7,9 +7,9 @@ import android.widget.Toolbar
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatListBinding
-import com.kerencev.messenger.model.FirebaseRepositoryImpl
 import com.kerencev.messenger.model.entities.LatestMessage
 import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.impl.FirebaseRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView

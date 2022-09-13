@@ -1,4 +1,4 @@
-package com.kerencev.messenger.model
+package com.kerencev.messenger.model.repository.impl
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +9,7 @@ import com.kerencev.messenger.model.callback.UserCallback
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.LatestMessage
 import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.FirebaseRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single

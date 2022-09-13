@@ -2,8 +2,8 @@ package com.kerencev.messenger.ui.main.newmessage
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.FirebaseRepository
 import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.FirebaseRepository
 import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
