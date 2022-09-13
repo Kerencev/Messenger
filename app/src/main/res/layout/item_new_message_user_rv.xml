@@ -11,6 +11,7 @@
         android:layout_height="@dimen/item_user_iv_avatar_height"
         android:layout_marginStart="@dimen/item_user_iv_avatar_margin_start"
         android:layout_marginTop="@dimen/item_user_iv_avatar_margin_top"
+        android:background="@drawable/background_chat_list_user_avatar"
         android:src="@drawable/ic_user_place_holder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

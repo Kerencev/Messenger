@@ -18,32 +18,35 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     private val presenter: ChatPresenter by moxyPresenter {
         ChatPresenter(
-            FirebaseRepositoryImpl(),
+            FirebaseMessagesRepositoryImpl(),
             WallpapersRepositoryImpl(),
             MessengerApp.instance.router
         )
     }
-    private val adapter = ChatAdapter()
-    private var toUser: User? = null
-    private var fromUSerId: String? = null
-    private var toUserId: String? = null
+    private val user = MessengerApp.instance.user
+    private val adapter = ChatAdapter(userId = user.uid)
+    private var chatPartner: User? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toUser = arguments?.getParcelable(BUNDLE_KEY_USER)
+        chatPartner = arguments?.getParcelable(BUNDLE_KEY_USER)
+        chatPartner?.let { presenter.loadAllMessagesFromFirebase(user.uid, it.uid) }
         setToolbarClicks()
         with(binding) {
-            toUser?.let {
+            chatPartner?.let {
                 chatToolbar.title = it.login
-                toUserId = it.uid
             }
             chatRv.adapter = adapter
             chatFabSend.setOnClickListener { _ ->
-                fromUSerId?.let { fromId ->
-                    val text = chatEditText.text.toString()
-                    toUserId?.let { presenter.performSendMessages(text, fromId, it) }
-                    chatEditText.text?.clear()
+                val text = chatEditText.text.toString()
+                chatPartner?.let {
+                    presenter.performSendMessages(
+                        message = text,
+                        user = user,
+                        chatPartner = it
+                    )
                 }
+                chatEditText.text?.clear()
             }
         }
     }
@@ -53,7 +56,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             presenter.onBackPressed()
         }
         chatToolbar.setOnMenuItemClickListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.actionWallpaper -> {
                     presenter.navigateToWallpaperFragment()
                 }
@@ -75,19 +78,9 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         }
     }
 
-    override fun setCurrentUserId(userId: String) {
-        adapter.setCurrentUserId(userId)
-        fromUSerId = userId
-        fromUSerId?.let { from ->
-            toUserId?.let { to ->
-                presenter.loadAllMessagesFromFirebase(from, to)
-            }
-        }
-    }
-
     override fun loadUserAvatar() {
-        toUser?.avatarUrl?.let {
-            Glide.with(requireContext()).load(toUser?.avatarUrl)
+        chatPartner?.avatarUrl?.let {
+            Glide.with(requireContext()).load(chatPartner?.avatarUrl)
                 .placeholder(R.drawable.ic_user_place_holder)
                 .into(binding.ivAvatar)
         }
@@ -108,10 +101,8 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     override fun onDestroyView() {
         //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
         if (adapter.itemCount > 0) {
-            toUserId?.let {
-                fromUSerId?.let {
-                    presenter.resetUnreadMessagesWithFirebase(toUserId!!, fromUSerId!!)
-                }
+            chatPartner?.let {
+                presenter.resetUnreadMessagesWithFirebase(it.uid, user.uid)
             }
         }
         _binding = null

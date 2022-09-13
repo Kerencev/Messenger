@@ -3,7 +3,7 @@ package com.kerencev.messenger.ui.main.newmessage
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseRepository
+import com.kerencev.messenger.model.repository.FirebaseAllUsersRepository
 import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
@@ -12,7 +12,7 @@ import moxy.MvpPresenter
 
 class NewMessagePresenter(
     private val router: Router,
-    private val repository: FirebaseRepository
+    private val repository: FirebaseAllUsersRepository
 ) : MvpPresenter<NewMessageView>() {
 
     private val bag = CompositeDisposable()

@@ -7,7 +7,6 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ChatView : MvpView {
-    fun setCurrentUserId(userId: String)
     fun loadUserAvatar()
     fun addMessage(chatMessage: ChatMessage)
     fun setAdapterData(data: List<ChatMessage>)

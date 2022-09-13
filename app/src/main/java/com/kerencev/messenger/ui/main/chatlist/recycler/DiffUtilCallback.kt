@@ -1,13 +1,13 @@
 package com.kerencev.messenger.ui.main.chatlist.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.kerencev.messenger.model.entities.LatestMessage
+import com.kerencev.messenger.model.entities.ChatMessage
 
 private const val TAG = "DiffUtilCallback"
 
 class DiffUtilCallback(
-    private var oldItems: List<LatestMessage>,
-    private var newItems: List<LatestMessage>
+    private var oldItems: List<ChatMessage>,
+    private var newItems: List<ChatMessage>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldItems.size

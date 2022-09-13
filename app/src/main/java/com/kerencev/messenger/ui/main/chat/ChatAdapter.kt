@@ -12,20 +12,15 @@ import com.kerencev.messenger.utils.MyDate
 private const val FROM_USER_TYPE = 1
 private const val TO_USER_TYPE = 2
 
-//TODO: Add DiffUtil nad Room Cache
-class ChatAdapter : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
+//TODO: Add DiffUtil and Room Cache
+class ChatAdapter(private val userId : String) : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
 
     private val data = ArrayList<ChatMessage>()
-    private var userId: String? = null
 
     fun setData(listOfMessages: List<ChatMessage>) {
         data.clear()
         data.addAll(listOfMessages)
         notifyDataSetChanged()
-    }
-
-    fun setCurrentUserId(id: String) {
-        userId = id
     }
 
     fun insertItem(chatMessage: ChatMessage) {

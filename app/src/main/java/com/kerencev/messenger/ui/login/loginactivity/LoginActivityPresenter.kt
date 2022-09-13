@@ -4,13 +4,12 @@ import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.navigation.login.LoginScreen
 import moxy.MvpPresenter
 
-class LoginContainerPresenter(
+class LoginActivityPresenter(
     private val router: Router
-) : MvpPresenter<LoginContainerView>() {
+) : MvpPresenter<LoginActivityView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        //TODO: replace LoginScreen
         router.replaceScreen(LoginScreen)
     }
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ItemChatListBinding
-import com.kerencev.messenger.model.entities.LatestMessage
+import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.utils.MyDate
 import com.squareup.picasso.Picasso
@@ -21,9 +21,9 @@ interface OnItemClick {
 class ChatListAdapter(private val onItemClick: OnItemClick) :
     RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
 
-    private val data = ArrayList<LatestMessage>()
+    private val data = ArrayList<ChatMessage>()
 
-    fun setListDataForDiffUtil(lisDataNew: List<LatestMessage>) {
+    fun setListDataForDiffUtil(lisDataNew: List<ChatMessage>) {
         val diff = DiffUtil.calculateDiff(DiffUtilCallback(data, lisDataNew))
         diff.dispatchUpdatesTo(this)
         data.clear()
@@ -48,7 +48,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads)
         } else {
-            val createCombinePayload = createCombinePayload(payloads as List<Change<LatestMessage>>)
+            val createCombinePayload = createCombinePayload(payloads as List<Change<ChatMessage>>)
             if (createCombinePayload.newData.message != createCombinePayload.oldData.message) {
                 holder.itemView.findViewById<TextView>(R.id.itemChatListTvMessage).text =
                     createCombinePayload.newData.message
@@ -78,7 +78,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
 
     inner class ChatViewHolder(private val binding: ItemChatListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(message: LatestMessage) {
+        fun bind(message: ChatMessage) {
             with(binding) {
                 itemChatListTvLogin.text = message.chatPartnerLogin
                 itemChatListTvMessage.text = message.message
@@ -97,6 +97,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                             message.chatPartnerId,
                             message.chatPartnerLogin,
                             message.chatPartnerEmail,
+                            "null",
                             message.ChatPartnerAvatarUrl
                         )
                     )

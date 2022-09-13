@@ -2,16 +2,19 @@ package com.kerencev.messenger.ui.main.activity
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.repository.FirebaseRepository
+import com.kerencev.messenger.MessengerApp
+import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import com.kerencev.messenger.navigation.main.ChatListScreen
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
 class MainPresenter(
     private val router: Router,
-    private val repository: FirebaseRepository
+    private val repoAuth: FirebaseAuthRepository
 ) : MvpPresenter<MainView>() {
 
     private val bag = CompositeDisposable()
@@ -22,18 +25,24 @@ class MainPresenter(
     }
 
     fun verifyUserIsLoggedIn() {
-        repository.verifyUserIsLoggedIn()
+        repoAuth.verifyUserIsLoggedIn()
+            .flatMap { userId ->
+                if (userId.isEmpty()) {
+                    viewState.startLoginActivity()
+                }
+                repoAuth.getUserById(userId)
+            }
             .subscribeByDefault()
             .subscribe(
-                { isLoggedIn ->
-                    if (!isLoggedIn) {
-                        viewState.startLoginActivity()
-                    }
+                { user ->
+                    MessengerApp.instance.user = user
                 },
                 {
                     Log.d(TAG, "Failed to verify user is logged in")
                 }
-            ).disposeBy(bag)
+            )
+            .disposeBy(bag)
+
     }
 
     fun onBackPressed() {

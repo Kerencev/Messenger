@@ -14,12 +14,12 @@ import com.kerencev.messenger.ui.main.activity.MainActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class LoginActivity : MvpAppCompatActivity(), LoginContainerView, FinishActivity, StatusBarHolder{
+class LoginActivity : MvpAppCompatActivity(), LoginActivityView, FinishActivity, StatusBarHolder{
 
     private lateinit var binding: ActivityLoginContainerBinding
     private val navigator = AppNavigator(this, R.id.activityLoginContainer)
     private val presenter by moxyPresenter {
-        LoginContainerPresenter(
+        LoginActivityPresenter(
             MessengerApp.instance.router
         )
     }

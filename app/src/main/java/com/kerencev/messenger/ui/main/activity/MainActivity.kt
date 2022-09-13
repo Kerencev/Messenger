@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
-import com.kerencev.messenger.model.repository.impl.FirebaseRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivity
 import moxy.MvpAppCompatActivity
@@ -17,7 +17,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val presenter by moxyPresenter {
         MainPresenter(
             MessengerApp.instance.router,
-            FirebaseRepositoryImpl()
+            FirebaseAuthRepositoryImpl()
         )
     }
 

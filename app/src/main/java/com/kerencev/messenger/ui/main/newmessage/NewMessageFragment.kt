@@ -5,7 +5,7 @@ import android.view.View
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.databinding.FragmentNewMessageBinding
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.FirebaseRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.FirebaseAllUsersRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
@@ -15,7 +15,7 @@ class NewMessageFragment :
     NewMessageView, OnBackPressedListener {
 
     private val presenter: NewMessagePresenter by moxyPresenter {
-        NewMessagePresenter(MessengerApp.instance.router, FirebaseRepositoryImpl())
+        NewMessagePresenter(MessengerApp.instance.router, FirebaseAllUsersRepositoryImpl())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

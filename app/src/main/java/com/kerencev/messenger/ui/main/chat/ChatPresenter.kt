@@ -3,17 +3,19 @@ package com.kerencev.messenger.ui.main.chat
 import android.content.Context
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.repository.FirebaseRepository
+import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
+import com.kerencev.messenger.utils.ChatMessageMapper
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
 
 private const val TAG = "ChatPresenter"
 
 class ChatPresenter(
-    private val repository: FirebaseRepository,
+    private val repository: FirebaseMessagesRepository,
     private val wallPaperRepository: WallpapersRepository,
     private val router: Router
 ) : BasePresenter<ChatView>(
@@ -22,34 +24,73 @@ class ChatPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getCurrentUserIdFromFirebase()
         viewState.loadUserAvatar()
     }
 
-    private fun getCurrentUserIdFromFirebase() {
-        repository.getCurrentUserId()
-            .subscribeByDefault()
-            .subscribe(
-                { userId ->
-                    viewState.setCurrentUserId(userId)
-                },
-                {
-                    Log.d(TAG, "Failed to get current user id from Firebase")
-                }
-            ).disposeBy(bag)
-    }
-
     //TODO: Add status of sending message with Diffutil
-    fun performSendMessages(message: String, fromId: String, toId: String) {
+    fun performSendMessages(message: String, user: User, chatPartner: User) {
         if (message.isEmpty()) return
-        repository.saveMessageToFireBase(message, fromId, toId)
+        val chatMessage = ChatMessageMapper.mapToChatMessage(message, user, chatPartner)
+        repository.saveMessageFromId(chatMessage)
             .subscribeByDefault()
             .subscribe(
                 {
+                    Log.d(TAG, "Save message from id")
+                    repository.saveMessageToId(chatMessage)
+                        .subscribeByDefault()
+                        .subscribe(
+                            {
+                                Log.d(TAG, "Save message to id")
+                                repository.saveLatestMessageFromId(chatMessage)
+                                    .subscribeByDefault()
+                                    .subscribe(
+                                        { chatMessage ->
+                                            Log.d(TAG, "Save latest message from id")
+                                            repository.getCountOfUnreadMessages(
+                                                chatMessage.toId,
+                                                chatMessage.fromId
+                                            )
+                                                .subscribeByDefault()
+                                                .subscribe(
+                                                    { countOfUnread ->
+                                                        Log.d(TAG, "Count of unread is: $countOfUnread")
+                                                        val chatMessageForChatPartner =
+                                                            ChatMessageMapper
+                                                                .mapToLatestMessageForChatPartner(
+                                                                    countOfUnread + 1,
+                                                                    chatMessage, user
+                                                                )
+                                                        repository.saveLatestMessageToId(
+                                                            chatMessageForChatPartner
+                                                        )
+                                                            .subscribeByDefault()
+                                                            .subscribe(
+                                                                {
+                                                                    Log.d(TAG, "Save latest message to id")
+                                                                },
+                                                                {
+
+                                                                }
+                                                            ).disposeBy(bag)
+                                                    },
+                                                    {
+
+                                                    }
+                                                ).disposeBy(bag)
+                                        },
+                                        {
+
+                                        }
+                                    ).disposeBy(bag)
+                            },
+                            {
+
+                            }
+                        ).disposeBy(bag)
 
                 },
                 {
-                    Log.d(TAG, "Failed to save message from id to the Firebase")
+
                 }
             ).disposeBy(bag)
     }
@@ -75,6 +116,7 @@ class ChatPresenter(
         repository.resetUnreadMessages(toId, fromId)
             .subscribeByDefault()
             .subscribe()
+            .disposeBy(bag)
     }
 
     private fun listenForNewMessagesFromFirebase(fromId: String, toId: String, skipCount: Long) {

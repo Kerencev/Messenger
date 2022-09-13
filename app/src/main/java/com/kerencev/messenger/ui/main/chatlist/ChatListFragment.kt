@@ -7,9 +7,10 @@ import android.widget.Toolbar
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatListBinding
-import com.kerencev.messenger.model.entities.LatestMessage
+import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.FirebaseRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.FirebaseMessagesRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
@@ -26,7 +27,11 @@ class ChatListFragment :
     private var mainActivity: MainView? = null
 
     private val presenter: ChatListPresenter by moxyPresenter {
-        ChatListPresenter(MessengerApp.instance.router, FirebaseRepositoryImpl())
+        ChatListPresenter(
+            MessengerApp.instance.router,
+            FirebaseAuthRepositoryImpl(),
+            FirebaseMessagesRepositoryImpl()
+        )
     }
     private val adapter = ChatListAdapter(object : OnItemClick {
         override fun onClick(user: User) {
@@ -65,7 +70,7 @@ class ChatListFragment :
         })
     }
 
-    override fun refreshRecyclerView(data: List<LatestMessage>) {
+    override fun refreshRecyclerView(data: List<ChatMessage>) {
         adapter.setListDataForDiffUtil(data)
     }
 
