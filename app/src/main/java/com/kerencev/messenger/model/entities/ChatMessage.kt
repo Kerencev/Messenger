@@ -10,7 +10,7 @@ data class ChatMessage(
     val chatPartnerId: String,
     val chatPartnerLogin: String,
     val chatPartnerEmail: String,
-    val ChatPartnerAvatarUrl: String?
+    val chatPartnerAvatarUrl: String?
 ) {
     constructor() : this("", "", "", "", -1, 0, "", "", "", null)
 }

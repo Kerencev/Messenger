@@ -1,6 +1,8 @@
 package com.kerencev.messenger.model.repository
 
 import com.kerencev.messenger.model.entities.ChatMessage
+import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.utils.StatusOfSendingMessage
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -10,9 +12,10 @@ interface FirebaseMessagesRepository {
     fun getAllMessages(fromId: String, toId: String): Single<List<ChatMessage>>
     fun listenForLatestMessages(): Observable<ChatMessage>
     fun resetUnreadMessages(toId: String, fromId: String): Completable
-    fun saveMessageFromId(chatMessage: ChatMessage): Completable
-    fun saveMessageToId(chatMessage: ChatMessage): Completable
-    fun saveLatestMessageFromId(chatMessage: ChatMessage): Single<ChatMessage>
-    fun saveLatestMessageToId(chatMessage: ChatMessage): Completable
     fun getCountOfUnreadMessages(toId: String, fromId: String): Single<Long>
+    fun saveMessageForAllNodes(
+        message: String,
+        user: User,
+        chatPartner: User
+    ): Observable<StatusOfSendingMessage>
 }

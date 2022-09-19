@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/newGroup"
+        android:icon="@drawable/icon_group"
+        android:title="@string/new_group" />
+
+    <item
+        android:id="@+id/NewMessage"
+        android:icon="@drawable/icon_chat"
+        android:title="@string/new_message" />
+
+    <item
+        android:id="@+id/status"
+        android:icon="@drawable/icon_status"
+        android:title="@string/status" />
+
+    <item
+        android:id="@+id/inviteFriends"
+        android:icon="@drawable/icon_invite"
+        android:title="@string/invite_friends" />
+
+    <item
+        android:id="@+id/stickers"
+        android:icon="@drawable/icon_stickers"
+        android:title="@string/stickers" />
+
+    <item
+        android:id="@+id/aboutApp"
+        android:icon="@drawable/icon_about"
+        android:title="@string/about_app" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/icon_settings"
+        android:title="@string/settings" />
+
+</menu>

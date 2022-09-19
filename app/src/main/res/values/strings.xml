@@ -43,4 +43,19 @@
     <string name="wallpapers1">Обои 1</string>
     <string name="wallpapers2">Обои 2</string>
     <string name="wallpapers3">Обои 3</string>
+    <string name="drawer_open">Навигация открыта</string>
+    <string name="drawer_close">Навигация закрыта</string>
+    <string name="new_group">Новая группа</string>
+    <string name="status">Статус</string>
+    <string name="invite_friends">Пригласить друзей</string>
+    <string name="stickers">Стикеры</string>
+    <string name="about_app">О приложении</string>
+    <string name="settings">Настройки</string>
+    <string name="profile">Профиль</string>
+    <string name="general">Основное</string>
+    <string name="language">Язык</string>
+    <string name="notification">Уведомления</string>
+    <string name="autoplay_animation">Автоматическая анимация</string>
+    <string name="background_settings">Фон Настроек</string>
+    <string name="select_profile_photo">Выбрать фото профиля</string>
 </resources>

@@ -13,6 +13,7 @@ import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.utils.MyDate
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 interface OnItemClick {
     fun onClick(user: User)
@@ -71,6 +72,11 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                 holder.itemView.findViewById<TextView>(R.id.itemChatListTvLogin).text =
                     createCombinePayload.newData.chatPartnerLogin
             }
+            if (createCombinePayload.newData.chatPartnerAvatarUrl != createCombinePayload.oldData.chatPartnerAvatarUrl) {
+                val imageView = holder.itemView.findViewById<CircleImageView>(R.id.itemChatListIvAvatar)
+                Picasso.get().load(createCombinePayload.newData.chatPartnerAvatarUrl).placeholder(R.drawable.ic_user_place_holder)
+                    .into(imageView)
+            }
         }
     }
 
@@ -89,7 +95,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     View.INVISIBLE
                 }
                 itemChatListTvNoticeCount.text = message.countOfUnread.toString()
-                Picasso.get().load(message.ChatPartnerAvatarUrl).placeholder(R.drawable.ic_user_place_holder)
+                Picasso.get().load(message.chatPartnerAvatarUrl).placeholder(R.drawable.ic_user_place_holder)
                     .into(itemChatListIvAvatar)
                 root.setOnClickListener {
                     onItemClick.onClick(
@@ -98,7 +104,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                             message.chatPartnerLogin,
                             message.chatPartnerEmail,
                             "null",
-                            message.ChatPartnerAvatarUrl
+                            message.chatPartnerAvatarUrl
                         )
                     )
                 }

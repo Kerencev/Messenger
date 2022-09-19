@@ -29,6 +29,8 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
 
+        <service android:name=".services.TestService"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_settings_app_bar_height">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/TitleToolbarTextAppearance"
+            app:collapsedTitleTextColor="@color/white"
+            app:contentScrim="@color/primary_background"
+            app:expandedTitleTextColor="@color/completely_transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="@integer/material_motion_duration_short_1"
+            app:scrimVisibleHeightTrigger="@dimen/fragment_settings_collapsing_scrim_visible_height_trigger"
+            app:title="@string/settings"
+            app:titleCollapseMode="fade"
+            app:toolbarId="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/background_settings"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background_settings"
+                    android:visibility="visible" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivSettingsAvatar"
+                    android:layout_width="@dimen/fragment_settings_iv_avatar_width"
+                    android:layout_height="@dimen/fragment_settings_iv_avatar_height"
+                    android:layout_marginStart="@dimen/fragment_settings_iv_avatar_margin_start"
+                    android:layout_marginBottom="@dimen/fragment_settings_iv_avatar_margin_bottom"
+                    android:src="@drawable/astronaut"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSettingsLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fragment_settings_tv_login_margin_start"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Sergo1996"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fragment_settings_tv_login_text_size"
+                    app:layout_constraintStart_toEndOf="@id/ivSettingsAvatar"
+                    app:layout_constraintTop_toTopOf="@id/ivSettingsAvatar" />
+
+                <TextView
+                    android:id="@+id/tvSettingsEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fragment_settings_tv_email_margin_top"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Kerentzev@bk.com"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fragment_settings_tv_email_text_size"
+                    app:layout_constraintStart_toStartOf="@id/tvSettingsLogin"
+                    app:layout_constraintTop_toBottomOf="@id/tvSettingsLogin" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/icon_back">
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/settingsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fragment_settings_linear_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_header_height"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/profile"
+                android:textColor="@color/primary_background"
+                android:textSize="@dimen/fragment_settings_tv_header_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfilePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="8 928 147 16 42"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfileLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Alexandr"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfileEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Alexandr@mail.com"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_header_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_header_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/general"
+                android:textColor="@color/primary_background"
+                android:textSize="@dimen/fragment_settings_tv_header_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfileLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/language"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfileBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/background"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfileNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/notification"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchSettingsProfileAnimation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/autoplay_animation"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+            <TextView
+                android:id="@+id/tvSettingsProfileStickers"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_settings_tv_profile_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/stickers"
+                android:textColor="@color/user_name_text"
+                android:textSize="@dimen/fragment_settings_tv_profile_text_size" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_settings_fab_margin_end"
+        android:contentDescription="@string/select_profile_photo"
+        android:src="@drawable/icon_camera"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

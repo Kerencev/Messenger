@@ -1,6 +1,7 @@
 package com.kerencev.messenger.ui.main.chatlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
@@ -12,11 +13,14 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.model.repository.impl.FirebaseMessagesRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
+import com.kerencev.messenger.services.TestService
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
 import com.kerencev.messenger.ui.main.chatlist.recycler.ChatListAdapter
 import com.kerencev.messenger.ui.main.chatlist.recycler.OnItemClick
 import moxy.ktx.moxyPresenter
+
+private const val TAG = "ChatListFragment"
 
 //TODO: Add Room Cache
 class ChatListFragment :
@@ -25,7 +29,6 @@ class ChatListFragment :
     OnBackPressedListener {
 
     private var mainActivity: MainView? = null
-
     private val presenter: ChatListPresenter by moxyPresenter {
         ChatListPresenter(
             MessengerApp.instance.router,
@@ -46,6 +49,7 @@ class ChatListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainActivity?.setToolbar(binding.chatListToolbar)
         setToolbarOptionsItemClick()
         with(binding) {
             //The solution is to make the icons visible
@@ -58,20 +62,39 @@ class ChatListFragment :
         presenter.listenForLatestMessagesFromFireBase()
     }
 
+    override fun onResume() {
+        super.onResume()
+        hideStatusBar()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        showStatusBar()
+    }
+
     private fun setToolbarOptionsItemClick() {
-        binding.chatListToolbar.setOnMenuItemClickListener(object : Toolbar.OnMenuItemClickListener,
-            androidx.appcompat.widget.Toolbar.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem): Boolean {
-                when(item.itemId) {
-                    R.id.actionSignOut -> presenter.signOutWithFirebaseAuth()
+        binding.chatListToolbar.setOnMenuItemClickListener(
+            object : Toolbar.OnMenuItemClickListener,
+                androidx.appcompat.widget.Toolbar.OnMenuItemClickListener {
+                override fun onMenuItemClick(item: MenuItem): Boolean {
+                    when (item.itemId) {
+                        R.id.actionSignOut -> presenter.signOutWithFirebaseAuth()
+                    }
+                    return true
                 }
-                return true
-            }
-        })
+            })
     }
 
     override fun refreshRecyclerView(data: List<ChatMessage>) {
         adapter.setListDataForDiffUtil(data)
+    }
+
+    override fun showStatusBar() {
+        mainActivity?.showStatusBar()
+    }
+
+    override fun hideStatusBar() {
+        mainActivity?.hideStatusBar()
     }
 
     override fun startLoginActivity() {

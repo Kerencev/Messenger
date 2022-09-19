@@ -26,4 +26,6 @@
     <color name="btn_skip_walkthroughs2">#FF8A65</color>
     <color name="background_walkthroughs2">#FFCC80</color>
     <color name="background_walkthroughs3">#FF8A65</color>
+    <color name="background_nav_drawer">#FF8A65</color>
+    <color name="completely_transparent">#00FFFFFF</color>
 </resources>

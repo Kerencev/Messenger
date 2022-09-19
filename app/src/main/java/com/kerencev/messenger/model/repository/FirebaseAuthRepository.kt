@@ -11,4 +11,5 @@ interface FirebaseAuthRepository {
     fun saveUserToFirebaseDatabase(login: String, email: String): Completable
     fun signOut(): Completable
     fun getUserById(id: String): Single<User>
+    fun saveUserStatus(userId: String, status: String): Completable
 }

@@ -40,6 +40,11 @@ class NewMessageFragment :
         adapter.setData(listOfUsers)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     companion object {
         private const val TAG = "NewMessageFragment"
     }

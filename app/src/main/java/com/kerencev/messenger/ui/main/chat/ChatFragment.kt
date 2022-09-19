@@ -106,7 +106,6 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             }
         }
         _binding = null
-        requireActivity().window?.setBackgroundDrawableResource(R.color.white)
         super.onDestroyView()
     }
 

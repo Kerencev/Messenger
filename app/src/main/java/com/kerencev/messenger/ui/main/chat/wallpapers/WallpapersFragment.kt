@@ -49,7 +49,7 @@ class WallpapersFragment :
     override fun setChosenWallpaper(wallpaper: String) = with(binding) {
         TransitionManager.endTransitions(binding.fragmentWallpaperRoot)
         TransitionManager.beginDelayedTransition(binding.fragmentWallpaperRoot, Fade())
-        when(wallpaper) {
+        when (wallpaper) {
             WALLPAPERS_ONE -> {
                 wallpaperDone1.visibility = View.VISIBLE
                 wallpaperDone2.visibility = View.INVISIBLE

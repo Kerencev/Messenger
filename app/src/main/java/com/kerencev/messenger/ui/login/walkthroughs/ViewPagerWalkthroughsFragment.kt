@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.View
 import com.kerencev.messenger.databinding.FragmentViewPagerWalkthroughsBinding
 import com.kerencev.messenger.ui.base.ViewBindingFragment
-import com.kerencev.messenger.ui.login.loginactivity.StatusBarHolder
+import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView
 
 class ViewPagerWalkthroughsFragment :
     ViewBindingFragment<FragmentViewPagerWalkthroughsBinding>(FragmentViewPagerWalkthroughsBinding::inflate) {
 
-    private var loginActivity: StatusBarHolder? = null
+    private var loginActivity: LoginActivityView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginActivity = (activity as? StatusBarHolder)
+        loginActivity = (activity as? LoginActivityView)
         loginActivity?.hideStatusBar()
     }
 

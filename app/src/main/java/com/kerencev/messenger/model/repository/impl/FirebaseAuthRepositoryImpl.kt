@@ -55,7 +55,7 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
             val uid = FirebaseAuth.getInstance().uid ?: ""
             val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
             val user =
-                User(uid = uid, login = login, email = email, status = "Online", avatarUrl = null)
+                User(uid = uid, login = login, email = email, status = "", avatarUrl = null)
             ref.setValue(user)
                 .addOnSuccessListener {
                     emitter.onComplete()
@@ -86,6 +86,19 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
                     emitter.onError(error.toException())
                 }
             })
+        }
+    }
+
+    override fun saveUserStatus(userId: String, status: String): Completable {
+        return Completable.create { emitter ->
+            val userStatusRef = FirebaseDatabase.getInstance().getReference("/users/$userId/status")
+            userStatusRef.setValue(status)
+                .addOnSuccessListener {
+                    emitter.onComplete()
+                }
+                .addOnFailureListener {
+                    emitter.onError(it)
+                }
         }
     }
 }

@@ -8,8 +8,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/app_bar_layout_height"
         android:background="@color/primary_background"
+        android:gravity="bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,7 +18,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/chatListToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/toolbar_height"
             app:menu="@menu/chat_list"
             app:title="@string/space_messenger"
             app:titleTextAppearance="@style/TitleToolbarTextAppearance"

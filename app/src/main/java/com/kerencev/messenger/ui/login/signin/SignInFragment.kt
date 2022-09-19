@@ -10,6 +10,7 @@ import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView
 import moxy.ktx.moxyPresenter
 
 class SignInFragment :
@@ -24,11 +25,11 @@ class SignInFragment :
         )
     }
 
-    private var loginActivity: FinishActivity? = null
+    private var loginActivity: LoginActivityView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginActivity = (activity as? FinishActivity)
+        loginActivity = (activity as? LoginActivityView)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

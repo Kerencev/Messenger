@@ -14,7 +14,7 @@ import com.kerencev.messenger.ui.main.activity.MainActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class LoginActivity : MvpAppCompatActivity(), LoginActivityView, FinishActivity, StatusBarHolder{
+class LoginActivity : MvpAppCompatActivity(), LoginActivityView{
 
     private lateinit var binding: ActivityLoginContainerBinding
     private val navigator = AppNavigator(this, R.id.activityLoginContainer)

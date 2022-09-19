@@ -8,9 +8,10 @@ import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
-import com.kerencev.messenger.utils.ChatMessageMapper
+import com.kerencev.messenger.utils.StatusOfSendingMessage
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
+import java.util.concurrent.TimeUnit
 
 private const val TAG = "ChatPresenter"
 
@@ -27,72 +28,34 @@ class ChatPresenter(
         viewState.loadUserAvatar()
     }
 
-    //TODO: Add status of sending message with Diffutil
+    //TODO: Add status of sending message with DiffUtil
     fun performSendMessages(message: String, user: User, chatPartner: User) {
         if (message.isEmpty()) return
-        val chatMessage = ChatMessageMapper.mapToChatMessage(message, user, chatPartner)
-        repository.saveMessageFromId(chatMessage)
+
+        repository.saveMessageForAllNodes(message, user, chatPartner)
             .subscribeByDefault()
             .subscribe(
-                {
-                    Log.d(TAG, "Save message from id")
-                    repository.saveMessageToId(chatMessage)
-                        .subscribeByDefault()
-                        .subscribe(
-                            {
-                                Log.d(TAG, "Save message to id")
-                                repository.saveLatestMessageFromId(chatMessage)
-                                    .subscribeByDefault()
-                                    .subscribe(
-                                        { chatMessage ->
-                                            Log.d(TAG, "Save latest message from id")
-                                            repository.getCountOfUnreadMessages(
-                                                chatMessage.toId,
-                                                chatMessage.fromId
-                                            )
-                                                .subscribeByDefault()
-                                                .subscribe(
-                                                    { countOfUnread ->
-                                                        Log.d(TAG, "Count of unread is: $countOfUnread")
-                                                        val chatMessageForChatPartner =
-                                                            ChatMessageMapper
-                                                                .mapToLatestMessageForChatPartner(
-                                                                    countOfUnread + 1,
-                                                                    chatMessage, user
-                                                                )
-                                                        repository.saveLatestMessageToId(
-                                                            chatMessageForChatPartner
-                                                        )
-                                                            .subscribeByDefault()
-                                                            .subscribe(
-                                                                {
-                                                                    Log.d(TAG, "Save latest message to id")
-                                                                },
-                                                                {
-
-                                                                }
-                                                            ).disposeBy(bag)
-                                                    },
-                                                    {
-
-                                                    }
-                                                ).disposeBy(bag)
-                                        },
-                                        {
-
-                                        }
-                                    ).disposeBy(bag)
-                            },
-                            {
-
-                            }
-                        ).disposeBy(bag)
-
+                { statusOfSending ->
+                    when (statusOfSending) {
+                        is StatusOfSendingMessage.Status1 -> {
+                            Log.d(TAG, "Status1")
+                        }
+                        is StatusOfSendingMessage.Status2 -> {
+                            Log.d(TAG, "Status2")
+                        }
+                        is StatusOfSendingMessage.Status3 -> {
+                            Log.d(TAG, "Status3")
+                        }
+                        is StatusOfSendingMessage.Status4 -> {
+                            Log.d(TAG, "Status4")
+                        }
+                    }
                 },
                 {
-
+                    Log.d(TAG, "Failed to save message for all nodes")
                 }
-            ).disposeBy(bag)
+            )
+        //Don't dispose because user can close the fragment but message needs to be delivered
     }
 
     fun loadAllMessagesFromFirebase(fromId: String, toId: String) {

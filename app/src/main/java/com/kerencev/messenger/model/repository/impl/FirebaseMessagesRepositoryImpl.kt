@@ -3,76 +3,92 @@ package com.kerencev.messenger.model.repository.impl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.kerencev.messenger.model.entities.ChatMessage
+import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
+import com.kerencev.messenger.utils.ChatMessageMapper
+import com.kerencev.messenger.utils.StatusOfSendingMessage
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.delay
+import java.util.concurrent.TimeUnit
 
 class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
 
-    override fun saveMessageFromId(
-        chatMessage: ChatMessage
-    ): Completable {
-        return Completable.create { emitter ->
+    override fun saveMessageForAllNodes(
+        message: String,
+        user: User,
+        chatPartner: User
+    ): Observable<StatusOfSendingMessage> {
+        return Observable.create { emitter ->
+            val firebase = FirebaseDatabase.getInstance()
+            val chatMessage = ChatMessageMapper.mapToChatMessage(message, user, chatPartner)
             val referenceFromId =
-                FirebaseDatabase.getInstance()
-                    .getReference("/user-messages/${chatMessage.fromId}/${chatMessage.toId}").push()
+                firebase.getReference("/user-messages/${chatMessage.fromId}/${chatMessage.toId}")
+                    .push()
+            val referenceToID =
+                firebase.getReference("/user-messages/${chatMessage.toId}/${chatMessage.fromId}")
+                    .push()
+            val latestMessageRefFromId =
+                firebase.getReference("/latest-messages/${chatMessage.fromId}/${chatMessage.toId}")
+            val latestMessageRefToId =
+                firebase.getReference("/latest-messages/${chatMessage.toId}/${chatMessage.fromId}")
+            val countOfUnreadRef =
+                firebase.getReference("/latest-messages/${chatMessage.toId}/${chatMessage.fromId}/countOfUnread")
+
             referenceFromId.setValue(chatMessage)
                 .addOnSuccessListener {
-                    emitter.onComplete()
-                }
-                .addOnFailureListener {
-                    emitter.onError(it)
-                }
-        }
-    }
+                    emitter.onNext(StatusOfSendingMessage.Status1)
+                    referenceToID.setValue(chatMessage)
+                        .addOnSuccessListener {
+                            emitter.onNext(StatusOfSendingMessage.Status2)
+                            latestMessageRefFromId.setValue(chatMessage)
+                                .addOnSuccessListener {
+                                    emitter.onNext(StatusOfSendingMessage.Status3)
+                                    countOfUnreadRef.addListenerForSingleValueEvent(object :
+                                        ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            val latestMessageToId: ChatMessage
+                                            when (val count: Long? = snapshot.value as Long?) {
+                                                null -> {
+                                                    latestMessageToId =
+                                                        ChatMessageMapper.mapToLatestMessageForChatPartner(
+                                                            1,
+                                                            chatMessage,
+                                                            user
+                                                        )
+                                                }
+                                                else -> {
+                                                    latestMessageToId =
+                                                        ChatMessageMapper.mapToLatestMessageForChatPartner(
+                                                            count + 1,
+                                                            chatMessage,
+                                                            user
+                                                        )
+                                                }
+                                            }
+                                            latestMessageRefToId.setValue(latestMessageToId)
+                                                .addOnSuccessListener {
+                                                    emitter.onNext(StatusOfSendingMessage.Status4)
+                                                    emitter.onComplete()
+                                                }
+                                                .addOnFailureListener {
+                                                    emitter.onError(it)
+                                                }
+                                        }
 
-    override fun saveMessageToId(
-        chatMessage: ChatMessage,
-    ): Completable {
-        return Completable.create { emitter ->
-            val referenceToID =
-                FirebaseDatabase.getInstance()
-                    .getReference("/user-messages/${chatMessage.toId}/${chatMessage.fromId}").push()
-            referenceToID.setValue(chatMessage)
-                .addOnSuccessListener {
-                    emitter.onComplete()
-                }
-                .addOnFailureListener {
-                    emitter.onError(it)
-                }
-        }
-    }
-
-    override fun saveLatestMessageFromId(
-        chatMessage: ChatMessage,
-    ): Single<ChatMessage> {
-        return Single.create { emitter ->
-            val latestMessageRef =
-                FirebaseDatabase
-                    .getInstance()
-                    .getReference("/latest-messages/${chatMessage.fromId}/${chatMessage.toId}")
-
-            latestMessageRef.setValue(chatMessage)
-                .addOnSuccessListener {
-                    emitter.onSuccess(chatMessage)
-                }
-                .addOnFailureListener {
-                    emitter.onError(it)
-                }
-        }
-    }
-
-    override fun saveLatestMessageToId(
-        chatMessage: ChatMessage
-    ): Completable {
-        return Completable.create { emitter ->
-            val latestMessageRef =
-                FirebaseDatabase.getInstance()
-                    .getReference("/latest-messages/${chatMessage.toId}/${chatMessage.fromId}")
-            latestMessageRef.setValue(chatMessage)
-                .addOnSuccessListener {
-                    emitter.onComplete()
+                                        override fun onCancelled(error: DatabaseError) {
+                                            emitter.onError(error.toException())
+                                        }
+                                    })
+                                }
+                                .addOnFailureListener {
+                                    emitter.onError(it)
+                                }
+                        }
+                        .addOnFailureListener {
+                            emitter.onError(it)
+                        }
                 }
                 .addOnFailureListener {
                     emitter.onError(it)
