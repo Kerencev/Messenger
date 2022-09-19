@@ -29,13 +29,13 @@ class WallpapersFragment :
         super.onViewCreated(view, savedInstanceState)
         presenter.loadWallpaper(requireContext())
         with(binding) {
-            ivWallpapers1.setOnClickListener {
+            cardWallpaper1.setOnClickListener {
                 presenter.saveWallpaper(requireContext(), WALLPAPERS_ONE)
             }
-            ivWallpapers2.setOnClickListener {
+            cardWallpaper2.setOnClickListener {
                 presenter.saveWallpaper(requireContext(), WALLPAPERS_TWO)
             }
-            ivWallpapers3.setOnClickListener {
+            cardWallpaper3.setOnClickListener {
                 presenter.saveWallpaper(requireContext(), WALLPAPERS_THREE)
             }
             wallpapersToolbar.setNavigationOnClickListener {
