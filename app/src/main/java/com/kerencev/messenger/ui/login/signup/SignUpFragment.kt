@@ -7,7 +7,6 @@ import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignUpBinding
 import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
-import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView

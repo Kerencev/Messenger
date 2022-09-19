@@ -4,13 +4,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kerencev.messenger.MessengerApp
@@ -19,14 +20,14 @@ import com.kerencev.messenger.databinding.ActivityMainBinding
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.services.TestService
+import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivity
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-private const val TAG = "MainActivity"
+private const val TAG = "MyMainActivity"
 
-class MainActivity : MvpAppCompatActivity(), MainView{
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
     private val navigator = AppNavigator(this, R.id.activityMainContainer)
@@ -37,6 +38,9 @@ class MainActivity : MvpAppCompatActivity(), MainView{
         )
     }
 
+    private val request: WorkRequest =
+        OneTimeWorkRequest.Builder(StatusWorkManager::class.java).build()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Messenger)
@@ -46,6 +50,7 @@ class MainActivity : MvpAppCompatActivity(), MainView{
         binding.navigation.itemIconTintList = null
         hideStatusBar()
         setNavigationDrawerClicks()
+        Log.d(TAG, "onCreate")
     }
 
     override fun onResumeFragments() {
@@ -86,6 +91,10 @@ class MainActivity : MvpAppCompatActivity(), MainView{
             .into(avatarView)
     }
 
+    override fun startStatusWorkManager() {
+        WorkManager.getInstance(this).enqueue(request)
+    }
+
     override fun setToolbar(toolbar: Toolbar) {
         val actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
@@ -100,7 +109,7 @@ class MainActivity : MvpAppCompatActivity(), MainView{
 
     private fun setNavigationDrawerClicks() = with(binding) {
         navigation.setNavigationItemSelectedListener { menuItem ->
-            when(menuItem.itemId) {
+            when (menuItem.itemId) {
                 R.id.settings -> presenter.navigateToSettingsFragment()
             }
             drawer.close()

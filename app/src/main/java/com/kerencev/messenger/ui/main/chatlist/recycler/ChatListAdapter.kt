@@ -103,7 +103,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                             message.chatPartnerId,
                             message.chatPartnerLogin,
                             message.chatPartnerEmail,
-                            "null",
+                            -1,
                             message.chatPartnerAvatarUrl
                         )
                     )

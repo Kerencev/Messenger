@@ -10,8 +10,6 @@ import com.kerencev.messenger.utils.StatusOfSendingMessage
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import kotlinx.coroutines.delay
-import java.util.concurrent.TimeUnit
 
 class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
 

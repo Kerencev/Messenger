@@ -2,7 +2,8 @@ package com.kerencev.messenger.ui.main.chat
 
 import com.kerencev.messenger.model.entities.ChatMessage
 import moxy.MvpView
-import moxy.viewstate.strategy.*
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ChatView : MvpView {

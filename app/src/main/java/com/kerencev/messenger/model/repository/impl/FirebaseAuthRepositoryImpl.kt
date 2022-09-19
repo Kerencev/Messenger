@@ -8,7 +8,9 @@ import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import java.sql.Timestamp
 
 class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
     override fun verifyUserIsLoggedIn(): Single<String> {
@@ -55,7 +57,7 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
             val uid = FirebaseAuth.getInstance().uid ?: ""
             val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
             val user =
-                User(uid = uid, login = login, email = email, status = "", avatarUrl = null)
+                User(uid = uid, login = login, email = email, wasOnline = -1, avatarUrl = null)
             ref.setValue(user)
                 .addOnSuccessListener {
                     emitter.onComplete()
@@ -89,16 +91,18 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
         }
     }
 
-    override fun saveUserStatus(userId: String, status: String): Completable {
+    override fun refreshUserStatus(userId: String): Completable {
         return Completable.create { emitter ->
-            val userStatusRef = FirebaseDatabase.getInstance().getReference("/users/$userId/status")
-            userStatusRef.setValue(status)
-                .addOnSuccessListener {
-                    emitter.onComplete()
-                }
-                .addOnFailureListener {
-                    emitter.onError(it)
-                }
+            while (FirebaseAuth.getInstance().currentUser != null) {
+                val timestamp = System.currentTimeMillis()
+                val userStatusRef =
+                    FirebaseDatabase.getInstance().getReference("/users/$userId/wasOnline")
+                userStatusRef.setValue(timestamp)
+                    .addOnFailureListener {
+                        emitter.onError(it)
+                    }
+                Thread.sleep(60000)
+            }
         }
     }
 }

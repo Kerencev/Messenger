@@ -1,16 +1,12 @@
 package com.kerencev.messenger.ui.main.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.core.widget.NestedScrollView
 import com.kerencev.messenger.MessengerApp
-import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSettingsBinding
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
-import kotlin.math.abs
 
 private const val TAG = "SettingsFragment"
 

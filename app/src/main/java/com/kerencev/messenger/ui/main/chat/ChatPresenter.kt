@@ -11,7 +11,6 @@ import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.StatusOfSendingMessage
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
-import java.util.concurrent.TimeUnit
 
 private const val TAG = "ChatPresenter"
 

@@ -8,7 +8,6 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ActivityLoginContainerBinding
-import com.kerencev.messenger.navigation.FinishActivity
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.main.activity.MainActivity
 import moxy.MvpAppCompatActivity

@@ -1,7 +1,6 @@
 package com.kerencev.messenger.ui.main.chatlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
@@ -13,7 +12,6 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.model.repository.impl.FirebaseMessagesRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.services.TestService
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
 import com.kerencev.messenger.ui.main.chatlist.recycler.ChatListAdapter

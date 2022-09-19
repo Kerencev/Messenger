@@ -13,4 +13,5 @@ interface MainView : MvpView {
     fun setToolbar(toolbar: Toolbar)
     fun hideStatusBar()
     fun showStatusBar()
+    fun startStatusWorkManager()
 }
