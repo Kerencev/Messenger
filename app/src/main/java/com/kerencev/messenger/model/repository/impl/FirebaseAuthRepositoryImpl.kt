@@ -58,7 +58,14 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
             val uid = FirebaseAuth.getInstance().uid ?: ""
             val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
             val user =
-                User(uid = uid, login = login, email = email, wasOnline = -1, avatarUrl = null)
+                User(
+                    uid = uid,
+                    login = login,
+                    email = email,
+                    wasOnline = -1,
+                    status = "",
+                    avatarUrl = null
+                )
             ref.setValue(user)
                 .addOnSuccessListener {
                     emitter.onComplete()

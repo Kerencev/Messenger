@@ -7,7 +7,6 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
-import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.MyDate
 import com.kerencev.messenger.utils.StatusOfSendingMessage

@@ -9,8 +9,9 @@ data class User(
     val login: String,
     val email: String,
     var wasOnline: Long,
+    var status: String,
     val avatarUrl: String?
 ) : Parcelable {
-    constructor() : this("", "", "", -1, null)
+    constructor() : this("", "", "", -1, "", null)
 }
 

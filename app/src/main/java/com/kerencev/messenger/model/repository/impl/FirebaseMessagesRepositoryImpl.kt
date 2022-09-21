@@ -1,6 +1,5 @@
 package com.kerencev.messenger.model.repository.impl
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.kerencev.messenger.model.entities.ChatMessage

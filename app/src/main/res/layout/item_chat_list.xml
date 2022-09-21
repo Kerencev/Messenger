@@ -22,9 +22,10 @@
         android:id="@+id/itemChatListIvOnline"
         android:layout_width="@dimen/item_chat_list_iv_online_width"
         android:layout_height="@dimen/item_chat_list_iv_online_height"
-        android:background="@color/white"
+        android:background="@drawable/background_status_online"
         android:contentDescription="@string/online"
         android:src="@drawable/icon_online"
+        tools:visibility="visible"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/itemChatListIvAvatar"
         app:layout_constraintEnd_toEndOf="@id/itemChatListIvAvatar" />

@@ -15,6 +15,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_input.xml" value="0.1295" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_input_login.xml" value="0.1955" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_settings.xml" value="0.1235" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_status_online.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/bot_nav_icon_chat.xml" value="0.1545" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/bot_nav_icon_contacts.xml" value="0.1545" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/bot_nav_icon_groups.xml" value="0.1545" />
@@ -55,7 +56,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_wallpapers.xml" value="0.2" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_welcome.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_chat_from_user.xml" value="0.264" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_chat_list.xml" value="0.4" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_chat_list.xml" value="1.6" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_chat_to_user.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_nav_header.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_new_message_user_rv.xml" value="0.536" />

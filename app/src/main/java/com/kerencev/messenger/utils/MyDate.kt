@@ -5,7 +5,7 @@ import com.kerencev.messenger.services.StatusWorkManager
 import java.text.SimpleDateFormat
 import java.util.*
 
-const val STATUS_ONLINE = "Онлайн"
+const val STATUS_ONLINE = "онлайн"
 private const val DAY_MILLISECONDS = 86400000
 
 object MyDate {

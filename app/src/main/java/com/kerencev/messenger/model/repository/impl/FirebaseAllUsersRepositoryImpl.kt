@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAllUsersRepository
+import com.kerencev.messenger.utils.MyDate
 import io.reactivex.rxjava3.core.Single
 
 class FirebaseAllUsersRepositoryImpl : FirebaseAllUsersRepository {
@@ -22,6 +23,7 @@ class FirebaseAllUsersRepositoryImpl : FirebaseAllUsersRepository {
                         user?.let {
                             //Don't add yourself to the users list
                             if (user.uid != currentUser) {
+                                user.status = MyDate.getChatPartnerStatus(user.wasOnline)
                                 result.add(user)
                             }
                         }

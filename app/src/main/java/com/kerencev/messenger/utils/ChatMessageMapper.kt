@@ -1,6 +1,5 @@
 package com.kerencev.messenger.utils
 
-import android.util.Log
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import java.util.*

@@ -1,7 +1,6 @@
 package com.kerencev.messenger.ui.main.chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.kerencev.messenger.MessengerApp
@@ -12,8 +11,6 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
-import com.kerencev.messenger.utils.MyDate
-import com.kerencev.messenger.utils.STATUS_ONLINE
 import moxy.ktx.moxyPresenter
 
 private const val TAG = "ChatFragment"
