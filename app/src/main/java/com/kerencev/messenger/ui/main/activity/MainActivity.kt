@@ -91,7 +91,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             .into(avatarView)
     }
 
-    override fun startStatusWorkManager() {
+    override fun startWasOnlineWorkManager() {
         WorkManager.getInstance(this).enqueue(request)
     }
 

@@ -7,7 +7,9 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
+import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.ui.base.BasePresenter
+import com.kerencev.messenger.utils.MyDate
 import com.kerencev.messenger.utils.StatusOfSendingMessage
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
@@ -22,6 +24,8 @@ class ChatPresenter(
     router
 ) {
 
+    private var chatPartnerWasOnline: Long = -1
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.loadUserAvatar()
@@ -30,7 +34,7 @@ class ChatPresenter(
     //TODO: Add status of sending message with DiffUtil
     fun performSendMessages(message: String, user: User, chatPartner: User) {
         if (message.isEmpty()) return
-
+        chatPartner.wasOnline = chatPartnerWasOnline
         repository.saveMessageForAllNodes(message, user, chatPartner)
             .subscribeByDefault()
             .subscribe(
@@ -55,6 +59,15 @@ class ChatPresenter(
                 }
             )
         //Don't dispose because user can close the fragment but message needs to be delivered
+    }
+
+    fun updateChatPartnerStatus(chatPartner: User) {
+        repository.updateChatPartnerStatus(chatPartner.uid)
+            .subscribeByDefault()
+            .subscribe { time ->
+                chatPartnerWasOnline = time
+                viewState.setToolbarStatus(MyDate.getChatPartnerStatus(time))
+            }.disposeBy(bag)
     }
 
     fun loadAllMessagesFromFirebase(fromId: String, toId: String) {
@@ -94,6 +107,10 @@ class ChatPresenter(
                     Log.d(TAG, "Failed to load new message from Firebase")
                 }
             ).disposeBy(bag)
+    }
+
+    fun clearDisposableBag() {
+        bag.clear()
     }
 
     fun getCurrentWallpaper(context: Context) {

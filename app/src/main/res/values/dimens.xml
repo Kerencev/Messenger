@@ -178,4 +178,7 @@
     <dimen name="fragment_settings_fab_margin_end">16dp</dimen>
     <dimen name="fragment_wallpapers_iv_done_2_padding_start">4dp</dimen>
     <dimen name="fragment_wallpapers_iv_done_3_padding_start">10dp</dimen>
+    <dimen name="item_chat_list_iv_online_width">10dp</dimen>
+    <dimen name="item_chat_list_iv_online_height">10dp</dimen>
+    <dimen name="fragment_chat_toolbar_title_margin_start">8dp</dimen>
 </resources>

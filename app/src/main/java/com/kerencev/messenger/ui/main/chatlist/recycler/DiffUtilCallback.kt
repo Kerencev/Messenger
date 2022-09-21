@@ -24,6 +24,7 @@ class DiffUtilCallback(
                 && oldItems[oldItemPosition].countOfUnread == newItems[newItemPosition].countOfUnread
                 && oldItems[oldItemPosition].chatPartnerLogin == newItems[newItemPosition].chatPartnerLogin
                 && oldItems[oldItemPosition].chatPartnerAvatarUrl == newItems[newItemPosition].chatPartnerAvatarUrl
+                && oldItems[oldItemPosition].chatPartnerIsOnline == newItems[newItemPosition].chatPartnerIsOnline
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {

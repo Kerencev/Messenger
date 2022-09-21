@@ -8,7 +8,7 @@ import com.kerencev.messenger.model.entities.ChatMessage
 class SortChatListData {
     private val latestMessagesMap = HashMap<String, ChatMessage>()
     private val data = ArrayList<ChatMessage>()
-    private val sortByTimeComparator =  Comparator<ChatMessage> { a, b ->
+    private val sortByTimeComparator = Comparator<ChatMessage> { a, b ->
         when {
             (a.timesTamp > b.timesTamp) -> -1
             else -> 1
@@ -23,4 +23,13 @@ class SortChatListData {
         return data
     }
 
+    fun getSortedData(listOfMessages: List<ChatMessage>): List<ChatMessage> {
+        listOfMessages.forEach { message ->
+            latestMessagesMap[message.chatPartnerId] = message
+        }
+        data.clear()
+        data.addAll(latestMessagesMap.values)
+        data.sortWith(sortByTimeComparator)
+        return data
+    }
 }

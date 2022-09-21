@@ -1,15 +1,19 @@
 package com.kerencev.messenger.model.repository.impl
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
+import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.ChatMessageMapper
 import com.kerencev.messenger.utils.StatusOfSendingMessage
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+
+private const val TAG = "FirebaseMessagesRepositoryImpl"
 
 class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
 
@@ -178,18 +182,78 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
             ref.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                     val latestMessage = snapshot.getValue(ChatMessage::class.java)
-                    latestMessage?.let { emitter.onNext(it) }
+                    latestMessage?.let { message ->
+                        message.chatPartnerIsOnline =
+                            System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
+                        emitter.onNext(message)
+                    }
                 }
 
                 override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                     val latestMessage = snapshot.getValue(ChatMessage::class.java)
-                    latestMessage?.let { emitter.onNext(it) }
+                    latestMessage?.let { message ->
+                        message.chatPartnerIsOnline =
+                            System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
+                        emitter.onNext(message)
+                    }
                 }
 
                 override fun onChildRemoved(snapshot: DataSnapshot) = Unit
                 override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) = Unit
                 override fun onCancelled(error: DatabaseError) = Unit
             })
+        }
+    }
+
+    /**
+     * Function to update all latest messages with a period
+     * to update chat partner status for all chat partners
+     */
+    override fun updateAllLatestMessages(): Observable<List<ChatMessage>> {
+        return Observable.create { emitter ->
+            val fromId = FirebaseAuth.getInstance().uid
+            val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
+            val result = ArrayList<ChatMessage>()
+            while (true) {
+                Thread.sleep(StatusWorkManager.LIMIT)
+                ref.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        result.clear()
+                        snapshot.children.forEach { latestMessage ->
+                            val message = latestMessage.getValue(ChatMessage::class.java)
+                            message?.let {
+                                message.chatPartnerIsOnline =
+                                    System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
+                                result.add(message)
+                            }
+                        }
+                        emitter.onNext(result)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        emitter.onError(error.toException())
+                    }
+                })
+            }
+        }
+    }
+
+    override fun updateChatPartnerStatus(chatPartnerId: String): Observable<Long> {
+        return Observable.create { emitter ->
+            val userIdRef = FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
+            while (true) {
+                userIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val user = snapshot.getValue(User::class.java)
+                        user?.let { emitter.onNext(it.wasOnline) }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        emitter.onError(error.toException())
+                    }
+                })
+                Thread.sleep(StatusWorkManager.UPDATE_PERIOD)
+            }
         }
     }
 }

@@ -7,10 +7,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
+import com.kerencev.messenger.services.StatusWorkManager
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import java.sql.Timestamp
+
+private const val TAG = "FirebaseAuthRepositoryImpl"
 
 class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
     override fun verifyUserIsLoggedIn(): Single<String> {
@@ -88,21 +89,7 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
                     emitter.onError(error.toException())
                 }
             })
-        }
-    }
-
-    override fun refreshUserStatus(userId: String): Completable {
-        return Completable.create { emitter ->
-            while (FirebaseAuth.getInstance().currentUser != null) {
-                val timestamp = System.currentTimeMillis()
-                val userStatusRef =
-                    FirebaseDatabase.getInstance().getReference("/users/$userId/wasOnline")
-                userStatusRef.setValue(timestamp)
-                    .addOnFailureListener {
-                        emitter.onError(it)
-                    }
-                Thread.sleep(60000)
-            }
+            Thread.sleep(StatusWorkManager.UPDATE_PERIOD)
         }
     }
 }

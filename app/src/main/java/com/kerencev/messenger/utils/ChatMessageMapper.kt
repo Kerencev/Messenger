@@ -1,10 +1,14 @@
 package com.kerencev.messenger.utils
 
+import android.util.Log
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import java.util.*
 
 object ChatMessageMapper {
+
+    private const val TAG = "ChatMessageMapper"
+
     fun mapToChatMessage(message: String, user: User, chatPartner: User): ChatMessage {
         val time = System.currentTimeMillis()
         return ChatMessage(
@@ -17,7 +21,9 @@ object ChatMessageMapper {
             chatPartnerId = chatPartner.uid,
             chatPartnerLogin = chatPartner.login,
             chatPartnerEmail = chatPartner.email,
-            chatPartner.avatarUrl
+            chatPartnerWasOnline = chatPartner.wasOnline,
+            chatPartnerIsOnline = true,
+            chatPartnerAvatarUrl = chatPartner.avatarUrl
         )
     }
 
@@ -32,7 +38,9 @@ object ChatMessageMapper {
             chatPartnerId = chatPartner.uid,
             chatPartnerLogin = chatPartner.login,
             chatPartnerEmail = chatPartner.email,
-            chatPartner.avatarUrl
+            chatPartnerWasOnline = chatPartner.wasOnline,
+            chatPartnerIsOnline = true,
+            chatPartnerAvatarUrl = chatPartner.avatarUrl
         )
     }
 }

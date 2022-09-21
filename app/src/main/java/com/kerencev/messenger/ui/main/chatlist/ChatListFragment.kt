@@ -58,6 +58,7 @@ class ChatListFragment :
             chatListRv.adapter = adapter
         }
         presenter.listenForLatestMessagesFromFireBase()
+        presenter.updateAllLatestMessages()
     }
 
     override fun onResume() {
@@ -83,7 +84,7 @@ class ChatListFragment :
             })
     }
 
-    override fun refreshRecyclerView(data: List<ChatMessage>) {
+    override fun updateAdapterData(data: List<ChatMessage>) {
         adapter.setListDataForDiffUtil(data)
     }
 

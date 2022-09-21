@@ -36,13 +36,12 @@ class MainPresenter(
                 { user ->
                     MessengerApp.instance.user = user
                     viewState.setUserData(user)
-                    viewState.startStatusWorkManager()
+                    viewState.startWasOnlineWorkManager()
                 },
                 {
                     Log.d(TAG, "Failed to verify user is logged in")
                 }
-            )
-            .disposeBy(bag)
+            ).disposeBy(bag)
     }
 
     fun navigateToSettingsFragment() {

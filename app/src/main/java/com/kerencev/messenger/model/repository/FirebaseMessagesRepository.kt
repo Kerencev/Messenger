@@ -18,4 +18,6 @@ interface FirebaseMessagesRepository {
         user: User,
         chatPartner: User
     ): Observable<StatusOfSendingMessage>
+    fun updateAllLatestMessages(): Observable<List<ChatMessage>>
+    fun updateChatPartnerStatus(chatPartnerId: String): Observable<Long>
 }

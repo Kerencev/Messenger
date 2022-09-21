@@ -11,4 +11,5 @@ interface ChatView : MvpView {
     fun addMessage(chatMessage: ChatMessage)
     fun setAdapterData(data: List<ChatMessage>)
     fun setCurrentWallpaper(wallpaper: String)
+    fun setToolbarStatus(wasOnline: String)
 }

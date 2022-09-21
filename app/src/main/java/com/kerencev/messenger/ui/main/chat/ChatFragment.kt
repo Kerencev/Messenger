@@ -1,6 +1,7 @@
 package com.kerencev.messenger.ui.main.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.kerencev.messenger.MessengerApp
@@ -11,7 +12,11 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.utils.MyDate
+import com.kerencev.messenger.utils.STATUS_ONLINE
 import moxy.ktx.moxyPresenter
+
+private const val TAG = "ChatFragment"
 
 class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBinding::inflate),
     ChatView, OnBackPressedListener {
@@ -30,11 +35,14 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chatPartner = arguments?.getParcelable(BUNDLE_KEY_USER)
-        chatPartner?.let { presenter.loadAllMessagesFromFirebase(user.uid, it.uid) }
+        chatPartner?.let {
+            presenter.loadAllMessagesFromFirebase(user.uid, it.uid)
+            presenter.updateChatPartnerStatus(it)
+        }
         setToolbarClicks()
         with(binding) {
             chatPartner?.let {
-                chatToolbar.title = it.login
+                chatToolbarTitle.text = it.login
             }
             chatRv.adapter = adapter
             chatFabSend.setOnClickListener { _ ->
@@ -51,23 +59,25 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         }
     }
 
-    private fun setToolbarClicks() = with(binding) {
-        chatToolbar.setNavigationOnClickListener {
-            presenter.onBackPressed()
-        }
-        chatToolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.actionWallpaper -> {
-                    presenter.navigateToWallpaperFragment()
-                }
-            }
-            true
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         presenter.getCurrentWallpaper(requireContext())
+    }
+
+    override fun onStop() {
+        presenter.clearDisposableBag()
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
+        if (adapter.itemCount > 0) {
+            chatPartner?.let {
+                presenter.resetUnreadMessagesWithFirebase(it.uid, user.uid)
+            }
+        }
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun setCurrentWallpaper(wallpaper: String) {
@@ -76,6 +86,10 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             WALLPAPERS_TWO -> requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_2)
             WALLPAPERS_THREE -> requireActivity().window?.setBackgroundDrawableResource(R.drawable.background_3)
         }
+    }
+
+    override fun setToolbarStatus(wasOnline: String) = with(binding) {
+        chatToolbarSubtitle.text = wasOnline
     }
 
     override fun loadUserAvatar() {
@@ -98,15 +112,18 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun onBackPressed() = presenter.onBackPressed()
 
-    override fun onDestroyView() {
-        //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
-        if (adapter.itemCount > 0) {
-            chatPartner?.let {
-                presenter.resetUnreadMessagesWithFirebase(it.uid, user.uid)
-            }
+    private fun setToolbarClicks() = with(binding) {
+        chatToolbar.setNavigationOnClickListener {
+            presenter.onBackPressed()
         }
-        _binding = null
-        super.onDestroyView()
+        chatToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.actionWallpaper -> {
+                    presenter.navigateToWallpaperFragment()
+                }
+            }
+            true
+        }
     }
 
     companion object {

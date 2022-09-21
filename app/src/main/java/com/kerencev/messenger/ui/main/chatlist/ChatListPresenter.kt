@@ -16,7 +16,7 @@ import moxy.MvpPresenter
 class ChatListPresenter(
     private val router: Router,
     private val repoAuth: FirebaseAuthRepository,
-    private val repository: FirebaseMessagesRepository
+    private val repoMessages: FirebaseMessagesRepository
 ) : MvpPresenter<ChatListView>() {
 
     private val bag = CompositeDisposable()
@@ -36,18 +36,31 @@ class ChatListPresenter(
     }
 
     fun listenForLatestMessagesFromFireBase() {
-
-        repository.listenForLatestMessages()
+        repoMessages.listenForLatestMessages()
             .subscribeByDefault()
             .subscribe(
                 {
                     val sortedData = sortChatList.getSortedData(it)
-                    viewState.refreshRecyclerView(sortedData)
+                    viewState.updateAdapterData(sortedData)
                 },
                 {
                     Log.d(TAG, "Failed to listen for latest messages from FireBase")
                 }
-            )
+            ).disposeBy(bag)
+    }
+
+    fun updateAllLatestMessages() {
+        repoMessages.updateAllLatestMessages()
+            .subscribeByDefault()
+            .subscribe(
+                {
+                    val sortedData = sortChatList.getSortedData(it)
+                    viewState.updateAdapterData(sortedData)
+                },
+                { throwable ->
+                    throwable.message?.let { Log.d(TAG, it) }
+                }
+            ).disposeBy(bag)
     }
 
     fun navigateToNewMessageFragment() {

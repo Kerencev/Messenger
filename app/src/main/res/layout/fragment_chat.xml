@@ -28,20 +28,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/primary_background"
+            app:contentInsetStartWithNavigation="0dp"
             app:menu="@menu/chat"
-            app:navigationIcon="@drawable/icon_back"
-            app:title="sdfsdf"
-            app:titleTextAppearance="@style/TitleToolbarTextAppearance"
-            app:titleTextColor="@color/white">
+            app:navigationIcon="@drawable/icon_back">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivAvatar"
                 android:layout_width="@dimen/fragment_chat_iv_avatar_width"
                 android:layout_height="@dimen/fragment_chat_iv_avatar_height"
-                android:layout_gravity="end"
+                android:layout_gravity="start"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_user_place_holder"
-                app:civ_border_color="@color/unselected_white" />
+                android:src="@drawable/ic_user_place_holder" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/fragment_chat_toolbar_title_margin_start"
+                android:gravity="center|start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/chatToolbarTitle"
+                    style="@style/TitleToolbarTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:singleLine="true"
+                    tools:text="Sergo1996" />
+
+                <TextView
+                    android:id="@+id/chatToolbarSubtitle"
+                    style="@style/SubtitleToolbarTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    tools:text="был(а) 21 сент. в 17:30" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -74,11 +97,11 @@
             android:id="@+id/chatEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@drawable/background_chat_input_text"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/message"
             android:inputType="textMultiLine|textCapSentences"
-            android:layout_alignParentBottom="true"
             android:maxLines="6"
             android:padding="@dimen/chat_text_input_edit_text_padding"
             android:textColor="@color/black"

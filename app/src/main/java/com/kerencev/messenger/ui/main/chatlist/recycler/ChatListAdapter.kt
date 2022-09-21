@@ -15,6 +15,8 @@ import com.kerencev.messenger.utils.MyDate
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
+private const val TAG = "ChatListAdapter"
+
 interface OnItemClick {
     fun onClick(user: User)
 }
@@ -24,11 +26,11 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
 
     private val data = ArrayList<ChatMessage>()
 
-    fun setListDataForDiffUtil(lisDataNew: List<ChatMessage>) {
-        val diff = DiffUtil.calculateDiff(DiffUtilCallback(data, lisDataNew))
+    fun setListDataForDiffUtil(listDataNew: List<ChatMessage>) {
+        val diff = DiffUtil.calculateDiff(DiffUtilCallback(data, listDataNew))
         diff.dispatchUpdatesTo(this)
         data.clear()
-        data.addAll(lisDataNew)
+        data.addAll(listDataNew)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
@@ -36,6 +38,8 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
             ItemChatListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ChatViewHolder(binding)
     }
+
+    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         holder.bind(data[position])
@@ -73,14 +77,21 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     createCombinePayload.newData.chatPartnerLogin
             }
             if (createCombinePayload.newData.chatPartnerAvatarUrl != createCombinePayload.oldData.chatPartnerAvatarUrl) {
-                val imageView = holder.itemView.findViewById<CircleImageView>(R.id.itemChatListIvAvatar)
-                Picasso.get().load(createCombinePayload.newData.chatPartnerAvatarUrl).placeholder(R.drawable.ic_user_place_holder)
+                val imageView =
+                    holder.itemView.findViewById<CircleImageView>(R.id.itemChatListIvAvatar)
+                Picasso.get().load(createCombinePayload.newData.chatPartnerAvatarUrl)
+                    .placeholder(R.drawable.ic_user_place_holder)
                     .into(imageView)
+            }
+            if (createCombinePayload.newData.chatPartnerIsOnline != createCombinePayload.oldData.chatPartnerIsOnline) {
+                val imageView = holder.itemView.findViewById<ImageView>(R.id.itemChatListIvOnline)
+                imageView.visibility = when (createCombinePayload.newData.chatPartnerIsOnline) {
+                    true -> View.VISIBLE
+                    false -> View.GONE
+                }
             }
         }
     }
-
-    override fun getItemCount() = data.size
 
     inner class ChatViewHolder(private val binding: ItemChatListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -95,8 +106,13 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     View.INVISIBLE
                 }
                 itemChatListTvNoticeCount.text = message.countOfUnread.toString()
-                Picasso.get().load(message.chatPartnerAvatarUrl).placeholder(R.drawable.ic_user_place_holder)
+                Picasso.get().load(message.chatPartnerAvatarUrl)
+                    .placeholder(R.drawable.ic_user_place_holder)
                     .into(itemChatListIvAvatar)
+                itemChatListIvOnline.visibility = when(message.chatPartnerIsOnline) {
+                    true -> View.VISIBLE
+                    false -> View.GONE
+                }
                 root.setOnClickListener {
                     onItemClick.onClick(
                         User(
