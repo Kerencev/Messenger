@@ -76,6 +76,7 @@ dependencies {
     def rx_version = "3.0.0"
     implementation "io.reactivex.rxjava3:rxjava:$rx_version"
     implementation "io.reactivex.rxjava3:rxandroid:$rx_version"
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
     //WorkManager
     def work_version = "2.7.1"

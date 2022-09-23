@@ -50,4 +50,13 @@
         <item name="backgroundTint">@color/fab_background</item>
         <item name="tint">@color/white</item>
     </style>
+
+    <style name="NavigationDrawerTextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/user_name_text</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+
 </resources>

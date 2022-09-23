@@ -62,7 +62,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    tools:text="был(а) 21 сент. в 17:30" />
+                    tools:text="был(а) 21 сент. в 17:30"
+                    tools:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/chatToolbarTvTyping"
+                    style="@style/SubtitleToolbarTextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/typing"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:textColor="@color/typing_text_color"
+                    tools:visibility="visible"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

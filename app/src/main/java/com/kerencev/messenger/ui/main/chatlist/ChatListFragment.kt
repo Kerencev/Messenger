@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
 import com.kerencev.messenger.MessengerApp
-import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatListBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
@@ -77,7 +76,7 @@ class ChatListFragment :
                 androidx.appcompat.widget.Toolbar.OnMenuItemClickListener {
                 override fun onMenuItemClick(item: MenuItem): Boolean {
                     when (item.itemId) {
-                        R.id.actionSignOut -> presenter.signOutWithFirebaseAuth()
+
                     }
                     return true
                 }
@@ -94,10 +93,6 @@ class ChatListFragment :
 
     override fun hideStatusBar() {
         mainActivity?.hideStatusBar()
-    }
-
-    override fun startLoginActivity() {
-        mainActivity?.startLoginActivity()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

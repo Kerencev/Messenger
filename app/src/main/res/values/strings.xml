@@ -59,4 +59,5 @@
     <string name="background_settings">Фон Настроек</string>
     <string name="select_profile_photo">Выбрать фото профиля</string>
     <string name="online">Онлайн</string>
+    <string name="typing">печатает...</string>
 </resources>

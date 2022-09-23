@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ItemNewMessageUserRvBinding
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.utils.MyDate
 import com.kerencev.messenger.utils.STATUS_ONLINE
 import com.kerencev.messenger.utils.loadUserImageWithGlide
 

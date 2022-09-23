@@ -5,6 +5,6 @@ import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface SettingsView: MvpView {
-
+interface SettingsView : MvpView {
+    fun startLoginActivity()
 }

@@ -7,7 +7,6 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface ChatListView : MvpView {
-    fun startLoginActivity()
     fun updateAdapterData(data: List<ChatMessage>)
     fun showStatusBar()
     fun hideStatusBar()

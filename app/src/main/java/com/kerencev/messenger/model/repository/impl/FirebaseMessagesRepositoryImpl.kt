@@ -1,7 +1,10 @@
 package com.kerencev.messenger.model.repository.impl
 
+import android.annotation.SuppressLint
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
@@ -253,6 +256,43 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                 })
                 Thread.sleep(StatusWorkManager.UPDATE_PERIOD)
             }
+        }
+    }
+
+    override fun updateUserTypingStatus(
+        chatPartnerId: String,
+        userId: String,
+        isTyping: Boolean
+    ): Completable {
+        return Completable.create {
+            val ref = FirebaseDatabase.getInstance().getReference("/users/$userId/typingFor")
+            when (isTyping) {
+                true -> ref.setValue(chatPartnerId)
+                false -> ref.setValue("")
+            }
+        }
+    }
+
+    override fun listenForChatPartnerIsTyping(
+        userId: String,
+        chatPartnerId: String
+    ): Observable<Boolean> {
+        return Observable.create { emitter ->
+            val ref = FirebaseDatabase.getInstance()
+                .getReference("/users/$chatPartnerId/typingFor")
+            ref.addValueEventListener(object : ValueEventListener {
+                @SuppressLint("LongLogTag")
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    when (snapshot.value as String) {
+                        userId -> emitter.onNext(true)
+                        else -> emitter.onNext(false)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    emitter.onError(error.toException())
+                }
+            })
         }
     }
 }

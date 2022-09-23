@@ -19,7 +19,7 @@
             android:id="@+id/chatListToolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            app:menu="@menu/chat_list"
+            app:menu="@menu/search"
             app:title="@string/space_messenger"
             app:titleTextAppearance="@style/TitleToolbarTextAppearance"
             app:titleTextColor="@color/white" />

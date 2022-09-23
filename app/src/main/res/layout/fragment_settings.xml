@@ -6,12 +6,12 @@
     android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/settingsAppbarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_settings_app_bar_height">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+            android:id="@+id/settingsCollapsingLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -75,11 +75,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/settingsToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/icon_back">
+                app:navigationIcon="@drawable/icon_back"
+                app:menu="@menu/settings">
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -132,7 +133,7 @@
                 android:id="@+id/tvSettingsProfileEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/fragment_settings_tv_profile_height"
-                android:layout_marginTop="@dimen/fragment_settings_tv_profile_margin_top"
+                android:layout_marginTop="@dimen/fragment_settings_tv_profile_second_margin_top"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Alexandr@mail.com"
                 android:textColor="@color/user_name_text"
@@ -208,7 +209,7 @@
         android:layout_marginEnd="@dimen/fragment_settings_fab_margin_end"
         android:contentDescription="@string/select_profile_photo"
         android:src="@drawable/icon_camera"
-        app:layout_anchor="@id/app_bar"
+        app:layout_anchor="@id/settingsAppbarLayout"
         app:layout_anchorGravity="bottom|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

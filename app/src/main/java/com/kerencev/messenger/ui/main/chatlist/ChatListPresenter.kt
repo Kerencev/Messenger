@@ -22,19 +22,6 @@ class ChatListPresenter(
     private val bag = CompositeDisposable()
     private val sortChatList = SortChatListData()
 
-    fun signOutWithFirebaseAuth() {
-        repoAuth.signOut()
-            .subscribeByDefault()
-            .subscribe(
-                {
-                    viewState.startLoginActivity()
-                },
-                {
-                    Log.d(TAG, "Failed to Signed out with FirebaseAuth")
-                }
-            ).disposeBy(bag)
-    }
-
     fun listenForLatestMessagesFromFireBase() {
         repoMessages.listenForLatestMessages()
             .subscribeByDefault()

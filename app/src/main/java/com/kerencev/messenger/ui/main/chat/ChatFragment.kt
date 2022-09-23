@@ -1,8 +1,11 @@
 package com.kerencev.messenger.ui.main.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
+import com.jakewharton.rxbinding.widget.RxTextView
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatBinding
@@ -12,6 +15,8 @@ import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import moxy.ktx.moxyPresenter
+import java.util.concurrent.TimeUnit
+
 
 private const val TAG = "ChatFragment"
 
@@ -35,8 +40,18 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         chatPartner?.let {
             presenter.loadAllMessagesFromFirebase(user.uid, it.uid)
             presenter.updateChatPartnerStatus(it)
+            binding.chatEditText.addTextChangedListener {
+                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, true)
+            }
+            RxTextView.textChanges(binding.chatEditText)
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
+                }
+            presenter.listenForChatPartnerIsTyping(user.uid, chatPartner!!.uid)
         }
         setToolbarClicks()
+        scrollRvWhenShowKeyboard()
         with(binding) {
             chatPartner?.let {
                 chatToolbarTitle.text = it.login
@@ -50,6 +65,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                         user = user,
                         chatPartner = it
                     )
+                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
                 }
                 chatEditText.text?.clear()
             }
@@ -62,6 +78,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     }
 
     override fun onStop() {
+        presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
         presenter.clearDisposableBag()
         super.onStop()
     }
@@ -87,6 +104,19 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun setToolbarStatus(wasOnline: String) = with(binding) {
         chatToolbarSubtitle.text = wasOnline
+    }
+
+    override fun setChatPartnerIsTyping(isTyping: Boolean) = with(binding) {
+        when (isTyping) {
+            true -> {
+                chatToolbarSubtitle.visibility = View.GONE
+                chatToolbarTvTyping.visibility = View.VISIBLE
+            }
+            false -> {
+                chatToolbarSubtitle.visibility = View.VISIBLE
+                chatToolbarTvTyping.visibility = View.GONE
+            }
+        }
     }
 
     override fun loadUserAvatar() {
@@ -120,6 +150,19 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                 }
             }
             true
+        }
+    }
+
+    private fun scrollRvWhenShowKeyboard() = with(binding) {
+        chatRv.addOnLayoutChangeListener { _, _, _, _, newHeight, _, _, _, oldHeight ->
+            if (newHeight < oldHeight) {
+                chatRv.postDelayed(
+                    { chatRv.scrollToPosition(adapter.itemCount - 1) },
+                    10
+                )
+            } else {
+                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
+            }
         }
     }
 
