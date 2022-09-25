@@ -174,11 +174,17 @@
     <dimen name="fragment_settings_tv_profile_margin_top">16dp</dimen>
     <dimen name="fragment_settings_tv_profile_text_size">16sp</dimen>
     <dimen name="fragment_settings_tv_profile_second_margin_top">24dp</dimen>
-    <dimen name="fragment_settings_tv_header_second_margin_top">40dp</dimen>
+    <dimen name="fragment_settings_tv_header_second_margin_top">20dp</dimen>
     <dimen name="fragment_settings_fab_margin_end">16dp</dimen>
     <dimen name="fragment_wallpapers_iv_done_2_padding_start">4dp</dimen>
     <dimen name="fragment_wallpapers_iv_done_3_padding_start">10dp</dimen>
     <dimen name="item_chat_list_iv_online_width">10dp</dimen>
     <dimen name="item_chat_list_iv_online_height">10dp</dimen>
     <dimen name="fragment_chat_toolbar_title_margin_start">8dp</dimen>
+    <dimen name="fragment_settings_tv_main_header_margin_top">16dp</dimen>
+    <dimen name="fragment_settings_tv_items_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_settings_card_height">56dp</dimen>
+    <dimen name="fragment_settings_card_margin_top">8dp</dimen>
+    <dimen name="change_name_text_input_layout_padding_horizontal">16dp</dimen>
+    <dimen name="change_name_text_input_layout_margin_top">8dp</dimen>
 </resources>

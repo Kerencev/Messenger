@@ -9,6 +9,7 @@ import com.kerencev.messenger.ui.main.chat.wallpapers.WallpapersFragment
 import com.kerencev.messenger.ui.main.chatlist.ChatListFragment
 import com.kerencev.messenger.ui.main.newmessage.NewMessageFragment
 import com.kerencev.messenger.ui.main.settings.SettingsFragment
+import com.kerencev.messenger.ui.main.settings.changename.ChangeNameFragment
 
 object ChatListScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
@@ -37,5 +38,11 @@ object WallpapersScreen : FragmentScreen {
 object SettingsScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return SettingsFragment()
+    }
+}
+
+object ChangeNameScreen: FragmentScreen {
+    override fun createFragment(factory: FragmentFactory): Fragment {
+        return ChangeNameFragment()
     }
 }

@@ -30,4 +30,7 @@
     <color name="background_walkthroughs3">#FF8A65</color>
     <color name="background_nav_drawer">#FF8A65</color>
     <color name="completely_transparent">#00FFFFFF</color>
+    <color name="ripple_card_settings">#A3A1A1</color>
+    <color name="change_name_info_text">#636363</color>
+    <color name="change_name_hint_error">#B00020</color>
 </resources>

@@ -1,8 +1,11 @@
 package com.kerencev.messenger.ui.main.chat
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding.widget.RxTextView
@@ -78,6 +81,8 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     }
 
     override fun onStop() {
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.chatEditText.windowToken, 0)
         presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
         presenter.clearDisposableBag()
         super.onStop()

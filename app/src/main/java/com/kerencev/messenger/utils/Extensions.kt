@@ -1,7 +1,13 @@
 package com.kerencev.messenger.utils
 
+import android.app.Activity
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.kerencev.messenger.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
@@ -38,4 +44,15 @@ fun ImageView.loadUserImageWithGlide(url: String) {
         .load(url)
         .placeholder(R.drawable.ic_user_place_holder)
         .into(this)
+}
+
+fun View.showComingSoonSnack() {
+    Snackbar.make(this, R.string.coming_soon, Snackbar.LENGTH_SHORT).show()
+}
+
+fun Activity.showKeyBoard(editText: EditText) {
+    editText.requestFocus()
+    editText.isFocusableInTouchMode = true
+    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
 }

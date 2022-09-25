@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Space\nMessenger</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
@@ -59,5 +59,11 @@
     <string name="background_settings">Фон Настроек</string>
     <string name="select_profile_photo">Выбрать фото профиля</string>
     <string name="online">Онлайн</string>
-    <string name="typing">печатает...</string>
+    <string name="typing">печатает…</string>
+    <string name="holder_phone">8 928 147 16 42</string>
+    <string name="coming_soon">Скоро</string>
+    <string name="done">Готово</string>
+    <string name="change_name_info" tools:ignore="TypographyDashes">Вы можете выбрать любое публичное имя пользователя Space Messenger. В этом случае другие люди смогут найти Вас по такому имени и связаться с вами.\n\nВы можете использовать символы a-z, а-я, 0-9 и подчёркивания. Минимальная длина - 5 символов.</string>
+    <string name="short_name_error">Имя пользователя должно содержать не меньше 5 символов</string>
+    <string name="check_login">Проверка имени пользователя...</string>
 </resources>

@@ -58,5 +58,23 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="CardSettingsStyle">
+        <item name="android:layout_height">@dimen/fragment_settings_card_height</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="rippleColor">@color/ripple_card_settings</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cornerRadius">0dp</item>
+    </style>
+
+    <style name="TextSettingsStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:paddingStart">@dimen/fragment_settings_tv_items_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/fragment_settings_tv_items_padding_horizontal</item>
+        <item name="android:textColor">@color/user_name_text</item>
+        <item name="android:textSize">@dimen/fragment_settings_tv_profile_text_size</item>
+    </style>
 
 </resources>
