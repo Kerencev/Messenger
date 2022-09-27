@@ -106,10 +106,17 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     View.INVISIBLE
                 }
                 itemChatListTvNoticeCount.text = message.countOfUnread.toString()
-                Picasso.get().load(message.chatPartnerAvatarUrl)
-                    .placeholder(R.drawable.ic_user_place_holder)
-                    .into(itemChatListIvAvatar)
-                itemChatListIvOnline.visibility = when(message.chatPartnerIsOnline) {
+                when (message.chatPartnerAvatarUrl) {
+                    null -> {
+                        itemChatListTvLetter.text = message.chatPartnerLogin.first().toString()
+                    }
+                    else -> {
+                        Picasso.get().load(message.chatPartnerAvatarUrl)
+                            .placeholder(R.drawable.ic_user_place_holder)
+                            .into(itemChatListIvAvatar)
+                    }
+                }
+                itemChatListIvOnline.visibility = when (message.chatPartnerIsOnline) {
                     true -> View.VISIBLE
                     false -> View.GONE
                 }

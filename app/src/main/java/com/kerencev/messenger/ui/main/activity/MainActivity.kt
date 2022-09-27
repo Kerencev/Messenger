@@ -91,6 +91,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             .into(avatarView)
     }
 
+    override fun updateUserLogin(newLogin: String) {
+        binding.navigation.getHeaderView(0).findViewById<TextView>(R.id.tvNavHeaderLogin).text =
+            newLogin
+    }
+
     override fun startWasOnlineWorkManager() {
         WorkManager.getInstance(this).enqueue(request)
     }

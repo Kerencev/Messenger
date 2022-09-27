@@ -8,6 +8,8 @@ import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAllUsersRepository
 import com.kerencev.messenger.utils.MyDate
+import com.kerencev.messenger.utils.log
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 class FirebaseAllUsersRepositoryImpl : FirebaseAllUsersRepository {
@@ -35,6 +37,30 @@ class FirebaseAllUsersRepositoryImpl : FirebaseAllUsersRepository {
                     emitter.onError(Exception())
                 }
             })
+        }
+    }
+
+    override fun checkValidityLogin(text: String, listOfUsers: List<User>): Single<Boolean> {
+        return Single.create { emitter ->
+            listOfUsers.forEach { user ->
+                if (user.login == text) {
+                    emitter.onSuccess(false)
+                }
+            }
+            emitter.onSuccess(true)
+        }
+    }
+
+    override fun updateUserLogin(uid: String, newLogin: String): Completable {
+        return Completable.create { emitter ->
+            val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid/login")
+            userRef.setValue(newLogin)
+                .addOnSuccessListener {
+                    emitter.onComplete()
+                }
+                .addOnFailureListener {
+                    emitter.onError(it)
+                }
         }
     }
 }

@@ -9,4 +9,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface SettingsView : MvpView {
     fun startLoginActivity()
     fun renderUserInfo(user: User)
+    fun listenNewLoginFromChangeNameFragment()
 }

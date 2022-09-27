@@ -44,7 +44,10 @@ class UsersListAdapter(private val onUserClickListener: OnUserClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: User) = with(binding) {
-            item.avatarUrl?.let { ivAvatar.loadUserImageWithGlide(it) }
+            when (item.avatarUrl) {
+                null -> tvLetter.text = item.login.first().toString()
+                else -> ivAvatar.loadUserImageWithGlide(item.avatarUrl)
+            }
             tvUserName.text = item.login
             when (item.status) {
                 STATUS_ONLINE -> tvUserStatus.setTextColor(context.resources.getColor(R.color.user_status_online))

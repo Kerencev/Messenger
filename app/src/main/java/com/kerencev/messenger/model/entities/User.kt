@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class User(
     val uid: String,
-    val login: String,
+    var login: String,
     val email: String,
     var wasOnline: Long,
     var status: String,

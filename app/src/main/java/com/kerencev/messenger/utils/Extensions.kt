@@ -2,6 +2,7 @@ package com.kerencev.messenger.utils
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -55,4 +56,13 @@ fun Activity.showKeyBoard(editText: EditText) {
     editText.isFocusableInTouchMode = true
     val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun Activity.hideKeyboard(editText: EditText) {
+    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(editText.windowToken, 0)
+}
+
+fun Any.log(message: String) {
+    Log.d(this::class.java.simpleName, message)
 }

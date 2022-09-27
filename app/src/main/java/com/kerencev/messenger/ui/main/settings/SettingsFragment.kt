@@ -15,6 +15,8 @@ import com.kerencev.messenger.navigation.main.ChangeNameScreen
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
+import com.kerencev.messenger.ui.main.settings.changename.LOGIN_BUNDLE_KEY
+import com.kerencev.messenger.ui.main.settings.changename.LOGIN_RESULT_KEY
 import com.kerencev.messenger.utils.showComingSoonSnack
 import moxy.ktx.moxyPresenter
 
@@ -42,6 +44,7 @@ class SettingsFragment :
         super.onViewCreated(view, savedInstanceState)
         setToolbarClicks()
         setAnotherClicks()
+        listenNewLoginFromChangeNameFragment()
     }
 
     override fun startLoginActivity() {
@@ -56,6 +59,22 @@ class SettingsFragment :
             tvSettingsEmail.text = user.email
             tvSettingsProfileLogin.text = user.login
             tvSettingsProfileEmail.text = user.email
+        }
+    }
+
+    override fun listenNewLoginFromChangeNameFragment() {
+        parentFragmentManager.setFragmentResultListener(
+            LOGIN_RESULT_KEY,
+            viewLifecycleOwner
+        ) { _, bundle ->
+            val newLogin = bundle.getString(LOGIN_BUNDLE_KEY)
+            newLogin?.let {
+                with(binding) {
+                    tvSettingsLogin.text = newLogin
+                    tvSettingsProfileLogin.text = newLogin
+                }
+                mainActivity?.updateUserLogin(newLogin)
+            }
         }
     }
 

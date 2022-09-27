@@ -4,7 +4,6 @@ import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.Screen
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
-import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault

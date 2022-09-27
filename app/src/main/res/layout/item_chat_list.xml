@@ -13,10 +13,25 @@
         android:layout_marginStart="@dimen/item_chat_list_iv_avatar_margin_start"
         android:background="@drawable/background_chat_list_user_avatar"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_user_place_holder"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemChatListTvLetter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_chat_list_tv_letter_text_size"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="@id/itemChatListIvAvatar"
+        app:layout_constraintEnd_toEndOf="@id/itemChatListIvAvatar"
+        app:layout_constraintStart_toStartOf="@id/itemChatListIvAvatar"
+        app:layout_constraintTop_toTopOf="@id/itemChatListIvAvatar"
+        tools:text="S" />
 
     <ImageView
         android:id="@+id/itemChatListIvOnline"
@@ -25,22 +40,21 @@
         android:background="@drawable/background_status_online"
         android:contentDescription="@string/online"
         android:src="@drawable/icon_online"
-        tools:visibility="visible"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/itemChatListIvAvatar"
-        app:layout_constraintEnd_toEndOf="@id/itemChatListIvAvatar" />
+        app:layout_constraintEnd_toEndOf="@id/itemChatListIvAvatar"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/itemChatListTvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_chat_list_tv_login_margin_start"
-        android:layout_marginTop="@dimen/item_chat_list_tv_login_margin_top"
         android:fontFamily="@font/roboto_regular"
         android:textColor="@color/user_name_text"
         android:textSize="@dimen/item_chat_list_tv_login_text_size"
         app:layout_constraintStart_toEndOf="@id/itemChatListIvAvatar"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/itemChatListIvAvatar"
         tools:text="Sergo1996" />
 
     <TextView
@@ -61,13 +75,12 @@
         android:id="@+id/itemChatListIvNoticeOval"
         android:layout_width="@dimen/item_chat_list_iv_notice_oval_width"
         android:layout_height="@dimen/item_chat_list_iv_notice_oval_height"
-        android:layout_marginTop="@dimen/item_chat_list_iv_notice_oval_margin_top"
         android:layout_marginEnd="@dimen/item_chat_list_iv_notice_oval_margin_end"
         android:contentDescription="@string/unread_notification"
         android:src="@drawable/notice_oval"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/itemChatListTvLogin" />
 
     <TextView
         android:id="@+id/itemChatListTvNoticeCount"
@@ -87,13 +100,10 @@
         android:id="@+id/itemChatListTvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item_chat_list_tv_time_margin_top"
-        android:layout_marginEnd="@dimen/item_chat_list_tv_time_margin_end"
-        android:layout_marginBottom="@dimen/item_chat_list_tv_time_margin_bottom"
         android:textColor="@color/item_chat_list_time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemChatListIvNoticeOval"
+        app:layout_constraintStart_toStartOf="@id/itemChatListIvNoticeOval"
+        app:layout_constraintEnd_toEndOf="@id/itemChatListIvNoticeOval"
+        app:layout_constraintTop_toTopOf="@id/itemChatListTvMessage"
         tools:text="23:20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

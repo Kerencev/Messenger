@@ -12,9 +12,23 @@
         android:layout_marginStart="@dimen/item_user_iv_avatar_margin_start"
         android:layout_marginTop="@dimen/item_user_iv_avatar_margin_top"
         android:background="@drawable/background_chat_list_user_avatar"
-        android:src="@drawable/ic_user_place_holder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLetter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_user_tv_letter_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+        app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+        app:layout_constraintStart_toStartOf="@id/ivAvatar"
+        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+        tools:text="S" />
 
     <TextView
         android:id="@+id/tvUserName"

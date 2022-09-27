@@ -10,6 +10,7 @@ import moxy.viewstate.strategy.StateStrategyType
 interface MainView : MvpView {
     fun startLoginActivity()
     fun setUserData(user: User)
+    fun updateUserLogin(newLogin: String)
     fun setToolbar(toolbar: Toolbar)
     fun hideStatusBar()
     fun showStatusBar()
