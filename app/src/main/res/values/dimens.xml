@@ -124,7 +124,7 @@
     <dimen name="item_chat_list_iv_notice_oval_width">20dp</dimen>
     <dimen name="item_chat_list_iv_notice_oval_height">20dp</dimen>
     <dimen name="item_chat_list_iv_notice_oval_margin_top">4dp</dimen>
-    <dimen name="item_chat_list_iv_notice_oval_margin_end">20dp</dimen>
+    <dimen name="item_chat_list_iv_notice_oval_margin_end">12dp</dimen>
     <dimen name="item_chat_list_tv_notice_count_text_size">10sp</dimen>
     <dimen name="item_chat_list_tv_time_margin_top">4dp</dimen>
     <dimen name="item_chat_list_tv_time_margin_end">16dp</dimen>
@@ -191,4 +191,8 @@
     <dimen name="item_chat_list_tv_letter_text_size">20sp</dimen>
     <dimen name="item_user_tv_letter_text_size">18sp</dimen>
     <dimen name="fragment_chat_tv_letter_text_size">24sp</dimen>
+    <dimen name="fragment_settings_tv_letter_text_size">32sp</dimen>
+    <dimen name="nav_header_tv_letter_text_size">32sp</dimen>
+    <dimen name="tv_item_chat_date_margin_vertical">4dp</dimen>
+    <dimen name="tv_item_chat_date_padding_horizontal">16dp</dimen>
 </resources>

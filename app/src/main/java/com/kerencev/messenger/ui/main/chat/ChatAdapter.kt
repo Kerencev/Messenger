@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.kerencev.messenger.databinding.ItemChatDateBinding
 import com.kerencev.messenger.databinding.ItemChatFromUserBinding
 import com.kerencev.messenger.databinding.ItemChatToUserBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.utils.MyDate
 
+private const val DATE_TYPE = 0
 private const val FROM_USER_TYPE = 1
 private const val TO_USER_TYPE = 2
 
 //TODO: Add DiffUtil and Room Cache
-class ChatAdapter(private val userId : String) : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
+class ChatAdapter(private val userId: String) : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
 
     private val data = ArrayList<ChatMessage>()
 
@@ -24,11 +26,27 @@ class ChatAdapter(private val userId : String) : RecyclerView.Adapter<ChatAdapte
     }
 
     fun insertItem(chatMessage: ChatMessage) {
+        val currentDate = MyDate.getDate(System.currentTimeMillis())
+        if (data.isEmpty()) {
+            data.add(ChatMessage(message = currentDate))
+            notifyItemInserted(data.size - 1)
+            data.add(chatMessage)
+            notifyItemInserted(data.size - 1)
+            return
+        }
+        val lastDate = MyDate.getDate(data.last().timesTamp)
+        if (currentDate != lastDate) {
+            data.add(ChatMessage(message = currentDate))
+            notifyItemInserted(data.size - 1)
+        }
         data.add(chatMessage)
         notifyItemInserted(data.size - 1)
     }
 
     override fun getItemViewType(position: Int): Int {
+        if (data[position].id.isEmpty()) {
+            return DATE_TYPE
+        }
         return if (userId == data[position].fromId) {
             FROM_USER_TYPE
         } else {
@@ -38,6 +56,14 @@ class ChatAdapter(private val userId : String) : RecyclerView.Adapter<ChatAdapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
+            DATE_TYPE -> {
+                val binding = ItemChatDateBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                DateViewHolder(binding)
+            }
             FROM_USER_TYPE -> {
                 val binding = ItemChatFromUserBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -92,6 +118,13 @@ class ChatAdapter(private val userId : String) : RecyclerView.Adapter<ChatAdapte
                 tvChatToUserMessage.text = chatMessage.message
                 tvChatToUserTime.text = MyDate.getTime(chatMessage.timesTamp)
             }
+        }
+    }
+
+    inner class DateViewHolder(private val binding: ItemChatDateBinding) :
+        BaseViewHolder(binding.root) {
+        override fun bind(chatMessage: ChatMessage) {
+            binding.tvItemChatDate.text = chatMessage.message
         }
     }
 }

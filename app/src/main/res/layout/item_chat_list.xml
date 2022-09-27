@@ -24,9 +24,9 @@
         android:layout_height="0dp"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="@dimen/item_chat_list_tv_letter_text_size"
-        android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="@id/itemChatListIvAvatar"
         app:layout_constraintEnd_toEndOf="@id/itemChatListIvAvatar"
         app:layout_constraintStart_toStartOf="@id/itemChatListIvAvatar"
@@ -75,11 +75,10 @@
         android:id="@+id/itemChatListIvNoticeOval"
         android:layout_width="@dimen/item_chat_list_iv_notice_oval_width"
         android:layout_height="@dimen/item_chat_list_iv_notice_oval_height"
-        android:layout_marginEnd="@dimen/item_chat_list_iv_notice_oval_margin_end"
         android:contentDescription="@string/unread_notification"
         android:src="@drawable/notice_oval"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/itemChatListTvTime"
         app:layout_constraintTop_toTopOf="@id/itemChatListTvLogin" />
 
     <TextView
@@ -100,10 +99,10 @@
         android:id="@+id/itemChatListTvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_chat_list_iv_notice_oval_margin_end"
         android:textColor="@color/item_chat_list_time"
-        app:layout_constraintStart_toStartOf="@id/itemChatListIvNoticeOval"
-        app:layout_constraintEnd_toEndOf="@id/itemChatListIvNoticeOval"
-        app:layout_constraintTop_toTopOf="@id/itemChatListTvMessage"
+        app:layout_constraintBottom_toBottomOf="@id/itemChatListTvMessage"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:text="23:20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,7 +61,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
             }
             if (createCombinePayload.newData.timesTamp != createCombinePayload.oldData.timesTamp) {
                 holder.itemView.findViewById<TextView>(R.id.itemChatListTvTime).text =
-                    MyDate.getTime(createCombinePayload.newData.timesTamp)
+                    MyDate.getTimeForChatList(createCombinePayload.newData.timesTamp)
             }
             if (createCombinePayload.newData.countOfUnread != createCombinePayload.oldData.countOfUnread) {
                 holder.itemView.findViewById<TextView>(R.id.itemChatListTvNoticeCount).text =
@@ -113,7 +113,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
             with(binding) {
                 itemChatListTvLogin.text = message.chatPartnerLogin
                 itemChatListTvMessage.text = message.message
-                itemChatListTvTime.text = MyDate.getTime(message.timesTamp)
+                itemChatListTvTime.text = MyDate.getTimeForChatList(message.timesTamp)
                 itemChatListIvNoticeOval.visibility = if (message.countOfUnread > 0) {
                     View.VISIBLE
                 } else {

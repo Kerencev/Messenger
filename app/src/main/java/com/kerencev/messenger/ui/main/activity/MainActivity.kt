@@ -85,10 +85,21 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             user.email
         val avatarView =
             binding.navigation.getHeaderView(0).findViewById<ImageView>(R.id.ivNavHeaderAvatar)
-        Glide.with(this)
-            .load(user.avatarUrl)
-            .placeholder(R.drawable.user)
-            .into(avatarView)
+        val letterView =
+            binding.navigation.getHeaderView(0).findViewById<TextView>(R.id.tvNavHeaderLetter)
+        when (user.avatarUrl) {
+            null -> {
+                letterView.visibility = View.VISIBLE
+                letterView.text = user.login.first().toString()
+            }
+            else -> {
+                avatarView.visibility = View.VISIBLE
+                Glide.with(this)
+                    .load(user.avatarUrl)
+                    .placeholder(R.drawable.user)
+                    .into(avatarView)
+            }
+        }
     }
 
     override fun updateUserLogin(newLogin: String) {

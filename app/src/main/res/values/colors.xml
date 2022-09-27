@@ -33,5 +33,8 @@
     <color name="ripple_card_settings">#A3A1A1</color>
     <color name="change_name_info_text">#636363</color>
     <color name="change_name_hint_error">#B00020</color>
-    <color name="highlight_error">#C6C6C6</color>
+    <color name="highlight_error">#80C6C6C6</color>
+    <color name="background_settings_icon">#ADADAD</color>
+    <color name="background_item_chat_date">#80ADADAD</color>
+    <color name="item_chat_date_text_color">#F2FFFFFF</color>
 </resources>

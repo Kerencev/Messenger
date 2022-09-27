@@ -1,6 +1,7 @@
 package com.kerencev.messenger.model.repository.impl
 
 import android.annotation.SuppressLint
+import android.os.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.kerencev.messenger.model.entities.ChatMessage
@@ -8,6 +9,8 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.ChatMessageMapper
+import com.kerencev.messenger.utils.DAY_MILLISECONDS
+import com.kerencev.messenger.utils.MyDate
 import com.kerencev.messenger.utils.StatusOfSendingMessage
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -141,17 +144,29 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         }
     }
 
-    override fun getAllMessages(fromId: String, toId: String): Single<List<ChatMessage>> {
+    override fun getAllMessages(fromId: String, toId: String): Single<Pair<List<ChatMessage>, Int>> {
         return Single.create { emitter ->
             val result = ArrayList<ChatMessage>()
             val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
             ref.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    var tempDate = ""
+                    var dateCount = 0
                     snapshot.children.forEach {
                         val message = it.getValue(ChatMessage::class.java)
-                        message?.let { it1 -> result.add(it1) }
+                        message?.let {
+                            val date = MyDate.getDate(message.timesTamp)
+                            if (date != tempDate) {
+                                result.add(
+                                    ChatMessage(message = date)
+                                )
+                                tempDate = date
+                                dateCount++
+                            }
+                            result.add(message)
+                        }
                     }
-                    emitter.onSuccess(result)
+                    emitter.onSuccess(Pair(result, dateCount))
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -270,7 +285,8 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                 false -> userRef.setValue("")
             }
             //Update typing status for chat partner's latest messages
-            val latestRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$chatPartnerId/$userId/chatPartnerIsTyping")
+            val latestRef = FirebaseDatabase.getInstance()
+                .getReference("/latest-messages/$chatPartnerId/$userId/chatPartnerIsTyping")
             latestRef.setValue(isTyping)
             it.onComplete()
         }

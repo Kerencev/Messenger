@@ -8,10 +8,7 @@ import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
-import com.kerencev.messenger.utils.MyDate
-import com.kerencev.messenger.utils.StatusOfSendingMessage
-import com.kerencev.messenger.utils.disposeBy
-import com.kerencev.messenger.utils.subscribeByDefault
+import com.kerencev.messenger.utils.*
 
 private const val TAG = "ChatPresenter"
 
@@ -40,16 +37,12 @@ class ChatPresenter(
                 { statusOfSending ->
                     when (statusOfSending) {
                         is StatusOfSendingMessage.Status1 -> {
-                            Log.d(TAG, "Status1")
                         }
                         is StatusOfSendingMessage.Status2 -> {
-                            Log.d(TAG, "Status2")
                         }
                         is StatusOfSendingMessage.Status3 -> {
-                            Log.d(TAG, "Status3")
                         }
                         is StatusOfSendingMessage.Status4 -> {
-                            Log.d(TAG, "Status4")
                         }
                     }
                 },
@@ -73,12 +66,15 @@ class ChatPresenter(
         repository.getAllMessages(fromId, toId)
             .subscribeByDefault()
             .subscribe(
-                { data ->
+                { result ->
+                    val data = result.first
+                    val dateCounts = result.second
+                    val skipCount = (data.size - dateCounts).toLong()
                     viewState.setAdapterData(data)
                     if (data.isNotEmpty()) {
                         resetUnreadMessagesWithFirebase(toId, fromId)
                     }
-                    listenForNewMessagesFromFirebase(fromId, toId, data.size.toLong())
+                    listenForNewMessagesFromFirebase(fromId, toId, skipCount)
                 },
                 {
                     Log.d(TAG, "Failed to load all messages from Firebase")

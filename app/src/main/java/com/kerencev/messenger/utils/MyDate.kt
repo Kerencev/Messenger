@@ -6,12 +6,38 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 const val STATUS_ONLINE = "онлайн"
-private const val DAY_MILLISECONDS = 86400000
+const val DAY_MILLISECONDS = 86400000
 
 object MyDate {
+
+    @SuppressLint("SimpleDateFormat")
+    fun getDate(timestamp: Long): String {
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val date = Date(timestamp)
+        val dateString = simpleDateFormat.format(date)
+        val currentTime = System.currentTimeMillis()
+        val currentDate = Date(currentTime)
+        val currentDateString = simpleDateFormat.format(currentDate)
+        return if (dateString == currentDateString) {
+            "Сегодня"
+        } else {
+            dateString
+        }
+    }
+
     @SuppressLint("SimpleDateFormat")
     fun getTime(timestamp: Long): String {
         val simpleDateFormat = SimpleDateFormat("HH:mm")
+        val date = Date(timestamp)
+        return simpleDateFormat.format(date)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getTimeForChatList(timestamp: Long): String {
+        if (System.currentTimeMillis() - timestamp < DAY_MILLISECONDS) {
+            return getTime(timestamp)
+        }
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
         val date = Date(timestamp)
         return simpleDateFormat.format(date)
     }

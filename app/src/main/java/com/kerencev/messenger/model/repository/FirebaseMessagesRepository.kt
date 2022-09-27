@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Single
 
 interface FirebaseMessagesRepository {
     fun listenForNewMessages(fromId: String, toId: String): Observable<ChatMessage>
-    fun getAllMessages(fromId: String, toId: String): Single<List<ChatMessage>>
+    fun getAllMessages(fromId: String, toId: String): Single<Pair<List<ChatMessage>, Int>>
     fun listenForLatestMessages(): Observable<ChatMessage>
     fun resetUnreadMessages(toId: String, fromId: String): Completable
     fun getCountOfUnreadMessages(toId: String, fromId: String): Single<Long>

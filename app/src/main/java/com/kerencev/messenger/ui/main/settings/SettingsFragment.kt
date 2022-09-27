@@ -53,8 +53,11 @@ class SettingsFragment :
 
     override fun renderUserInfo(user: User) {
         with(binding) {
-            Glide.with(requireContext()).load(user.avatarUrl)
-                .placeholder(R.drawable.ic_user_place_holder).into(ivSettingsAvatar)
+            when (user.avatarUrl) {
+                null -> tvSettingsLetter.text = user.login.first().toString()
+                else -> Glide.with(requireContext()).load(user.avatarUrl)
+                    .placeholder(R.drawable.ic_user_place_holder).into(ivSettingsAvatar)
+            }
             tvSettingsLogin.text = user.login
             tvSettingsEmail.text = user.email
             tvSettingsProfileLogin.text = user.login

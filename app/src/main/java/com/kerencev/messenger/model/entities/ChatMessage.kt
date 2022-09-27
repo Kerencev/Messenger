@@ -16,4 +16,5 @@ data class ChatMessage(
     val chatPartnerAvatarUrl: String?
 ) {
     constructor() : this("", "", "", "", -1, 0, "", "", "", -1, false, false, null)
+    constructor(message: String) : this("", message, "", "", -1, 0, "", "", "", -1, false, false, null)
 }

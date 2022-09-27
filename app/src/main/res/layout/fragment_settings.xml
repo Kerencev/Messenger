@@ -45,8 +45,24 @@
                     android:layout_height="@dimen/fragment_settings_iv_avatar_height"
                     android:layout_marginStart="@dimen/fragment_settings_iv_avatar_margin_start"
                     android:layout_marginBottom="@dimen/fragment_settings_iv_avatar_margin_bottom"
+                    android:background="@drawable/background_chat_toolbar_avatar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSettingsLetter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fragment_settings_tv_letter_text_size"
+                    app:layout_constraintBottom_toBottomOf="@id/ivSettingsAvatar"
+                    app:layout_constraintEnd_toEndOf="@id/ivSettingsAvatar"
+                    app:layout_constraintStart_toStartOf="@id/ivSettingsAvatar"
+                    app:layout_constraintTop_toTopOf="@id/ivSettingsAvatar"
+                    tools:text="S" />
 
                 <TextView
                     android:id="@+id/tvSettingsLogin"
@@ -129,6 +145,14 @@
                     style="@style/TextSettingsStyle"
                     tools:text="Sergo" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/fragment_settings_tv_items_padding_horizontal"
+                    android:contentDescription="@string/redact_login"
+                    android:src="@drawable/icon_create" />
+
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -197,8 +221,8 @@
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchSettingsProfileAnimation"
                     style="@style/TextSettingsStyle"
-                    android:text="@string/autoplay_animation"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:text="@string/autoplay_animation" />
 
             </com.google.android.material.card.MaterialCardView>
 
