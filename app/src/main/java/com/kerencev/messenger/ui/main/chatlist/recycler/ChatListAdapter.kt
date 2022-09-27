@@ -1,5 +1,6 @@
 package com.kerencev.messenger.ui.main.chatlist.recycler
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val binding =
             ItemChatListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ChatViewHolder(binding)
+        return ChatViewHolder(binding, parent.context)
     }
 
     override fun getItemCount() = data.size
@@ -90,10 +91,23 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     false -> View.GONE
                 }
             }
+            if (createCombinePayload.newData.chatPartnerIsTyping != createCombinePayload.oldData.chatPartnerIsTyping) {
+                val textView = holder.itemView.findViewById<TextView>(R.id.itemChatListTvMessage)
+                when(createCombinePayload.newData.chatPartnerIsTyping) {
+                    true -> {
+                        textView.text = "печатает..."
+                        textView.setTextColor(holder.context.resources.getColor(R.color.user_status_online))
+                    }
+                    false -> {
+                        textView.text = createCombinePayload.newData.message
+                        textView.setTextColor(holder.context.resources.getColor(R.color.item_chat_list_message))
+                    }
+                }
+            }
         }
     }
 
-    inner class ChatViewHolder(private val binding: ItemChatListBinding) :
+    inner class ChatViewHolder(private val binding: ItemChatListBinding, val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(message: ChatMessage) {
             with(binding) {

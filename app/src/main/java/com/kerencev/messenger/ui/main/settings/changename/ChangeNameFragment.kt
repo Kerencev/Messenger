@@ -3,17 +3,9 @@ package com.kerencev.messenger.ui.main.settings.changename
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
-import androidx.transition.ArcMotion
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
@@ -23,7 +15,6 @@ import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.utils.hideKeyboard
-import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.showKeyBoard
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit

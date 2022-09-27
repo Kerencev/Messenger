@@ -12,7 +12,8 @@ data class ChatMessage(
     val chatPartnerEmail: String,
     var chatPartnerWasOnline: Long,
     var chatPartnerIsOnline: Boolean,
+    var chatPartnerIsTyping: Boolean,
     val chatPartnerAvatarUrl: String?
 ) {
-    constructor() : this("", "", "", "", -1, 0, "", "", "", -1, false, null)
+    constructor() : this("", "", "", "", -1, 0, "", "", "", -1, false, false, null)
 }

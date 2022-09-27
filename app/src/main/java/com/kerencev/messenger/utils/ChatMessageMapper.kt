@@ -22,6 +22,7 @@ object ChatMessageMapper {
             chatPartnerEmail = chatPartner.email,
             chatPartnerWasOnline = chatPartner.wasOnline,
             chatPartnerIsOnline = true,
+            chatPartnerIsTyping = false,
             chatPartnerAvatarUrl = chatPartner.avatarUrl
         )
     }
@@ -39,6 +40,7 @@ object ChatMessageMapper {
             chatPartnerEmail = chatPartner.email,
             chatPartnerWasOnline = chatPartner.wasOnline,
             chatPartnerIsOnline = true,
+            chatPartnerIsTyping = false,
             chatPartnerAvatarUrl = chatPartner.avatarUrl
         )
     }

@@ -263,11 +263,16 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         isTyping: Boolean
     ): Completable {
         return Completable.create {
-            val ref = FirebaseDatabase.getInstance().getReference("/users/$userId/typingFor")
+            //Update typing status for users ref
+            val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId/typingFor")
             when (isTyping) {
-                true -> ref.setValue(chatPartnerId)
-                false -> ref.setValue("")
+                true -> userRef.setValue(chatPartnerId)
+                false -> userRef.setValue("")
             }
+            //Update typing status for chat partner's latest messages
+            val latestRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$chatPartnerId/$userId/chatPartnerIsTyping")
+            latestRef.setValue(isTyping)
+            it.onComplete()
         }
     }
 

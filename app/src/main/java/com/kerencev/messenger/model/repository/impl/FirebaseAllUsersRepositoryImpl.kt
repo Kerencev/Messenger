@@ -8,7 +8,6 @@ import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAllUsersRepository
 import com.kerencev.messenger.utils.MyDate
-import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 

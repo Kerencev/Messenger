@@ -17,8 +17,6 @@ import com.kerencev.messenger.ui.main.chatlist.recycler.ChatListAdapter
 import com.kerencev.messenger.ui.main.chatlist.recycler.OnItemClick
 import moxy.ktx.moxyPresenter
 
-private const val TAG = "ChatListFragment"
-
 //TODO: Add Room Cache
 class ChatListFragment :
     ViewBindingFragment<FragmentChatListBinding>(FragmentChatListBinding::inflate),
