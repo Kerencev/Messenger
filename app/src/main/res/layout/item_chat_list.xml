@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="@id/itemChatListIvAvatar"
         tools:text="Sergo1996" />
 
-    <TextView
+    <com.vanniktech.emoji.EmojiTextView
         android:id="@+id/itemChatListTvMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -66,6 +66,7 @@
         android:singleLine="true"
         android:textColor="@color/item_chat_list_message"
         android:textSize="@dimen/item_chat_list_tv_message_text_size"
+        app:emojiSize="@dimen/emoji_size"
         app:layout_constraintEnd_toStartOf="@id/itemChatListTvTime"
         app:layout_constraintStart_toStartOf="@id/itemChatListTvLogin"
         app:layout_constraintTop_toBottomOf="@id/itemChatListTvLogin"

@@ -15,11 +15,9 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.vanniktech.emoji.EmojiPopup
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit
-
-
-private const val TAG = "ChatFragment"
 
 class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBinding::inflate),
     ChatView, OnBackPressedListener {
@@ -34,9 +32,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     private val user = MessengerApp.instance.user
     private val adapter = ChatAdapter(userId = user.uid)
     private var chatPartner: User? = null
+    private var isSmileIcon = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpEmoji()
         chatPartner = arguments?.getParcelable(BUNDLE_KEY_USER)
         chatPartner?.let {
             presenter.loadAllMessagesFromFirebase(user.uid, it.uid)
@@ -58,7 +58,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                 chatToolbarTitle.text = it.login
             }
             chatRv.adapter = adapter
-            chatFabSend.setOnClickListener { _ ->
+            chatCardSend.setOnClickListener { _ ->
                 val text = chatEditText.text.toString()
                 chatPartner?.let {
                     presenter.performSendMessages(
@@ -163,6 +163,22 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                 }
             }
             true
+        }
+    }
+
+    private fun setUpEmoji() = with(binding) {
+        val popup = EmojiPopup(
+            chatRoot,
+            chatEditText
+        )
+
+        chatCardSmile.setOnClickListener {
+            when (isSmileIcon) {
+                true -> chatIvSmile.setImageResource(R.drawable.icon_keyboard)
+                false -> chatIvSmile.setImageResource(R.drawable.icon_smile)
+            }
+            isSmileIcon = !isSmileIcon
+            popup.toggle()
         }
     }
 

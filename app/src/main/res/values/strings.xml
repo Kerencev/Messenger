@@ -69,4 +69,5 @@
     <string name="not_valid_login">Имя пользователя уже занято.</string>
     <string name="valid_login">Имя пользователя свободно.</string>
     <string name="redact_login">Отредактировать логин</string>
+    <string name="smile">Смайлик</string>
 </resources>

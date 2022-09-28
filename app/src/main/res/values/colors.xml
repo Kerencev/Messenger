@@ -37,4 +37,6 @@
     <color name="background_settings_icon">#ADADAD</color>
     <color name="background_item_chat_date">#80ADADAD</color>
     <color name="item_chat_date_text_color">#F2FFFFFF</color>
+    <color name="chat_edit_icons_color">#717171</color>
+    <color name="chat_edit_hint_color">#717171</color>
 </resources>

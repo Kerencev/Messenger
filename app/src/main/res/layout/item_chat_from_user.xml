@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -13,10 +14,11 @@
         android:background="@drawable/background_chat_from_user"
         android:orientation="vertical">
 
-        <TextView
+        <com.vanniktech.emoji.EmojiTextView
             android:id="@+id/tvChatFromUserMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:emojiSize="@dimen/emoji_size"
             android:fontFamily="@font/roboto_regular"
             android:paddingHorizontal="@dimen/item_chat_from_user_tv_message_padding_horizontal"
             android:paddingVertical="@dimen/item_chat_from_user_tv_message_padding_vertical"

@@ -104,38 +104,82 @@
         style="@style/ChatTextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/chat_text_input_layout_margin"
+        android:background="@color/white"
         app:hintEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/chatFabSend"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/chatEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/background_chat_input_text"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/message"
-            android:inputType="textMultiLine|textCapSentences"
-            android:maxLines="6"
-            android:padding="@dimen/chat_text_input_edit_text_padding"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint_message"
-            android:textSize="@dimen/chat_edit_text" />
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chatCardSmile"
+                android:layout_width="@dimen/fragment_chat_card_edit_icon_width"
+                android:layout_height="@dimen/fragment_chat_card_edit_icon_height"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/fragment_chat_card_edit_icon_margin_start"
+                android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
+                android:background="@color/white"
+                app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
+                app:cardElevation="0dp"
+                app:rippleColor="@color/highlight_error"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/chatIvSmile"
+                    android:layout_width="@dimen/fragment_chat_iv_edit_icon_width"
+                    android:layout_height="@dimen/fragment_chat_iv_edit_icon_height"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:contentDescription="@string/smile"
+                    android:src="@drawable/icon_smile" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.vanniktech.emoji.EmojiEditText
+                android:id="@+id/chatEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/message"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="6"
+                android:padding="@dimen/chat_text_input_edit_text_padding"
+                android:textColor="@color/black"
+                android:textColorHint="@color/chat_edit_hint_color"
+                android:textSize="@dimen/chat_edit_text"
+                app:emojiSize="@dimen/emoji_size" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chatCardSend"
+                android:layout_width="@dimen/fragment_chat_card_edit_icon_width"
+                android:layout_height="@dimen/fragment_chat_card_edit_icon_height"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="@dimen/fragment_chat_card_edit_icon_margin_end"
+                android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
+                android:background="@color/white"
+                app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
+                app:cardElevation="0dp"
+                app:rippleColor="@color/highlight_error"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/chatIvSend"
+                    android:layout_width="@dimen/fragment_chat_iv_edit_icon_width"
+                    android:layout_height="@dimen/fragment_chat_iv_edit_icon_height"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:contentDescription="@string/smile"
+                    android:src="@drawable/icon_send" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/chatFabSend"
-        android:layout_width="@dimen/chat_fab_send_width"
-        android:layout_height="@dimen/chat_fab_send_height"
-        android:layout_margin="@dimen/chat_fab_send_margin"
-        android:baselineAlignBottom="true"
-        android:contentDescription="@string/send_message"
-        android:src="@drawable/icon_send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

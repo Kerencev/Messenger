@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primary_background</item>
-        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/white</item>
         <!-- Customize your theme here. -->
         <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
         <item name="floatingActionButtonStyle">@style/FloatingActionButtonStyle</item>

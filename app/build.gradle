@@ -84,4 +84,7 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:$work_version"
     // RxJava2 support
     implementation "androidx.work:work-rxjava2:$work_version"
+
+    //Emoji
+    implementation 'com.vanniktech:emoji-google:0.15.0'
 }

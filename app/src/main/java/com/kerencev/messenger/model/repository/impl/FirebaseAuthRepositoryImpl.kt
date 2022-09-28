@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import com.kerencev.messenger.services.StatusWorkManager
+import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -89,10 +90,12 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
             userIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue(User::class.java)
+                    log(user?.login.toString())
                     user?.let { emitter.onSuccess(it) }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    log(error.message)
                     emitter.onError(error.toException())
                 }
             })

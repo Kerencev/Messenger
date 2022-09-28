@@ -27,6 +27,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1295" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_background_1__4_.xml" value="0.1235" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.1285" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_baseline_keyboard_24.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.151" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_contacts.xml" value="0.1425" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_done.xml" value="0.1285" />
@@ -41,7 +42,12 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_create.xml" value="0.112" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_done.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_group.xml" value="0.1325" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_keyboard.xml" value="0.141" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_online.xml" value="0.1285" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_send.xml" value="0.1285" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_smile.xml" value="0.1285" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/keyboard_to_smile.xml" value="0.1" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/smile_to_keyboard.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/test.xml" value="0.1545" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/vector_backgroun1.xml" value="0.1325" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/font/roboto.xml" value="0.23981481481481481" />
@@ -62,7 +68,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_walkthroughs1.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_walkthroughs2.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_walkthroughs3.xml" value="0.253125" />
-        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_wallpapers.xml" value="0.2" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_wallpapers.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_welcome.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_chat_date.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_chat_from_user.xml" value="0.264" />
@@ -77,6 +83,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/main_menu.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/navigation_drawer.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/search.xml" value="0.253125" />
+        <entry key="..\:/Users/Keren/AppData/Local/Temp/drawable-temp/fake_of_smile_keyboard.xml" value="0.192" />
       </map>
     </option>
   </component>

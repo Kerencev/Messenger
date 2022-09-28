@@ -1,7 +1,6 @@
 package com.kerencev.messenger.model.repository.impl
 
 import android.annotation.SuppressLint
-import android.os.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.kerencev.messenger.model.entities.ChatMessage
@@ -9,7 +8,6 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.ChatMessageMapper
-import com.kerencev.messenger.utils.DAY_MILLISECONDS
 import com.kerencev.messenger.utils.MyDate
 import com.kerencev.messenger.utils.StatusOfSendingMessage
 import io.reactivex.rxjava3.core.Completable
