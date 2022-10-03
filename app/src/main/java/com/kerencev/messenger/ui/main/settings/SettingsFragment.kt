@@ -2,11 +2,14 @@ package com.kerencev.messenger.ui.main.settings
 
 import android.Manifest
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +41,7 @@ import com.kerencev.messenger.ui.main.settings.cropimage.CropImageFragment
 import com.kerencev.messenger.utils.showComingSoonSnack
 import moxy.ktx.moxyPresenter
 
+
 class SettingsFragment :
     ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate),
     OnBackPressedListener, SettingsView {
@@ -53,6 +57,7 @@ class SettingsFragment :
     private lateinit var activityLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var photoDialog: Dialog
+    private var newPhotoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,13 +83,13 @@ class SettingsFragment :
             override fun onClick(path: String) {
                 when (path) {
                     PHOTO_ICON -> {
-                        //TODO: open camera
+                        openCameraWithSavingPhoto()
                     }
                     else -> {
                         presenter.navigateTo(CropImageScreen(path))
-                        photoDialog.dismiss()
                     }
                 }
+                photoDialog.dismiss()
             }
         })
         dialogRv.adapter = adapter
@@ -170,10 +175,28 @@ class SettingsFragment :
             }
     }
 
+    private fun openCameraWithSavingPhoto() {
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "new image")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the camera")
+        newPhotoUri = requireActivity().contentResolver.insert(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            values
+        )
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, newPhotoUri)
+        activityLauncher.launch(intent)
+    }
+
     private fun registerActivityResultListener() {
         activityLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                result.resultCode
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                Toast.makeText(
+                    requireContext(),
+                    R.string.picture_is_saved_to_the_gallery,
+                    Toast.LENGTH_SHORT
+                ).show()
+                presenter.navigateTo(CropImageScreen(newPhotoUri.toString()))
             }
     }
 
