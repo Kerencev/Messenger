@@ -7,6 +7,8 @@ import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 class CropImagePresenter(
     private val router: Router,
@@ -19,8 +21,7 @@ class CropImagePresenter(
             .subscribeByDefault()
             .subscribe(
                 { avatarUrl ->
-                    viewState.setResultForSettingsFragment(avatarUrl)
-                    router.exit()
+                    viewState.finishWithResult(avatarUrl)
                 },
                 {
                     log(it.message.toString())
@@ -29,8 +30,7 @@ class CropImagePresenter(
     }
 
     fun cancelDownload() {
-        viewState.hideLoading()
-        bag.dispose()
         bag.clear()
+        viewState.hideLoading()
     }
 }

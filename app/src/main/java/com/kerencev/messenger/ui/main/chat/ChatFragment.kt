@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.kerencev.messenger.MessengerApp
@@ -33,6 +34,12 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     private val adapter = ChatAdapter(userId = user.uid)
     private var chatPartner: User? = null
     private var isSmileIcon = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,6 +86,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     }
 
     override fun onStop() {
+        requireActivity().window?.setBackgroundDrawableResource(R.color.white)
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.chatEditText.windowToken, 0)

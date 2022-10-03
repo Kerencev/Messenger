@@ -40,4 +40,5 @@
     <color name="chat_edit_icons_color">#717171</color>
     <color name="chat_edit_hint_color">#717171</color>
     <color name="icon_add_camera">#636363</color>
+    <color name="chat_list_card_ripple">#1A000000</color>
 </resources>

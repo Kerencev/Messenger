@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
@@ -62,6 +63,8 @@ class SettingsFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainActivity = (activity as? MainView)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

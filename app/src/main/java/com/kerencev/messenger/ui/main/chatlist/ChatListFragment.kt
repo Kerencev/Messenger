@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
+import androidx.transition.TransitionInflater
 import com.kerencev.messenger.MessengerApp
+import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatListBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
@@ -60,12 +62,14 @@ class ChatListFragment :
 
     override fun onResume() {
         super.onResume()
-        hideStatusBar()
+        mainActivity?.hideStatusBar()
+        mainActivity?.setDrawerLockMode(isOpenable = true)
     }
 
     override fun onPause() {
         super.onPause()
-        showStatusBar()
+        mainActivity?.showStatusBar()
+        mainActivity?.setDrawerLockMode(isOpenable = false)
     }
 
     private fun setToolbarOptionsItemClick() {
@@ -83,14 +87,6 @@ class ChatListFragment :
 
     override fun updateAdapterData(data: List<ChatMessage>) {
         adapter.setListDataForDiffUtil(data)
-    }
-
-    override fun showStatusBar() {
-        mainActivity?.showStatusBar()
-    }
-
-    override fun hideStatusBar() {
-        mainActivity?.hideStatusBar()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

@@ -2,7 +2,9 @@ package com.kerencev.messenger.ui.main.newmessage
 
 import android.os.Bundle
 import android.view.View
+import androidx.transition.TransitionInflater
 import com.kerencev.messenger.MessengerApp
+import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentNewMessageBinding
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.FirebaseAllUsersRepositoryImpl
@@ -16,6 +18,12 @@ class NewMessageFragment :
 
     private val presenter: NewMessagePresenter by moxyPresenter {
         NewMessagePresenter(MessengerApp.instance.router, FirebaseAllUsersRepositoryImpl())
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

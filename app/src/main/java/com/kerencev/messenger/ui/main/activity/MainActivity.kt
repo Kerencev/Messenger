@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
@@ -49,7 +51,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(binding.root)
         presenter.verifyUserIsLoggedIn()
         binding.navigation.itemIconTintList = null
-        hideStatusBar()
         setNavigationDrawerClicks()
         Log.d(TAG, "onCreate")
     }
@@ -113,8 +114,18 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun updateUserAvatar(newAvatarUrl: String) {
-        val ivAvatar = binding.navigation.getHeaderView(0).findViewById<CircleImageView>(R.id.ivNavHeaderAvatar)
+        val ivAvatar = binding.navigation.getHeaderView(0)
+            .findViewById<CircleImageView>(R.id.ivNavHeaderAvatar)
         Glide.with(this).load(newAvatarUrl).into(ivAvatar)
+    }
+
+    override fun setDrawerLockMode(isOpenable: Boolean) {
+        binding.drawer.setDrawerLockMode(
+            when (isOpenable) {
+                true -> DrawerLayout.LOCK_MODE_UNLOCKED
+                false -> DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+            }
+        )
     }
 
     override fun setToolbar(toolbar: Toolbar) {

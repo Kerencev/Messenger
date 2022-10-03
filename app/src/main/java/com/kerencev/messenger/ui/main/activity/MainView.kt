@@ -16,4 +16,5 @@ interface MainView : MvpView {
     fun showStatusBar()
     fun startWasOnlineWorkManager()
     fun updateUserAvatar(newAvatarUrl: String)
+    fun setDrawerLockMode(isOpenable: Boolean)
 }

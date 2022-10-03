@@ -15,7 +15,7 @@
         app:cropme_frame_width_percent="80%"
         app:cropme_max_scale="3.0"
         app:cropme_overlay_shape="circle"
-        app:cropme_with_border="true"/>
+        app:cropme_with_border="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cropFab"
@@ -29,27 +29,40 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cropCircleIv"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/fragment_crop_image_circle_iv_width"
+        android:layout_height="@dimen/fragment_crop_image_circle_iv_height"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/cropProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:visibility="gone"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/background_fragment_crop_progress"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/ivCropSuccess"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/icon_done"
+        android:layout_width="@dimen/fragment_crop_image_iv_success_width"
+        android:layout_height="@dimen/fragment_crop_image_iv_success_height"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="@dimen/fragment_crop_image_iv_success_margin_top"
+        android:src="@drawable/icon_done"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvCropUpdatingPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/fragment_crop_image_tv_updating_photo_margin_top"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/updating_photo"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fragment_crop_image_tv_updating_photo_text_size"
+        android:visibility="gone" />
 
 </FrameLayout>

@@ -3,8 +3,10 @@ package com.kerencev.messenger.ui.main.chat.wallpapers
 import android.os.Bundle
 import android.view.View
 import androidx.transition.Fade
+import androidx.transition.TransitionInflater
 import androidx.transition.TransitionManager
 import com.kerencev.messenger.MessengerApp
+import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentWallpapersBinding
 import com.kerencev.messenger.model.repository.impl.WALLPAPERS_ONE
 import com.kerencev.messenger.model.repository.impl.WALLPAPERS_THREE
@@ -23,6 +25,12 @@ class WallpapersFragment :
             WallpapersRepositoryImpl(),
             MessengerApp.instance.router
         )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val inflater = TransitionInflater.from(requireContext())
+        enterTransition = inflater.inflateTransition(R.transition.slide_right)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

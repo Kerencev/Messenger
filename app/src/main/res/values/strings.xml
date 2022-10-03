@@ -73,4 +73,5 @@
     <string name="need_permissions">Необходимо разрешение на камеру и медиаконтент</string>
     <string name="choose_photo">Выберите фотографию</string>
     <string name="picture_is_saved_to_the_gallery">Снимок сохранён в галерею</string>
+    <string name="updating_photo">Обновление фотографии...</string>
 </resources>

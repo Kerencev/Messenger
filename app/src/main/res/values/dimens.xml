@@ -209,4 +209,11 @@
     <dimen name="fragment_crop_image_crop_layout_width">400dp</dimen>
     <dimen name="fragment_crop_image_crop_layout_height">400dp</dimen>
     <dimen name="fragment_crop_image_fab_margin">16dp</dimen>
+    <dimen name="fragment_crop_image_circle_iv_width">300dp</dimen>
+    <dimen name="fragment_crop_image_circle_iv_height">300dp</dimen>
+    <dimen name="fragment_crop_image_iv_success_width">48dp</dimen>
+    <dimen name="fragment_crop_image_iv_success_height">48dp</dimen>
+    <dimen name="fragment_crop_image_iv_success_margin_top">80dp</dimen>
+    <dimen name="fragment_crop_image_tv_updating_photo_margin_top">80dp</dimen>
+    <dimen name="fragment_crop_image_tv_updating_photo_text_size">18sp</dimen>
 </resources>

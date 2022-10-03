@@ -7,7 +7,7 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface CropImageView : MvpView {
-    fun setResultForSettingsFragment(avatarUrl: String)
+    fun finishWithResult(avatarUrl: String)
     fun showLoading(bitmap: Bitmap)
     fun hideLoading()
 }

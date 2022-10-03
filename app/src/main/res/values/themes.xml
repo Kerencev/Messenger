@@ -16,6 +16,7 @@
         <item name="bottomNavigationStyle">@style/BottomNavigationStyle</item>
         <item name="floatingActionButtonStyle">@style/FloatingActionButtonStyle</item>
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="SplashScreenTheme" parent="Theme.Messenger">
