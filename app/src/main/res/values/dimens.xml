@@ -204,4 +204,9 @@
     <dimen name="fragment_chat_iv_edit_icon_width">28dp</dimen>
     <dimen name="fragment_chat_iv_edit_icon_height">28dp</dimen>
     <dimen name="fragment_chat_card_edit_icon_margin_end">8dp</dimen>
+    <dimen name="bottom_sheet_choose_photo_root_height">500dp</dimen>
+    <dimen name="bottom_sheet_choose_photo_tv_text_size">20sp</dimen>
+    <dimen name="fragment_crop_image_crop_layout_width">400dp</dimen>
+    <dimen name="fragment_crop_image_crop_layout_height">400dp</dimen>
+    <dimen name="fragment_crop_image_fab_margin">16dp</dimen>
 </resources>

@@ -10,6 +10,7 @@ import com.kerencev.messenger.ui.main.chatlist.ChatListFragment
 import com.kerencev.messenger.ui.main.newmessage.NewMessageFragment
 import com.kerencev.messenger.ui.main.settings.SettingsFragment
 import com.kerencev.messenger.ui.main.settings.changename.ChangeNameFragment
+import com.kerencev.messenger.ui.main.settings.cropimage.CropImageFragment
 
 object ChatListScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
@@ -44,5 +45,11 @@ object SettingsScreen : FragmentScreen {
 object ChangeNameScreen: FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {
         return ChangeNameFragment()
+    }
+}
+
+class CropImageScreen(private val imagePath: String): FragmentScreen {
+    override fun createFragment(factory: FragmentFactory): Fragment {
+        return CropImageFragment.newInstance(imagePath)
     }
 }

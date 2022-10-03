@@ -14,6 +14,7 @@ import com.kerencev.messenger.model.repository.impl.FirebaseAllUsersRepositoryIm
 import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.ui.main.settings.SettingsFragment
 import com.kerencev.messenger.utils.hideKeyboard
 import com.kerencev.messenger.utils.showKeyBoard
 import moxy.ktx.moxyPresenter
@@ -90,7 +91,7 @@ class ChangeNameFragment :
     }
 
     override fun setResultForSettingsFragment(newLogin: String) {
-        parentFragmentManager.setFragmentResult(LOGIN_RESULT_KEY, Bundle().apply {
+        parentFragmentManager.setFragmentResult(SettingsFragment.FRAGMENT_RESULT_KEY, Bundle().apply {
             putString(LOGIN_BUNDLE_KEY, newLogin)
         })
     }

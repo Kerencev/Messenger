@@ -65,9 +65,11 @@
     <string name="done">Готово</string>
     <string name="change_name_info" tools:ignore="TypographyDashes">Вы можете выбрать любое публичное имя пользователя Space Messenger. В этом случае другие люди смогут найти Вас по такому имени и связаться с вами.\n\nВы можете использовать символы a-z, а-я, 0-9 и подчёркивания. Минимальная длина - 5 символов.</string>
     <string name="short_name_error">Имя пользователя должно содержать не меньше 5 символов</string>
-    <string name="check_login">Проверка имени пользователя...</string>
+    <string name="check_login">Проверка имени пользователя…</string>
     <string name="not_valid_login">Имя пользователя уже занято.</string>
     <string name="valid_login">Имя пользователя свободно.</string>
     <string name="redact_login">Отредактировать логин</string>
     <string name="smile">Смайлик</string>
+    <string name="need_permissions">Необходимо разрешение на камера и медиаконтент</string>
+    <string name="choose_photo">Выберите фотографию</string>
 </resources>

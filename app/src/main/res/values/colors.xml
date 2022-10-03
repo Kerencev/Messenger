@@ -39,4 +39,5 @@
     <color name="item_chat_date_text_color">#F2FFFFFF</color>
     <color name="chat_edit_icons_color">#717171</color>
     <color name="chat_edit_hint_color">#717171</color>
+    <color name="icon_add_camera">#636363</color>
 </resources>

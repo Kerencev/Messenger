@@ -1,9 +1,11 @@
 package com.kerencev.messenger.ui.main.settings
 
+import android.content.Context
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.Screen
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
+import com.kerencev.messenger.model.repository.impl.MediaStoreRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
@@ -11,6 +13,7 @@ import com.kerencev.messenger.utils.subscribeByDefault
 private const val TAG = "SettingsPresenter"
 
 class SettingsPresenter(
+    private val repoMedia: MediaStoreRepository,
     private val repoAuth: FirebaseAuthRepository,
     private val router: Router
 ) : BasePresenter<SettingsView>(router) {
@@ -35,6 +38,14 @@ class SettingsPresenter(
 
     fun navigateTo(screen: Screen) {
         router.navigateTo(screen)
+    }
+
+    fun getImagesFromExternalStorage(context: Context) {
+        repoMedia.getImagesFromExternalStorage(context)
+            .subscribeByDefault()
+            .subscribe { listOfAllImages ->
+                viewState.showChoosePhotoDialog(listOfAllImages)
+            }.disposeBy(bag)
     }
 
     private fun getUserWithFirebase() {

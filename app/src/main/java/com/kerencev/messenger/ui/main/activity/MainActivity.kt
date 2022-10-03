@@ -22,6 +22,7 @@ import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivity
+import de.hdodenhof.circleimageview.CircleImageView
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
@@ -109,6 +110,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun startWasOnlineWorkManager() {
         WorkManager.getInstance(this).enqueue(request)
+    }
+
+    override fun updateUserAvatar(newAvatarUrl: String) {
+        val ivAvatar = binding.navigation.getHeaderView(0).findViewById<CircleImageView>(R.id.ivNavHeaderAvatar)
+        Glide.with(this).load(newAvatarUrl).into(ivAvatar)
     }
 
     override fun setToolbar(toolbar: Toolbar) {

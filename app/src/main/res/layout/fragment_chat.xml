@@ -125,6 +125,7 @@
                 android:background="@color/white"
                 app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
                 app:cardElevation="0dp"
+                android:backgroundTint="@color/white"
                 app:rippleColor="@color/highlight_error"
                 app:strokeWidth="0dp">
 
@@ -165,6 +166,7 @@
                 app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
                 app:cardElevation="0dp"
                 app:rippleColor="@color/highlight_error"
+                android:backgroundTint="@color/white"
                 app:strokeWidth="0dp">
 
                 <ImageView

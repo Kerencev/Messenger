@@ -110,6 +110,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
     inner class ChatViewHolder(private val binding: ItemChatListBinding, val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(message: ChatMessage) {
+            if(message.message.isEmpty()) return
             with(binding) {
                 itemChatListTvLogin.text = message.chatPartnerLogin
                 itemChatListTvMessage.text = message.message

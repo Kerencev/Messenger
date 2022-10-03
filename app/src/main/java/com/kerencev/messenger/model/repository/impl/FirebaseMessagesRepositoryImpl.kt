@@ -198,7 +198,9 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                     latestMessage?.let { message ->
                         message.chatPartnerIsOnline =
                             System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
-                        emitter.onNext(message)
+                        if (message.message.isNotEmpty()) {
+                            emitter.onNext(message)
+                        }
                     }
                 }
 
@@ -207,7 +209,9 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                     latestMessage?.let { message ->
                         message.chatPartnerIsOnline =
                             System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
-                        emitter.onNext(message)
+                        if (message.message.isNotEmpty()) {
+                            emitter.onNext(message)
+                        }
                     }
                 }
 
@@ -237,7 +241,9 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                             message?.let {
                                 message.chatPartnerIsOnline =
                                     System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
-                                result.add(message)
+                                if (message.message.isNotEmpty()) {
+                                    result.add(message)
+                                }
                             }
                         }
                         emitter.onNext(result)
@@ -300,7 +306,7 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
             ref.addValueEventListener(object : ValueEventListener {
                 @SuppressLint("LongLogTag")
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    when (snapshot.value as String) {
+                    when (snapshot.value as String?) {
                         userId -> emitter.onNext(true)
                         else -> emitter.onNext(false)
                     }

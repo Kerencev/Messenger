@@ -77,4 +77,13 @@
         <item name="android:textSize">@dimen/fragment_settings_tv_profile_text_size</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <style name="ProgressCropImageStyle" parent="Widget.AppCompat.ProgressBar">
+
+    </style>
+
 </resources>

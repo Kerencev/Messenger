@@ -15,4 +15,5 @@ interface MainView : MvpView {
     fun hideStatusBar()
     fun showStatusBar()
     fun startWasOnlineWorkManager()
+    fun updateUserAvatar(newAvatarUrl: String)
 }

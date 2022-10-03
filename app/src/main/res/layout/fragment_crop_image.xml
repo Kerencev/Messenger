@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <com.takusemba.cropme.CropLayout
+        android:id="@+id/cropView"
+        android:layout_width="@dimen/fragment_crop_image_crop_layout_width"
+        android:layout_height="@dimen/fragment_crop_image_crop_layout_height"
+        android:layout_gravity="center"
+        app:cropme_background_alpha="80%"
+        app:cropme_frame_height_percent="80%"
+        app:cropme_frame_width_percent="80%"
+        app:cropme_max_scale="3.0"
+        app:cropme_overlay_shape="circle"
+        app:cropme_with_border="true"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cropFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fragment_crop_image_fab_margin"
+        android:backgroundTint="@color/primary_background"
+        android:contentDescription="@string/done"
+        android:src="@drawable/icon_done" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cropCircleIv"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/cropProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivCropSuccess"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/icon_done"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"/>
+
+</FrameLayout>
