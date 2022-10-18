@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1295" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/astronaut.xml" value="0.1375" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/backgrond_chat_input_text.xml" value="0.1625" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_1.xml" value="0.2" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_2.xml" value="0.1325" />
@@ -50,8 +51,10 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_send.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_smile.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/keyboard_to_smile.xml" value="0.1" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/push_small_icon.xml" value="0.1375" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/settings_photo_dialog_background.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/smile_to_keyboard.xml" value="0.1" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/splash.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/test.xml" value="0.1545" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/vector_backgroun1.xml" value="0.1325" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/font/roboto.xml" value="0.23981481481481481" />
@@ -62,6 +65,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/background_chat_date.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/bottomsheet_choose_photo.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/crop_image_layout.xml" value="0.253125" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/custom_notification_view.xml" value="0.4" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_change_name.xml" value="0.3079584775086505" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_chat.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_chat_list.xml" value="0.264" />
@@ -71,6 +75,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_settings.xml" value="0.176" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_test_push.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_view_pager_walkthroughs.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_walkthroughs1.xml" value="0.264" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/fragment_walkthroughs2.xml" value="0.25416666666666665" />
@@ -84,6 +89,8 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_nav_header.xml" value="0.2" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_new_message_user_rv.xml" value="0.2" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/item_photo.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/notification.xml" value="0.253125" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/layout/test.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/bottom_navigation_main.xml" value="0.253125" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/change_name.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/menu/chat.xml" value="0.253125" />

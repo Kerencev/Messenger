@@ -8,6 +8,7 @@ import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import com.kerencev.messenger.model.repository.impl.MediaStoreRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
+import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
 
 private const val TAG = "SettingsPresenter"
@@ -24,11 +25,20 @@ class SettingsPresenter(
     }
 
     fun signOutWithFirebase() {
-        repoAuth.signOut()
+        repoAuth.clearUserToken()
             .subscribeByDefault()
             .subscribe(
                 {
-                    viewState.startLoginActivity()
+                    repoAuth.signOut()
+                        .subscribeByDefault()
+                        .subscribe(
+                            {
+                                viewState.startLoginActivity()
+                            },
+                            {
+                                log(it.message.toString())
+                            }
+                        )
                 },
                 {
                     Log.d(TAG, "Failed to Signed out with FirebaseAuth")

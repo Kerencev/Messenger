@@ -15,6 +15,7 @@ import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
+import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.vanniktech.emoji.EmojiPopup
 import moxy.ktx.moxyPresenter
@@ -30,8 +31,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             MessengerApp.instance.router
         )
     }
-    private val user = MessengerApp.instance.user
-    private val adapter = ChatAdapter(userId = user.uid)
+    private val adapter = ChatAdapter()
     private var chatPartner: User? = null
     private var isSmileIcon = true
 
@@ -46,17 +46,18 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         setUpEmoji()
         chatPartner = arguments?.getParcelable(BUNDLE_KEY_USER)
         chatPartner?.let {
-            presenter.loadAllMessagesFromFirebase(user.uid, it.uid)
+            FirebaseService.notifManager?.cancel(chatPartner!!.notificationId)
+            presenter.loadAllMessagesFromFirebase(it.uid)
             presenter.updateChatPartnerStatus(it)
             binding.chatEditText.addTextChangedListener {
-                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, true)
+                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid,true)
             }
             RxTextView.textChanges(binding.chatEditText)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
+                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
                 }
-            presenter.listenForChatPartnerIsTyping(user.uid, chatPartner!!.uid)
+            presenter.listenForChatPartnerIsTyping(chatPartner!!.uid)
         }
         setToolbarClicks()
         scrollRvWhenShowKeyboard()
@@ -70,10 +71,9 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                 chatPartner?.let {
                     presenter.performSendMessages(
                         message = text,
-                        user = user,
                         chatPartner = it
                     )
-                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
+                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
                 }
                 chatEditText.text?.clear()
             }
@@ -81,8 +81,14 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     }
 
     override fun onResume() {
-        super.onResume()
         presenter.getCurrentWallpaper(requireContext())
+        MessengerApp.instance.chatPartner = chatPartner
+        super.onResume()
+    }
+
+    override fun onPause() {
+        MessengerApp.instance.chatPartner = null
+        super.onPause()
     }
 
     override fun onStop() {
@@ -90,20 +96,15 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.chatEditText.windowToken, 0)
-        presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
+        presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid,false)
         presenter.clearDisposableBag()
-        super.onStop()
-    }
-
-    override fun onDestroyView() {
         //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
         if (adapter.itemCount > 0) {
             chatPartner?.let {
-                presenter.resetUnreadMessagesWithFirebase(it.uid, user.uid)
+                presenter.resetUnreadMessagesWithFirebase(it.uid)
             }
         }
-        _binding = null
-        super.onDestroyView()
+        super.onStop()
     }
 
     override fun setCurrentWallpaper(wallpaper: String) {
@@ -198,7 +199,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
                     10
                 )
             } else {
-                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, user.uid, false)
+                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
             }
         }
     }

@@ -15,7 +15,7 @@ private const val FROM_USER_TYPE = 1
 private const val TO_USER_TYPE = 2
 
 //TODO: Add DiffUtil and Room Cache
-class ChatAdapter(private val userId: String) : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
+class ChatAdapter() : RecyclerView.Adapter<ChatAdapter.BaseViewHolder>() {
 
     private val data = ArrayList<ChatMessage>()
 
@@ -47,7 +47,7 @@ class ChatAdapter(private val userId: String) : RecyclerView.Adapter<ChatAdapter
         if (data[position].id.isEmpty()) {
             return DATE_TYPE
         }
-        return if (userId == data[position].fromId) {
+        return if (data[position].chatPartnerId == data[position].toId) {
             FROM_USER_TYPE
         } else {
             TO_USER_TYPE

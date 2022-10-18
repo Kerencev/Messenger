@@ -3,6 +3,10 @@ package com.kerencev.messenger.model.repository.impl
 import android.annotation.SuppressLint
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
+import com.kerencev.messenger.data.remote.dto.NotificationData
+import com.kerencev.messenger.data.remote.dto.PushNotification
+import com.kerencev.messenger.data.remote.RetrofitInstance
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
@@ -10,22 +14,40 @@ import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.ChatMessageMapper
 import com.kerencev.messenger.utils.MyDate
 import com.kerencev.messenger.utils.StatusOfSendingMessage
+import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-
-private const val TAG = "FirebaseMessagesRepositoryImpl"
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
 
+    override fun getCurrentUser(): Single<User> {
+        return Single.create { emitter ->
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId")
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val user = snapshot.getValue(User::class.java)
+                    user?.let { emitter.onSuccess(it) }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    log(error.message)
+                    emitter.onError(error.toException())
+                }
+            })
+        }
+    }
+
     override fun saveMessageForAllNodes(
         message: String,
-        user: User,
+        currenUser: User,
         chatPartner: User
     ): Observable<StatusOfSendingMessage> {
         return Observable.create { emitter ->
             val firebase = FirebaseDatabase.getInstance()
-            val chatMessage = ChatMessageMapper.mapToChatMessage(message, user, chatPartner)
+            val chatMessage = ChatMessageMapper.mapToChatMessage(message, currenUser, chatPartner)
             val referenceFromId =
                 firebase.getReference("/user-messages/${chatMessage.fromId}/${chatMessage.toId}")
                     .push()
@@ -42,7 +64,7 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
             referenceFromId.setValue(chatMessage)
                 .addOnSuccessListener {
                     emitter.onNext(StatusOfSendingMessage.Status1)
-                    referenceToID.setValue(chatMessage)
+                    referenceToID.setValue(chatMessage.copy(chatPartnerId = chatMessage.fromId))
                         .addOnSuccessListener {
                             emitter.onNext(StatusOfSendingMessage.Status2)
                             latestMessageRefFromId.setValue(chatMessage)
@@ -58,7 +80,7 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                                                         ChatMessageMapper.mapToLatestMessageForChatPartner(
                                                             1,
                                                             chatMessage,
-                                                            user
+                                                            currenUser
                                                         )
                                                 }
                                                 else -> {
@@ -66,7 +88,7 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                                                         ChatMessageMapper.mapToLatestMessageForChatPartner(
                                                             count + 1,
                                                             chatMessage,
-                                                            user
+                                                            currenUser
                                                         )
                                                 }
                                             }
@@ -99,6 +121,68 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         }
     }
 
+    override fun sendPushToChatPartner(
+        message: String,
+        user: User,
+        chatPartner: User
+    ): Completable {
+        return Completable.create { emitter ->
+            val chatPartnerTokenRef =
+                FirebaseDatabase.getInstance().getReference("/users/${chatPartner.uid}/token")
+            val countOfUnreadRef = FirebaseDatabase.getInstance()
+                .getReference("/latest-messages/${chatPartner.uid}/${user.uid}/countOfUnread")
+            val messagesRef = FirebaseDatabase.getInstance()
+                .getReference("/user-messages/${user.uid}/${chatPartner.uid}")
+            chatPartnerTokenRef.get()
+                .addOnSuccessListener { tokenData ->
+                    val recipientToken = tokenData.getValue<String>()
+                    countOfUnreadRef.get()
+                        .addOnSuccessListener { countOfUnreadData ->
+                            val countOfUnread = countOfUnreadData.getValue<Long>() ?: 0
+                            messagesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    var pushMessage = ""
+                                    val countOfMessages = snapshot.children.count()
+                                    for (i in countOfMessages - countOfUnread until countOfMessages) {
+                                        val unreadMessage = snapshot.children.elementAt(i.toInt())
+                                            .getValue(ChatMessage::class.java)
+                                        val text = unreadMessage?.message
+                                        pushMessage += if (i == countOfMessages.toLong() - 1) {
+                                            "$text"
+                                        } else {
+                                            "$text\n"
+                                        }
+                                    }
+                                    recipientToken?.let {
+                                        if (recipientToken.isNotEmpty()) {
+                                            val push = PushNotification(
+                                                NotificationData(
+                                                    message = pushMessage,
+                                                    chatPartnerId = user.uid,
+                                                    notificationId = user.notificationId.toString(),
+                                                    chatPartnerLogin = user.login,
+                                                    chatPartnerEmail = user.email,
+                                                    chatPartnerAvatarUrl = user.avatarUrl
+                                                ),
+                                                recipientToken
+                                            )
+                                            RetrofitInstance.api.postNotification(push)
+                                                .subscribeOn(Schedulers.io())
+                                                .subscribe()
+                                        }
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                            })
+                        }
+                }
+        }
+    }
+
     override fun getCountOfUnreadMessages(
         toId: String,
         fromId: String
@@ -121,8 +205,9 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         }
     }
 
-    override fun listenForNewMessages(fromId: String, toId: String): Observable<ChatMessage> {
+    override fun listenForNewMessages(toId: String): Observable<ChatMessage> {
         return Observable.create { emitter ->
+            val fromId = FirebaseAuth.getInstance().currentUser?.uid
             val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
             ref.addChildEventListener(object : ChildEventListener {
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -142,8 +227,11 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         }
     }
 
-    override fun getAllMessages(fromId: String, toId: String): Single<Pair<List<ChatMessage>, Int>> {
+    override fun getAllMessages(
+        toId: String
+    ): Single<Pair<List<ChatMessage>, Int>> {
         return Single.create { emitter ->
+            val fromId = FirebaseAuth.getInstance().currentUser?.uid
             val result = ArrayList<ChatMessage>()
             val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
             ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -174,8 +262,9 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         }
     }
 
-    override fun resetUnreadMessages(toId: String, fromId: String): Completable {
+    override fun resetUnreadMessages(toId: String): Completable {
         return Completable.create { emitter ->
+            val fromId = FirebaseAuth.getInstance().currentUser?.uid
             val ref = FirebaseDatabase.getInstance()
                 .getReference("/latest-messages/$fromId/$toId/countOfUnread")
             ref.setValue(0)
@@ -278,36 +367,36 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
 
     override fun updateUserTypingStatus(
         chatPartnerId: String,
-        userId: String,
         isTyping: Boolean
     ): Completable {
         return Completable.create {
-            //Update typing status for users ref
-            val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId/typingFor")
+            val fromId = FirebaseAuth.getInstance().currentUser?.uid
+            //Update typing status for user ref
+            val userRef = FirebaseDatabase.getInstance().getReference("/users/$fromId/typingFor")
             when (isTyping) {
                 true -> userRef.setValue(chatPartnerId)
                 false -> userRef.setValue("")
             }
             //Update typing status for chat partner's latest messages
             val latestRef = FirebaseDatabase.getInstance()
-                .getReference("/latest-messages/$chatPartnerId/$userId/chatPartnerIsTyping")
+                .getReference("/latest-messages/$chatPartnerId/$fromId/chatPartnerIsTyping")
             latestRef.setValue(isTyping)
             it.onComplete()
         }
     }
 
     override fun listenForChatPartnerIsTyping(
-        userId: String,
         chatPartnerId: String
     ): Observable<Boolean> {
         return Observable.create { emitter ->
+            val fromId = FirebaseAuth.getInstance().currentUser?.uid
             val ref = FirebaseDatabase.getInstance()
                 .getReference("/users/$chatPartnerId/typingFor")
             ref.addValueEventListener(object : ValueEventListener {
                 @SuppressLint("LongLogTag")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     when (snapshot.value as String?) {
-                        userId -> emitter.onNext(true)
+                        fromId -> emitter.onNext(true)
                         else -> emitter.onNext(false)
                     }
                 }

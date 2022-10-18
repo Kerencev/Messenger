@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
-import androidx.transition.TransitionInflater
 import com.kerencev.messenger.MessengerApp
-import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatListBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
@@ -72,6 +70,12 @@ class ChatListFragment :
         mainActivity?.setDrawerLockMode(isOpenable = false)
     }
 
+    override fun updateAdapterData(data: List<ChatMessage>) {
+        adapter.setListDataForDiffUtil(data)
+    }
+
+    override fun onBackPressed() = presenter.onBackPressed()
+
     private fun setToolbarOptionsItemClick() {
         binding.chatListToolbar.setOnMenuItemClickListener(
             object : Toolbar.OnMenuItemClickListener,
@@ -84,10 +88,4 @@ class ChatListFragment :
                 }
             })
     }
-
-    override fun updateAdapterData(data: List<ChatMessage>) {
-        adapter.setListDataForDiffUtil(data)
-    }
-
-    override fun onBackPressed() = presenter.onBackPressed()
 }

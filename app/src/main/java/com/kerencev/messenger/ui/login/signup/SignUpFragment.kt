@@ -10,6 +10,7 @@ import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView
+import com.kerencev.messenger.utils.hideKeyboard
 import moxy.ktx.moxyPresenter
 
 class SignUpFragment :
@@ -38,6 +39,7 @@ class SignUpFragment :
                 presenter.onBackPressed()
             }
             signUpBtn.setOnClickListener {
+                requireActivity().hideKeyboard(signUpEditLogin)
                 presenter.authWithFirebase(
                     login = signUpEditLogin.text.toString(),
                     email = signUpEditEmail.text.toString(),
@@ -96,7 +98,6 @@ class SignUpFragment :
     override fun onBackPressed() = presenter.onBackPressed()
 
     companion object {
-        private const val TAG = "SignUpFragment"
         fun getInstance(): SignUpFragment {
             return SignUpFragment()
         }

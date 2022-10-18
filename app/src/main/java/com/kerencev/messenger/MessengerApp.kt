@@ -14,6 +14,7 @@ class MessengerApp : Application() {
     val navigationHolder = cicerone.getNavigatorHolder()
     val router = cicerone.router
     var user: User = User()
+    var chatPartner: User? = null
 
     override fun onCreate() {
         super.onCreate()

@@ -8,24 +8,24 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 interface FirebaseMessagesRepository {
-    fun listenForNewMessages(fromId: String, toId: String): Observable<ChatMessage>
-    fun getAllMessages(fromId: String, toId: String): Single<Pair<List<ChatMessage>, Int>>
+    fun getCurrentUser(): Single<User>
+    fun listenForNewMessages(toId: String): Observable<ChatMessage>
+    fun getAllMessages(toId: String): Single<Pair<List<ChatMessage>, Int>>
     fun listenForLatestMessages(): Observable<ChatMessage>
-    fun resetUnreadMessages(toId: String, fromId: String): Completable
+    fun resetUnreadMessages(toId: String): Completable
     fun getCountOfUnreadMessages(toId: String, fromId: String): Single<Long>
     fun saveMessageForAllNodes(
         message: String,
-        user: User,
+        currentUser: User,
         chatPartner: User
     ): Observable<StatusOfSendingMessage>
-
+    fun sendPushToChatPartner(message: String, user: User, chatPartner: User): Completable
     fun updateAllLatestMessages(): Observable<List<ChatMessage>>
     fun updateChatPartnerStatus(chatPartnerId: String): Observable<Long>
     fun updateUserTypingStatus(
         chatPartnerId: String,
-        userId: String,
         isTyping: Boolean
     ): Completable
 
-    fun listenForChatPartnerIsTyping(userId: String, chatPartnerId: String): Observable<Boolean>
+    fun listenForChatPartnerIsTyping(chatPartnerId: String): Observable<Boolean>
 }

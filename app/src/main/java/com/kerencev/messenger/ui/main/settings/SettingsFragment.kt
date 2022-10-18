@@ -42,7 +42,7 @@ import com.kerencev.messenger.ui.main.settings.cropimage.CropImageFragment
 import com.kerencev.messenger.utils.showComingSoonSnack
 import moxy.ktx.moxyPresenter
 
-
+//TODO:fix updating new avatar url(letter is visible)
 class SettingsFragment :
     ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate),
     OnBackPressedListener, SettingsView {
@@ -134,6 +134,7 @@ class SettingsFragment :
             }
             newAvatarUrl?.let {
                 photoDialog.dismiss()
+                binding.tvSettingsLetter.visibility = View.GONE
                 Glide.with(requireContext()).load(newAvatarUrl).into(binding.ivSettingsAvatar)
                 mainActivity?.updateUserAvatar(newAvatarUrl)
                 startUpdateAvatarWorkManager()
@@ -235,7 +236,9 @@ class SettingsFragment :
         }
         binding.settingsToolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.actionSignOut -> presenter.signOutWithFirebase()
+                R.id.actionSignOut -> {
+                    presenter.signOutWithFirebase()
+                }
             }
             true
         }

@@ -42,6 +42,6 @@
     <color name="icon_add_camera">#636363</color>
     <color name="chat_list_card_ripple">#1A000000</color>
     <color name="transparent">#1AFFFFFF</color>
-    <color name="notification_title">#DE000000</color>
-    <color name="notification_message">#B3000000</color>
+    <color name="notification_title">#DEFFFFFF</color>
+    <color name="notification_message">#B3FFFFFF</color>
 </resources>

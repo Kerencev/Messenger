@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/notificationAvatar"
+        android:layout_width="@dimen/notification_view_avatar_width"
+        android:layout_height="@dimen/notification_view_avatar_height"
+        android:contentDescription="@string/name"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        tools:src="@drawable/splash"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/notificationLetter"
+        android:layout_width="@dimen/notification_view_letter_width"
+        android:layout_height="@dimen/notification_view_letter_height"
+        android:background="@drawable/background_chat_list_user_avatar"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        tools:text="V" />
+
+
+    <TextView
+        android:id="@+id/notificationLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_view_login_margin_start"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/notification_title"
+        android:textSize="@dimen/notification_view_login_text_size"
+        tools:text="Sergo" />
+
+    <TextView
+        android:id="@+id/notificationMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_view_message_margin_start"
+        android:layout_marginTop="@dimen/notification_view_message_margin_top"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="@dimen/notification_view_message_text_size"
+        android:textColor="@color/notification_message"
+        tools:text="Sergo" />
+
+
+</RelativeLayout>

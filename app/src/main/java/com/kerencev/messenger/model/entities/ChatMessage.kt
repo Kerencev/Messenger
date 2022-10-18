@@ -8,6 +8,7 @@ data class ChatMessage(
     val timesTamp: Long,
     val countOfUnread: Long,
     val chatPartnerId: String,
+    val chatPartnerNotificationId: Int,
     val chatPartnerLogin: String,
     val chatPartnerEmail: String,
     var chatPartnerWasOnline: Long,
@@ -15,6 +16,6 @@ data class ChatMessage(
     var chatPartnerIsTyping: Boolean,
     val chatPartnerAvatarUrl: String?
 ) {
-    constructor() : this("", "", "", "", -1, 0, "", "", "", -1, false, false, null)
-    constructor(message: String) : this("", message, "", "", -1, 0, "", "", "", -1, false, false, null)
+    constructor() : this("", "", "", "", -1, 0, "", 0, "", "", -1, false, false, null)
+    constructor(message: String) : this("", message, "", "", -1, 0, "", 0, "", "", -1, false, false, null)
 }

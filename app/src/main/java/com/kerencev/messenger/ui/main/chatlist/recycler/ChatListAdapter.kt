@@ -78,6 +78,8 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     createCombinePayload.newData.chatPartnerLogin
             }
             if (createCombinePayload.newData.chatPartnerAvatarUrl != createCombinePayload.oldData.chatPartnerAvatarUrl) {
+                holder.itemView.findViewById<TextView>(R.id.itemChatListTvLetter).visibility =
+                    View.GONE
                 val imageView =
                     holder.itemView.findViewById<CircleImageView>(R.id.itemChatListIvAvatar)
                 Picasso.get().load(createCombinePayload.newData.chatPartnerAvatarUrl)
@@ -93,7 +95,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
             }
             if (createCombinePayload.newData.chatPartnerIsTyping != createCombinePayload.oldData.chatPartnerIsTyping) {
                 val textView = holder.itemView.findViewById<TextView>(R.id.itemChatListTvMessage)
-                when(createCombinePayload.newData.chatPartnerIsTyping) {
+                when (createCombinePayload.newData.chatPartnerIsTyping) {
                     true -> {
                         textView.text = "печатает..."
                         textView.setTextColor(holder.context.resources.getColor(R.color.user_status_online))
@@ -110,7 +112,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
     inner class ChatViewHolder(private val binding: ItemChatListBinding, val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(message: ChatMessage) {
-            if(message.message.isEmpty()) return
+            if (message.message.isEmpty()) return
             with(binding) {
                 itemChatListTvLogin.text = message.chatPartnerLogin
                 itemChatListTvMessage.text = message.message
@@ -139,6 +141,7 @@ class ChatListAdapter(private val onItemClick: OnItemClick) :
                     onItemClick.onClick(
                         User(
                             message.chatPartnerId,
+                            message.chatPartnerNotificationId,
                             message.chatPartnerLogin,
                             message.chatPartnerEmail,
                             -1,

@@ -7,8 +7,6 @@ import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 
 class CropImagePresenter(
     private val router: Router,

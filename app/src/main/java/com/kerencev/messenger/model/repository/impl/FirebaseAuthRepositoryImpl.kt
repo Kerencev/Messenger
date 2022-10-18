@@ -5,14 +5,14 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
+import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-
-private const val TAG = "FirebaseAuthRepositoryImpl"
 
 class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
     override fun verifyUserIsLoggedIn(): Single<String> {
@@ -57,10 +57,12 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
     override fun saveUserToFirebaseDatabase(login: String, email: String): Completable {
         return Completable.create { emitter ->
             val uid = FirebaseAuth.getInstance().uid ?: ""
+            val notificationId = (2147483647 * Math.random()).toInt()
             val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
             val user =
                 User(
                     uid = uid,
+                    notificationId = notificationId,
                     login = login,
                     email = email,
                     wasOnline = -1,
@@ -90,7 +92,6 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
             userIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue(User::class.java)
-                    log(user?.login.toString())
                     user?.let { emitter.onSuccess(it) }
                 }
 
@@ -99,7 +100,34 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
                     emitter.onError(error.toException())
                 }
             })
-            Thread.sleep(StatusWorkManager.UPDATE_PERIOD)
+//            Thread.sleep(StatusWorkManager.UPDATE_PERIOD)
+        }
+    }
+
+    override fun updateFirebaseToken(userId: String): Completable {
+        return Completable.create {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+                FirebaseService.token = token
+                val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId/token")
+                userRef.setValue(token)
+            }
+        }
+    }
+
+    override fun clearUserToken(): Completable {
+        return Completable.create { emitter ->
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            userId?.let {
+                val userTokenRef =
+                    FirebaseDatabase.getInstance().getReference("/users/$userId/token")
+                userTokenRef.setValue("")
+                    .addOnSuccessListener {
+                        emitter.onComplete()
+                    }
+                    .addOnFailureListener {
+                        emitter.onError(it)
+                    }
+            }
         }
     }
 }

@@ -1,15 +1,14 @@
 package com.kerencev.messenger.ui.main.activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -22,13 +21,17 @@ import com.kerencev.messenger.databinding.ActivityMainBinding
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
+import com.kerencev.messenger.services.FirebaseService
+import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_AVATAR
+import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_EMAIL
+import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_ID
+import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_LOGIN
+import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_NOTIFICATION_ID
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-
-private const val TAG = "MyMainActivity"
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
@@ -46,13 +49,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_Messenger)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        presenter.verifyUserIsLoggedIn()
         binding.navigation.itemIconTintList = null
+        setContentView(binding.root)
+        presenter.navigateToChatList(getChatPartnerFromPush())
+        presenter.verifyUserIsLoggedIn()
+        FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+        setTheme(R.style.Theme_Messenger)
         setNavigationDrawerClicks()
-        Log.d(TAG, "onCreate")
     }
 
     override fun onResumeFragments() {
@@ -140,6 +144,43 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         actionBarDrawerToggle.syncState()
     }
 
+    override fun hideStatusBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.statusBarColor = Color.TRANSPARENT
+    }
+
+    override fun showStatusBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        window.statusBarColor = resources.getColor(R.color.primary_background)
+    }
+
+    /**
+     * Return chatPartner if the user click on the push Notification
+     */
+    private fun getChatPartnerFromPush(): User? {
+        val arguments = intent.extras
+        val chatPartnerId = arguments?.getString(PUSH_INTENT_PARTNER_ID)
+        val chatPartnerLogin = arguments?.getString(PUSH_INTENT_PARTNER_LOGIN)
+        val chatPartnerEmail = arguments?.getString(PUSH_INTENT_PARTNER_EMAIL)
+        val chatPartnerAvatarUrl = arguments?.getString(PUSH_INTENT_PARTNER_AVATAR)
+        val chatPartnerNotificationId = arguments?.getInt(PUSH_INTENT_PARTNER_NOTIFICATION_ID)
+        return if (chatPartnerId.isNullOrEmpty() || chatPartnerLogin.isNullOrEmpty()
+            || chatPartnerEmail.isNullOrEmpty() || chatPartnerNotificationId == null
+        ) {
+            null
+        } else {
+            User(
+                uid = chatPartnerId,
+                notificationId = chatPartnerNotificationId,
+                login = chatPartnerLogin,
+                email = chatPartnerEmail,
+                avatarUrl = chatPartnerAvatarUrl,
+                wasOnline = -1,
+                status = ""
+            )
+        }
+    }
+
     private fun setNavigationDrawerClicks() = with(binding) {
         navigation.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -150,13 +191,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
     }
 
-    override fun hideStatusBar() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        window.statusBarColor = Color.TRANSPARENT
-    }
-
-    override fun showStatusBar() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        window.statusBarColor = resources.getColor(R.color.primary_background)
+    companion object {
+        const val BUNDLE_KEY_JOB_STATUS = "BUNDLE_KEY_JOB_STATUS"
     }
 }

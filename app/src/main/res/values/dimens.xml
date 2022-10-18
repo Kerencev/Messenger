@@ -216,4 +216,13 @@
     <dimen name="fragment_crop_image_iv_success_margin_top">80dp</dimen>
     <dimen name="fragment_crop_image_tv_updating_photo_margin_top">80dp</dimen>
     <dimen name="fragment_crop_image_tv_updating_photo_text_size">18sp</dimen>
+    <dimen name="notification_view_avatar_width">40dp</dimen>
+    <dimen name="notification_view_avatar_height">40dp</dimen>
+    <dimen name="notification_view_letter_width">40dp</dimen>
+    <dimen name="notification_view_letter_height">40dp</dimen>
+    <dimen name="notification_view_login_margin_start">48dp</dimen>
+    <dimen name="notification_view_login_text_size">16sp</dimen>
+    <dimen name="notification_view_message_margin_start">48dp</dimen>
+    <dimen name="notification_view_message_margin_top">20dp</dimen>
+    <dimen name="notification_view_message_text_size">14sp</dimen>
 </resources>

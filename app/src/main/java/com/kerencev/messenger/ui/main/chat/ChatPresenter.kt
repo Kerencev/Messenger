@@ -31,26 +31,42 @@ class ChatPresenter(
     }
 
     //TODO: Add status of sending message with DiffUtil
-    fun performSendMessages(message: String, user: User, chatPartner: User) {
+    fun performSendMessages(message: String, chatPartner: User) {
         if (message.isEmpty()) return
         chatPartner.wasOnline = chatPartnerWasOnline
-        repository.saveMessageForAllNodes(message, user, chatPartner)
+        repository.getCurrentUser()
             .subscribeByDefault()
             .subscribe(
-                { statusOfSending ->
-                    when (statusOfSending) {
-                        is StatusOfSendingMessage.Status1 -> {
-                        }
-                        is StatusOfSendingMessage.Status2 -> {
-                        }
-                        is StatusOfSendingMessage.Status3 -> {
-                        }
-                        is StatusOfSendingMessage.Status4 -> {
-                        }
-                    }
+                { currentUser ->
+                    repository.saveMessageForAllNodes(message, currentUser, chatPartner)
+                        .subscribeByDefault()
+                        .subscribe(
+                            { statusOfSending ->
+                                when (statusOfSending) {
+                                    is StatusOfSendingMessage.Status1 -> {
+                                    }
+                                    is StatusOfSendingMessage.Status2 -> {
+                                    }
+                                    is StatusOfSendingMessage.Status3 -> {
+                                    }
+                                    is StatusOfSendingMessage.Status4 -> {
+                                        repository.sendPushToChatPartner(
+                                            message,
+                                            currentUser,
+                                            chatPartner
+                                        )
+                                            .subscribeByDefault()
+                                            .subscribe()
+                                    }
+                                }
+                            },
+                            {
+                                Log.d(TAG, "Failed to save message for all nodes")
+                            }
+                        )
                 },
                 {
-                    Log.d(TAG, "Failed to save message for all nodes")
+                    Log.d(TAG, it.message.toString())
                 }
             )
         //Don't dispose because user can close the fragment but message needs to be delivered
@@ -65,8 +81,8 @@ class ChatPresenter(
             }.disposeBy(bag)
     }
 
-    fun loadAllMessagesFromFirebase(fromId: String, toId: String) {
-        repository.getAllMessages(fromId, toId)
+    fun loadAllMessagesFromFirebase(toId: String) {
+        repository.getAllMessages(toId)
             .subscribeByDefault()
             .subscribe(
                 { result ->
@@ -75,9 +91,9 @@ class ChatPresenter(
                     val skipCount = (data.size - dateCounts).toLong()
                     viewState.setAdapterData(data)
                     if (data.isNotEmpty()) {
-                        resetUnreadMessagesWithFirebase(toId, fromId)
+                        resetUnreadMessagesWithFirebase(toId)
                     }
-                    listenForNewMessagesFromFirebase(fromId, toId, skipCount)
+                    listenForNewMessagesFromFirebase(toId, skipCount)
                 },
                 {
                     Log.d(TAG, "Failed to load all messages from Firebase")
@@ -85,15 +101,15 @@ class ChatPresenter(
             ).disposeBy(bag)
     }
 
-    fun resetUnreadMessagesWithFirebase(toId: String, fromId: String) {
-        repository.resetUnreadMessages(toId, fromId)
+    fun resetUnreadMessagesWithFirebase(toId: String) {
+        repository.resetUnreadMessages(toId)
             .subscribeByDefault()
             .subscribe()
             .disposeBy(bag)
     }
 
-    private fun listenForNewMessagesFromFirebase(fromId: String, toId: String, skipCount: Long) {
-        repository.listenForNewMessages(fromId, toId)
+    private fun listenForNewMessagesFromFirebase(toId: String, skipCount: Long) {
+        repository.listenForNewMessages(toId)
             .subscribeByDefault()
             //Skip already uploaded messages
             .skip(skipCount)
@@ -120,17 +136,17 @@ class ChatPresenter(
         router.navigateTo(WallpapersScreen)
     }
 
-    fun updateUserTypingStatusWithFirebase(chatPartnerId: String, userId: String, isTyping: Boolean) {
-        repository.updateUserTypingStatus(chatPartnerId, userId, isTyping)
+    fun updateUserTypingStatusWithFirebase(chatPartnerId: String, isTyping: Boolean) {
+        repository.updateUserTypingStatus(chatPartnerId, isTyping)
             .subscribeByDefault()
             .subscribe()
             .disposeBy(bag)
     }
 
-    fun listenForChatPartnerIsTyping(userId: String, chatPartnerId: String) {
-        repository.listenForChatPartnerIsTyping(userId, chatPartnerId)
+    fun listenForChatPartnerIsTyping(chatPartnerId: String) {
+        repository.listenForChatPartnerIsTyping(chatPartnerId)
             .subscribeByDefault()
-            .subscribe{ isTyping ->
+            .subscribe { isTyping ->
                 viewState.setChatPartnerIsTyping(isTyping)
             }
             .disposeBy(bag)

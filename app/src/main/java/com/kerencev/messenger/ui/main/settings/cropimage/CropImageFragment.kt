@@ -20,7 +20,6 @@ import com.kerencev.messenger.utils.log
 import com.takusemba.cropme.OnCropListener
 import moxy.ktx.moxyPresenter
 
-
 class CropImageFragment :
     ViewBindingFragment<FragmentCropImageBinding>(FragmentCropImageBinding::inflate), CropImageView,
     OnBackPressedListener {
