@@ -67,11 +67,10 @@ class ChangeNamePresenter(
                 { isValid ->
                     when (isValid) {
                         true -> {
-                            repoUsers.updateUserLogin(MessengerApp.instance.user.uid, text)
+                            repoUsers.updateUserLogin(text)
                                 .subscribeByDefault()
                                 .subscribe(
                                     {
-                                        MessengerApp.instance.user.login = text
                                         viewState.setResultForSettingsFragment(text)
                                         router.exit()
                                     },

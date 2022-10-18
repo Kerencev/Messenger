@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
+import com.kerencev.messenger.data.remote.RetrofitInstance
 import com.kerencev.messenger.data.remote.dto.NotificationData
 import com.kerencev.messenger.data.remote.dto.PushNotification
-import com.kerencev.messenger.data.remote.RetrofitInstance
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseMessagesRepository

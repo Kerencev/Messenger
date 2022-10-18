@@ -9,7 +9,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import com.kerencev.messenger.services.FirebaseService
-import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single

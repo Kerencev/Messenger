@@ -13,7 +13,6 @@ class MessengerApp : Application() {
     private val cicerone: Cicerone<Router> by lazy { Cicerone.create() }
     val navigationHolder = cicerone.getNavigatorHolder()
     val router = cicerone.router
-    var user: User = User()
     var chatPartner: User? = null
 
     override fun onCreate() {

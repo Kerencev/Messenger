@@ -7,5 +7,5 @@ import io.reactivex.rxjava3.core.Single
 interface FirebaseAllUsersRepository {
     fun getAllUsers(): Single<List<User>>
     fun checkValidityLogin(text: String, listOfUsers: List<User>): Single<Boolean>
-    fun updateUserLogin(uid: String, newLogin: String): Completable
+    fun updateUserLogin(newLogin: String): Completable
 }

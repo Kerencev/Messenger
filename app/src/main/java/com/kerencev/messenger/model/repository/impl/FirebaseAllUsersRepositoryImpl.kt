@@ -50,9 +50,10 @@ class FirebaseAllUsersRepositoryImpl : FirebaseAllUsersRepository {
         }
     }
 
-    override fun updateUserLogin(uid: String, newLogin: String): Completable {
+    override fun updateUserLogin(newLogin: String): Completable {
         return Completable.create { emitter ->
-            val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid/login")
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId/login")
             userRef.setValue(newLogin)
                 .addOnSuccessListener {
                     emitter.onComplete()

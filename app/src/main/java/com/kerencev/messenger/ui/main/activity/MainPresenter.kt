@@ -32,7 +32,6 @@ class MainPresenter(
             .subscribeByDefault()
             .subscribe(
                 { user ->
-                    MessengerApp.instance.user = user
                     viewState.setUserData(user)
                     viewState.startWasOnlineWorkManager()
                     repoAuth.updateFirebaseToken(user.uid)

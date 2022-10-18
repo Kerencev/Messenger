@@ -15,11 +15,11 @@ class StatusWorkManager(context: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): Result {
         Thread {
-            val user = MessengerApp.instance.user
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
             val userStatusRef =
-                FirebaseDatabase.getInstance().getReference("/users/${user.uid}/wasOnline")
+                FirebaseDatabase.getInstance().getReference("/users/$userId/wasOnline")
             val latestMessagesRef =
-                FirebaseDatabase.getInstance().getReference("/latest-messages/${user.uid}")
+                FirebaseDatabase.getInstance().getReference("/latest-messages/$userId")
 
             while (FirebaseAuth.getInstance().currentUser != null) {
                 //updating the time when the user was online in the users node
@@ -31,13 +31,12 @@ class StatusWorkManager(context: Context, workerParams: WorkerParameters) :
                     .addOnSuccessListener { chatPartners ->
                         chatPartners.children.forEach { chatPartner ->
                             val chatPartnerLatestMessageRef = FirebaseDatabase.getInstance()
-                                .getReference("/latest-messages/${chatPartner.key.toString()}/${user.uid}/chatPartnerWasOnline")
+                                .getReference("/latest-messages/${chatPartner.key.toString()}/$userId/chatPartnerWasOnline")
                             chatPartnerLatestMessageRef.setValue(timestamp)
                         }
                     }
 
                 //updating local user info
-                user.wasOnline = timestamp
                 Thread.sleep(UPDATE_PERIOD)
             }
         }.start()
