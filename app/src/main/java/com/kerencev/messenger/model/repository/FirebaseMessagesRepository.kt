@@ -21,7 +21,7 @@ interface FirebaseMessagesRepository {
     ): Observable<StatusOfSendingMessage>
     fun sendPushToChatPartner(message: String, user: User, chatPartner: User): Completable
     fun updateAllLatestMessages(): Observable<List<ChatMessage>>
-    fun updateChatPartnerStatus(chatPartnerId: String): Observable<Long>
+    fun updateChatPartnerInfo(chatPartnerId: String): Observable<User>
     fun updateUserTypingStatus(
         chatPartnerId: String,
         isTyping: Boolean

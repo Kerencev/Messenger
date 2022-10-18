@@ -2,6 +2,7 @@ package com.kerencev.messenger.ui.main.chat
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
@@ -17,6 +18,7 @@ import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.utils.log
 import com.vanniktech.emoji.EmojiPopup
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit
@@ -48,22 +50,23 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         chatPartner?.let {
             FirebaseService.notifManager?.cancel(chatPartner!!.notificationId)
             presenter.loadAllMessagesFromFirebase(it.uid)
-            presenter.updateChatPartnerStatus(it)
+            presenter.updateChatPartnerInfo(it)
+            presenter.listenForChatPartnerIsTyping(chatPartner!!.uid)
             binding.chatEditText.addTextChangedListener {
-                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid,true)
+                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, true)
             }
             RxTextView.textChanges(binding.chatEditText)
                 .debounce(1000, TimeUnit.MILLISECONDS)
                 .subscribe {
                     presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
                 }
-            presenter.listenForChatPartnerIsTyping(chatPartner!!.uid)
         }
         setToolbarClicks()
         scrollRvWhenShowKeyboard()
         with(binding) {
             chatPartner?.let {
                 chatToolbarTitle.text = it.login
+                updateChatPartnerAvatar(chatPartner!!.avatarUrl)
             }
             chatRv.adapter = adapter
             chatCardSend.setOnClickListener { _ ->
@@ -96,7 +99,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.chatEditText.windowToken, 0)
-        presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid,false)
+        presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
         presenter.clearDisposableBag()
         //TODO Come up with a good way to reset unread messages when we leave the chat or close applications
         if (adapter.itemCount > 0) {
@@ -115,8 +118,8 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         }
     }
 
-    override fun setToolbarStatus(wasOnline: String) = with(binding) {
-        chatToolbarSubtitle.text = wasOnline
+    override fun updateChatPartnerStatus(status: String) = with(binding) {
+        chatToolbarSubtitle.text = status
     }
 
     override fun setChatPartnerIsTyping(isTyping: Boolean) = with(binding) {
@@ -132,16 +135,22 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         }
     }
 
-    override fun loadUserAvatar() {
+    override fun updateChatPartnerLogin(login: String) {
+        binding.chatToolbarTitle.text = login
+    }
+
+    override fun updateChatPartnerAvatar(avatarUrl: String?) {
         with(binding) {
-            when (chatPartner?.avatarUrl) {
+            when (avatarUrl) {
                 null -> {
+                    ivAvatar.visibility = View.GONE
                     tvChatLetter.visibility = View.VISIBLE
                     tvChatLetter.text = chatPartner?.login?.first().toString()
                 }
                 else -> {
+                    tvChatLetter.visibility = View.GONE
                     ivAvatar.visibility = View.VISIBLE
-                    Glide.with(requireContext()).load(chatPartner?.avatarUrl)
+                    Glide.with(requireContext()).load(avatarUrl)
                         .placeholder(R.drawable.ic_user_place_holder)
                         .into(binding.ivAvatar)
                 }

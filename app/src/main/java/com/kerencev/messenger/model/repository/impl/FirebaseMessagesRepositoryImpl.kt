@@ -346,14 +346,18 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
         }
     }
 
-    override fun updateChatPartnerStatus(chatPartnerId: String): Observable<Long> {
+    /**
+     * We update the chat partner with the period exactly in the cycle
+     * if the chat partner comes out, then after a certain time we will find out about it
+     */
+    override fun updateChatPartnerInfo(chatPartnerId: String): Observable<User> {
         return Observable.create { emitter ->
             val userIdRef = FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
             while (true) {
                 userIdRef.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val user = snapshot.getValue(User::class.java)
-                        user?.let { emitter.onNext(it.wasOnline) }
+                        user?.let { emitter.onNext(it) }
                     }
 
                     override fun onCancelled(error: DatabaseError) {

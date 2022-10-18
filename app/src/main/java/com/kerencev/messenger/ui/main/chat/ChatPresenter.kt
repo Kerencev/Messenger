@@ -8,10 +8,7 @@ import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
-import com.kerencev.messenger.utils.MyDate
-import com.kerencev.messenger.utils.StatusOfSendingMessage
-import com.kerencev.messenger.utils.disposeBy
-import com.kerencev.messenger.utils.subscribeByDefault
+import com.kerencev.messenger.utils.*
 
 private const val TAG = "ChatPresenter"
 
@@ -23,17 +20,12 @@ class ChatPresenter(
     router
 ) {
 
-    private var chatPartnerWasOnline: Long = -1
-
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-        viewState.loadUserAvatar()
-    }
+    private var partnerWasOnline: Long = -1
 
     //TODO: Add status of sending message with DiffUtil
     fun performSendMessages(message: String, chatPartner: User) {
         if (message.isEmpty()) return
-        chatPartner.wasOnline = chatPartnerWasOnline
+        chatPartner.wasOnline = partnerWasOnline
         repository.getCurrentUser()
             .subscribeByDefault()
             .subscribe(
@@ -72,12 +64,14 @@ class ChatPresenter(
         //Don't dispose because user can close the fragment but message needs to be delivered
     }
 
-    fun updateChatPartnerStatus(chatPartner: User) {
-        repository.updateChatPartnerStatus(chatPartner.uid)
+    fun updateChatPartnerInfo(chatPartner: User) {
+        repository.updateChatPartnerInfo(chatPartner.uid)
             .subscribeByDefault()
-            .subscribe { time ->
-                chatPartnerWasOnline = time
-                viewState.setToolbarStatus(MyDate.getChatPartnerStatus(time))
+            .subscribe { partner ->
+                partnerWasOnline = partner.wasOnline
+                viewState.updateChatPartnerStatus(status = MyDate.getChatPartnerStatus(partner.wasOnline))
+                viewState.updateChatPartnerLogin(login = partner.login)
+                viewState.updateChatPartnerAvatar(avatarUrl = partner.avatarUrl)
             }.disposeBy(bag)
     }
 

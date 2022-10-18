@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="R5CT21X8WAM" />
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\Keren\.android\avd\3.7_WVGA_Nexus_One_API_22.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-10-18T16:07:55.052904400Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-10-18T17:41:26.490103600Z" />
   </component>
 </project>
