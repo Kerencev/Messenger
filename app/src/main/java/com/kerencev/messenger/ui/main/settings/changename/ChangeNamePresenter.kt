@@ -2,7 +2,6 @@ package com.kerencev.messenger.ui.main.settings.changename
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.model.repository.FirebaseAllUsersRepository
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import com.kerencev.messenger.ui.base.BasePresenter

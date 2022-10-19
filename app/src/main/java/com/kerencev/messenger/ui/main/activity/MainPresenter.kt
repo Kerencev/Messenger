@@ -2,7 +2,6 @@ package com.kerencev.messenger.ui.main.activity
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.FirebaseAuthRepository
 import com.kerencev.messenger.navigation.main.ChatListScreen
@@ -10,6 +9,7 @@ import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.navigation.main.SettingsScreen
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
@@ -22,22 +22,15 @@ class MainPresenter(
     private val bag = CompositeDisposable()
 
     fun verifyUserIsLoggedIn() {
-        repoAuth.verifyUserIsLoggedIn()
-            .flatMap { userId ->
-                if (userId.isEmpty()) {
-                    viewState.startLoginActivity()
-                }
-                repoAuth.getUserById(userId)
-            }
+        repoAuth.verifyUserIsLoggedIn().flatMap { userId ->
+            if (userId.isEmpty()) viewState.startLoginActivity()
+            repoAuth.updateFirebaseToken(userId).flatMap { repoAuth.getUserById(userId) }
+        }
             .subscribeByDefault()
             .subscribe(
                 { user ->
                     viewState.setUserData(user)
                     viewState.startWasOnlineWorkManager()
-                    repoAuth.updateFirebaseToken(user.uid)
-                        .subscribeOn(Schedulers.io())
-                        .subscribe()
-                        .disposeBy(bag)
                 },
                 {
                     Log.d(TAG, "Failed to verify user is logged in")

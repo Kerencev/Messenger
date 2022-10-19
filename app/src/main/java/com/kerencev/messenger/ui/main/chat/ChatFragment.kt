@@ -2,7 +2,6 @@ package com.kerencev.messenger.ui.main.chat
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
@@ -18,7 +17,6 @@ import com.kerencev.messenger.model.repository.impl.*
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.ui.base.ViewBindingFragment
-import com.kerencev.messenger.utils.log
 import com.vanniktech.emoji.EmojiPopup
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit

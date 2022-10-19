@@ -36,7 +36,9 @@ import moxy.ktx.moxyPresenter
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
+
     private val navigator = AppNavigator(this, R.id.activityMainContainer)
+
     private val presenter by moxyPresenter {
         MainPresenter(
             MessengerApp.instance.router,
@@ -49,13 +51,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Messenger)
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.navigation.itemIconTintList = null
         setContentView(binding.root)
         presenter.navigateToChatList(getChatPartnerFromPush())
         presenter.verifyUserIsLoggedIn()
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        setTheme(R.style.Theme_Messenger)
         setNavigationDrawerClicks()
     }
 

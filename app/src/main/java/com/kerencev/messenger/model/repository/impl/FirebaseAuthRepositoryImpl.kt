@@ -1,5 +1,6 @@
 package com.kerencev.messenger.model.repository.impl
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -99,16 +100,21 @@ class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
                     emitter.onError(error.toException())
                 }
             })
-//            Thread.sleep(StatusWorkManager.UPDATE_PERIOD)
         }
     }
 
-    override fun updateFirebaseToken(userId: String): Completable {
-        return Completable.create {
+    override fun updateFirebaseToken(userId: String): Single<String> {
+        return Single.create { emitter ->
             FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
                 FirebaseService.token = token
                 val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId/token")
                 userRef.setValue(token)
+                    .addOnSuccessListener {
+                        emitter.onSuccess(userId)
+                    }
+                    .addOnFailureListener {
+                        emitter.onError(it)
+                    }
             }
         }
     }

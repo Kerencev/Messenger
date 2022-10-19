@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/chatCardSmile"
                 android:layout_width="@dimen/fragment_chat_card_edit_icon_width"
                 android:layout_height="@dimen/fragment_chat_card_edit_icon_height"
@@ -124,9 +124,9 @@
                 android:layout_marginStart="@dimen/fragment_chat_card_edit_icon_margin_start"
                 android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
                 android:background="@color/white"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
                 app:cardElevation="0dp"
-                android:backgroundTint="@color/white"
                 app:rippleColor="@color/highlight_error"
                 app:strokeWidth="0dp">
 
@@ -135,11 +135,10 @@
                     android:layout_width="@dimen/fragment_chat_iv_edit_icon_width"
                     android:layout_height="@dimen/fragment_chat_iv_edit_icon_height"
                     android:layout_gravity="center"
-                    android:background="@color/white"
                     android:contentDescription="@string/smile"
                     android:src="@drawable/icon_smile" />
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
             <com.vanniktech.emoji.EmojiEditText
                 android:id="@+id/chatEditText"
@@ -164,10 +163,10 @@
                 android:layout_marginEnd="@dimen/fragment_chat_card_edit_icon_margin_end"
                 android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
                 android:background="@color/white"
+                android:backgroundTint="@color/white"
                 app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
                 app:cardElevation="0dp"
                 app:rippleColor="@color/highlight_error"
-                android:backgroundTint="@color/white"
                 app:strokeWidth="0dp">
 
                 <ImageView
@@ -175,7 +174,6 @@
                     android:layout_width="@dimen/fragment_chat_iv_edit_icon_width"
                     android:layout_height="@dimen/fragment_chat_iv_edit_icon_height"
                     android:layout_gravity="center"
-                    android:background="@color/white"
                     android:contentDescription="@string/smile"
                     android:src="@drawable/icon_send" />
 

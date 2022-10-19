@@ -5,7 +5,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.kerencev.messenger.MessengerApp
 
 /**
  * Work manager to update the avatar url for all chat partners
