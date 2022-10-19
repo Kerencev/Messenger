@@ -30,7 +30,6 @@ class MainPresenter(
             .subscribe(
                 { user ->
                     viewState.setUserData(user)
-                    viewState.startWasOnlineWorkManager()
                 },
                 {
                     Log.d(TAG, "Failed to verify user is logged in")

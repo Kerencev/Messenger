@@ -1,5 +1,6 @@
 package com.kerencev.messenger.ui.main.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -46,8 +47,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         )
     }
 
-    private val request: WorkRequest =
-        OneTimeWorkRequest.Builder(StatusWorkManager::class.java).build()
+    private var updateStatusRequest: WorkRequest? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,14 +61,25 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setNavigationDrawerClicks()
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        MessengerApp.instance.navigationHolder.setNavigator(navigator)
+    override fun onStart() {
+        updateStatusRequest = OneTimeWorkRequest.Builder(StatusWorkManager::class.java).build()
+        updateStatusRequest?.let { WorkManager.getInstance(this).enqueue(it) }
+        super.onStart()
     }
 
     override fun onPause() {
         MessengerApp.instance.navigationHolder.removeNavigator()
         super.onPause()
+    }
+
+    override fun onStop() {
+        updateStatusRequest?.let { WorkManager.getInstance(this).cancelWorkById(it.id) }
+        super.onStop()
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        MessengerApp.instance.navigationHolder.setNavigator(navigator)
     }
 
     override fun onBackPressed() {
@@ -113,10 +124,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun updateUserLogin(newLogin: String) {
         binding.navigation.getHeaderView(0).findViewById<TextView>(R.id.tvNavHeaderLogin).text =
             newLogin
-    }
-
-    override fun startWasOnlineWorkManager() {
-        WorkManager.getInstance(this).enqueue(request)
     }
 
     override fun updateUserAvatar(newAvatarUrl: String) {
