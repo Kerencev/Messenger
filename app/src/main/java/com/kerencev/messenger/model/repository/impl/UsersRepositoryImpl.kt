@@ -7,6 +7,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.UsersRepository
+import com.kerencev.messenger.utils.FirebaseConstants
+import com.kerencev.messenger.utils.FirebaseConstants.Companion.CHAT_PARTNER_AVATAR_URL
+import com.kerencev.messenger.utils.FirebaseConstants.Companion.CHAT_PARTNER_LOGIN
+import com.kerencev.messenger.utils.FirebaseConstants.Companion.LATEST_MESSAGES
+import com.kerencev.messenger.utils.FirebaseConstants.Companion.LOGIN
+import com.kerencev.messenger.utils.FirebaseConstants.Companion.USERS
 import com.kerencev.messenger.utils.MyDate
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
@@ -39,21 +45,10 @@ class UsersRepositoryImpl : UsersRepository {
         }
     }
 
-    override fun checkValidityLogin(text: String, listOfUsers: List<User>): Single<Boolean> {
-        return Single.create { emitter ->
-            listOfUsers.forEach { user ->
-                if (user.login == text) {
-                    emitter.onSuccess(false)
-                }
-            }
-            emitter.onSuccess(true)
-        }
-    }
-
-    override fun updateUserLogin(newLogin: String): Completable {
+    override fun updateUserLoginForUsersNode(newLogin: String): Completable {
         return Completable.create { emitter ->
             val userId = FirebaseAuth.getInstance().currentUser?.uid
-            val userRef = FirebaseDatabase.getInstance().getReference("/users/$userId/login")
+            val userRef = FirebaseDatabase.getInstance().getReference("/$USERS/$userId/$LOGIN")
             userRef.setValue(newLogin)
                 .addOnSuccessListener {
                     emitter.onComplete()
@@ -61,6 +56,26 @@ class UsersRepositoryImpl : UsersRepository {
                 .addOnFailureListener {
                     emitter.onError(it)
                 }
+        }
+    }
+
+    override fun updateUserLoginForAllChatPartners(newLogin: String): Completable {
+        return Completable.create { emitter ->
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val latestMessagesRef =
+                FirebaseDatabase.getInstance()
+                    .getReference("/${LATEST_MESSAGES}/$userId")
+            latestMessagesRef.get()
+                .addOnSuccessListener { chatPartners ->
+                    chatPartners.children.forEach { chatPartner ->
+                        val chatPartnerLatestMessageRef = FirebaseDatabase.getInstance()
+                            .getReference("/${LATEST_MESSAGES}/${chatPartner.key.toString()}/$userId/${CHAT_PARTNER_LOGIN}")
+                        chatPartnerLatestMessageRef.setValue(newLogin)
+                            .addOnSuccessListener { emitter.onComplete() }
+                            .addOnFailureListener { emitter.onError(it) }
+                    }
+                }
+                .addOnFailureListener { emitter.onError(it) }
         }
     }
 }

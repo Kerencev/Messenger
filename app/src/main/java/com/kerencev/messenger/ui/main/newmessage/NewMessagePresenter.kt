@@ -1,6 +1,5 @@
 package com.kerencev.messenger.ui.main.newmessage
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.UsersRepository
@@ -20,14 +19,9 @@ class NewMessagePresenter(
     fun getAllUsersWithFirestore() {
         repository.getAllUsers()
             .subscribeByDefault()
-            .subscribe(
-                {
-                    viewState.initList(it)
-                },
-                {
-                    Log.d(TAG, "Failed to get all users from Firebase")
-                }
-            ).disposeBy(bag)
+            .subscribe { usersList ->
+                viewState.initList(usersList)
+            }.disposeBy(bag)
     }
 
     fun navigateToChatFragment(user: User) {
@@ -42,9 +36,5 @@ class NewMessagePresenter(
     override fun onDestroy() {
         bag.dispose()
         super.onDestroy()
-    }
-
-    companion object {
-        private const val TAG = "NewMessagePresenter"
     }
 }

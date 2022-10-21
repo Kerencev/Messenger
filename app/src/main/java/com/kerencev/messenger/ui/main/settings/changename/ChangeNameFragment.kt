@@ -20,9 +20,7 @@ import com.kerencev.messenger.utils.showKeyBoard
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit
 
-private const val TAG = "ChangeNameFragment"
 const val MIN_LOGIN_LETTERS = 5
-const val LOGIN_RESULT_KEY = "LOGIN_RESULT_KEY"
 const val LOGIN_BUNDLE_KEY = "LOGIN_BUNDLE_KEY"
 
 class ChangeNameFragment :

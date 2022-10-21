@@ -52,8 +52,4 @@ class NewMessageFragment :
         super.onDestroyView()
         _binding = null
     }
-
-    companion object {
-        private const val TAG = "NewMessageFragment"
-    }
 }

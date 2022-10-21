@@ -1,15 +1,12 @@
 package com.kerencev.messenger.ui.main.settings.changename
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
+import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.AuthRepository
 import com.kerencev.messenger.model.repository.UsersRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
-import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
-
-private const val TAG = "ChangeNamePresenter"
 
 class ChangeNamePresenter(
     private val router: Router,
@@ -24,32 +21,23 @@ class ChangeNamePresenter(
                 repoAuth.getUserById(it)
             }
             .subscribeByDefault()
-            .subscribe(
-                {
-                    viewState.renderUserLogin(it.login)
-                },
-                {
-                    Log.d(TAG, "${it.message}")
-                }
-            )
-            .disposeBy(bag)
+            .subscribe { currentUser ->
+                viewState.renderUserLogin(currentUser.login)
+            }.disposeBy(bag)
     }
 
     fun checkValidityLogin(text: String) {
         if (text.length < MIN_LOGIN_LETTERS) return
         repoUsers.getAllUsers()
-            .flatMap {
-                repoUsers.checkValidityLogin(text, it)
-            }
             .subscribeByDefault()
-            .subscribe(
-                { isValid ->
-                    viewState.showValidityLoginInfo(isValid = isValid)
-                },
-                {
-                    log(it.message.toString())
-                }
-            ).disposeBy(bag)
+            .subscribe { listOfAllUsers ->
+                viewState.showValidityLoginInfo(
+                    isValid = checkExistenceLoginAmongAllUsers(
+                        newLogin = text,
+                        listOfUsers = listOfAllUsers
+                    )
+                )
+            }.disposeBy(bag)
     }
 
     fun handleActionDoneEvent(text: String) {
@@ -58,34 +46,50 @@ class ChangeNamePresenter(
             return
         }
         repoUsers.getAllUsers()
-            .flatMap {
-                repoUsers.checkValidityLogin(text, it)
+            .map { listOfAllUsers ->
+                checkExistenceLoginAmongAllUsers(
+                    newLogin = text,
+                    listOfUsers = listOfAllUsers
+                )
             }
             .subscribeByDefault()
-            .subscribe(
-                { isValid ->
-                    when (isValid) {
-                        true -> {
-                            repoUsers.updateUserLogin(text)
-                                .subscribeByDefault()
-                                .subscribe(
-                                    {
-                                        viewState.setResultForSettingsFragment(text)
-                                        router.exit()
-                                    },
-                                    {
-                                        log(it.message.toString())
-                                    }
-                                )
-                        }
-                        false -> {
-                            viewState.highlightError()
-                        }
+            .subscribe { isLoginAvailable ->
+                when (isLoginAvailable) {
+                    true -> {
+                        updateUserLogin(text)
                     }
-                },
-                {
-                    log(it.message.toString())
+                    false -> {
+                        viewState.highlightError()
+                    }
                 }
-            ).disposeBy(bag)
+            }.disposeBy(bag)
+    }
+
+    /**
+     * return - true, if such a login doesn't exist
+     */
+    private fun checkExistenceLoginAmongAllUsers(
+        newLogin: String,
+        listOfUsers: List<User>
+    ): Boolean {
+        listOfUsers.forEach { user ->
+            if (user.login == newLogin) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * Update user login For all nodes in the Firebase
+     */
+    private fun updateUserLogin(newLogin: String) {
+        repoUsers.updateUserLoginForUsersNode(newLogin)
+            .concatWith(repoUsers.updateUserLoginForAllChatPartners(newLogin))
+            .subscribeByDefault()
+            .subscribe {
+                viewState.setResultForSettingsFragment(newLogin)
+                router.exit()
+            }.disposeBy(bag)
     }
 }
