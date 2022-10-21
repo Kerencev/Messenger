@@ -11,8 +11,6 @@ import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
 
-private const val TAG = "SettingsPresenter"
-
 class SettingsPresenter(
     private val repoMedia: MediaStoreRepository,
     private val repoAuth: AuthRepository,
@@ -25,25 +23,11 @@ class SettingsPresenter(
     }
 
     fun signOutWithFirebase() {
-        repoAuth.clearUserToken()
+        repoAuth.clearUserToken().concatWith(repoAuth.signOut())
             .subscribeByDefault()
-            .subscribe(
-                {
-                    repoAuth.signOut()
-                        .subscribeByDefault()
-                        .subscribe(
-                            {
-                                viewState.startLoginActivity()
-                            },
-                            {
-                                log(it.message.toString())
-                            }
-                        )
-                },
-                {
-                    Log.d(TAG, "Failed to Signed out with FirebaseAuth")
-                }
-            ).disposeBy(bag)
+            .subscribe {
+                viewState.startLoginActivity()
+            }.disposeBy(bag)
     }
 
     fun navigateTo(screen: Screen) {
@@ -64,13 +48,8 @@ class SettingsPresenter(
                 repoAuth.getUserById(useId)
             }
             .subscribeByDefault()
-            .subscribe(
-                {
-                    viewState.renderUserInfo(it)
-                },
-                {
-                    Log.d(TAG, "${it.message}")
-                }
-            ).disposeBy(bag)
+            .subscribe { user ->
+                viewState.renderUserInfo(user)
+            }.disposeBy(bag)
     }
 }
