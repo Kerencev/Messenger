@@ -7,11 +7,10 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
-interface FirebaseMessagesRepository {
+interface MessagesRepository {
     fun getCurrentUser(): Single<User>
     fun listenForNewMessages(toId: String): Observable<ChatMessage>
     fun getAllMessages(toId: String): Single<Pair<List<ChatMessage>, Int>>
-    fun listenForLatestMessages(): Observable<ChatMessage>
     fun resetUnreadMessages(toId: String): Completable
     fun getCountOfUnreadMessages(toId: String, fromId: String): Single<Long>
     fun saveMessageForAllNodes(
@@ -20,7 +19,6 @@ interface FirebaseMessagesRepository {
         chatPartner: User
     ): Observable<StatusOfSendingMessage>
     fun sendPushToChatPartner(message: String, user: User, chatPartner: User): Completable
-    fun updateAllLatestMessages(): Observable<List<ChatMessage>>
     fun updateChatPartnerInfo(chatPartnerId: String): Observable<User>
     fun updateUserTypingStatus(
         chatPartnerId: String,

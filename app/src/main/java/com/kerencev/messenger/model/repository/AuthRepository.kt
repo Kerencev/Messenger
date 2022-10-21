@@ -4,7 +4,7 @@ import com.kerencev.messenger.model.entities.User
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
-interface FirebaseAuthRepository {
+interface AuthRepository {
     fun verifyUserIsLoggedIn(): Single<String>
     fun createUserWithEmailAndPassword(email: String, password: String): Completable
     fun signInWithEmailAndPassword(email: String, password: String): Completable

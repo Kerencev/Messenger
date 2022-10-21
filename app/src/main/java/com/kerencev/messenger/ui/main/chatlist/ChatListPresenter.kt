@@ -3,8 +3,7 @@ package com.kerencev.messenger.ui.main.chatlist
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseAuthRepository
-import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
+import com.kerencev.messenger.model.repository.LatestMessagesRepository
 import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.navigation.main.NewMessageScreen
 import com.kerencev.messenger.utils.SortChatListData
@@ -15,15 +14,14 @@ import moxy.MvpPresenter
 
 class ChatListPresenter(
     private val router: Router,
-    private val repoAuth: FirebaseAuthRepository,
-    private val repoMessages: FirebaseMessagesRepository
+    private val repository: LatestMessagesRepository
 ) : MvpPresenter<ChatListView>() {
 
     private val bag = CompositeDisposable()
     private val sortChatList = SortChatListData()
 
     fun listenForLatestMessagesFromFireBase() {
-        repoMessages.listenForLatestMessages()
+        repository.listenForLatestMessages()
             .subscribeByDefault()
             .subscribe(
                 {
@@ -37,7 +35,7 @@ class ChatListPresenter(
     }
 
     fun updateAllLatestMessages() {
-        repoMessages.updateAllLatestMessages()
+        repository.updateAllLatestMessages()
             .subscribeByDefault()
             .subscribe(
                 {

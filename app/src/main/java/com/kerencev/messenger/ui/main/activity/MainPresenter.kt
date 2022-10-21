@@ -3,7 +3,7 @@ package com.kerencev.messenger.ui.main.activity
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseAuthRepository
+import com.kerencev.messenger.model.repository.AuthRepository
 import com.kerencev.messenger.navigation.main.ChatListScreen
 import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.navigation.main.SettingsScreen
@@ -14,7 +14,7 @@ import moxy.MvpPresenter
 
 class MainPresenter(
     private val router: Router,
-    private val repoAuth: FirebaseAuthRepository
+    private val repoAuth: AuthRepository
 ) : MvpPresenter<MainView>() {
 
     private val bag = CompositeDisposable()

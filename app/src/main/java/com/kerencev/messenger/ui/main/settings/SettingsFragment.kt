@@ -28,7 +28,7 @@ import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSettingsBinding
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
 import com.kerencev.messenger.model.repository.impl.MediaStoreRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.navigation.main.ChangeNameScreen
@@ -51,7 +51,7 @@ class SettingsFragment :
     private val presenter by moxyPresenter {
         SettingsPresenter(
             MediaStoreRepositoryImpl(),
-            FirebaseAuthRepositoryImpl(),
+            AuthRepositoryImpl(),
             MessengerApp.instance.router
         )
     }

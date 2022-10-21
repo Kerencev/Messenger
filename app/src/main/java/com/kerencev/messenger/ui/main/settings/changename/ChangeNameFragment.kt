@@ -10,8 +10,8 @@ import com.jakewharton.rxbinding.widget.RxTextView
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChangeNameBinding
-import com.kerencev.messenger.model.repository.impl.FirebaseAllUsersRepositoryImpl
-import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.UsersRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.settings.SettingsFragment
@@ -33,8 +33,8 @@ class ChangeNameFragment :
     private val presenter by moxyPresenter {
         ChangeNamePresenter(
             MessengerApp.instance.router,
-            FirebaseAuthRepositoryImpl(),
-            FirebaseAllUsersRepositoryImpl()
+            AuthRepositoryImpl(),
+            UsersRepositoryImpl()
         )
     }
     private lateinit var handler: Handler

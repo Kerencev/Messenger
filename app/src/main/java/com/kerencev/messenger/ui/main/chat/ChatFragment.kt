@@ -26,7 +26,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     private val presenter: ChatPresenter by moxyPresenter {
         ChatPresenter(
-            FirebaseMessagesRepositoryImpl(),
+            MessagesRepositoryImpl(),
             WallpapersRepositoryImpl(),
             MessengerApp.instance.router
         )

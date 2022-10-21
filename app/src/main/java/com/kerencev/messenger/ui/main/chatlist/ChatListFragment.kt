@@ -8,8 +8,8 @@ import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.databinding.FragmentChatListBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.FirebaseAuthRepositoryImpl
-import com.kerencev.messenger.model.repository.impl.FirebaseMessagesRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.LatestMessagesRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.MessagesRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
@@ -27,8 +27,7 @@ class ChatListFragment :
     private val presenter: ChatListPresenter by moxyPresenter {
         ChatListPresenter(
             MessengerApp.instance.router,
-            FirebaseAuthRepositoryImpl(),
-            FirebaseMessagesRepositoryImpl()
+            LatestMessagesRepositoryImpl()
         )
     }
     private val adapter = ChatListAdapter(object : OnItemClick {

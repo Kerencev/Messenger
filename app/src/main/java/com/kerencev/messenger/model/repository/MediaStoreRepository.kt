@@ -1,4 +1,4 @@
-package com.kerencev.messenger.model.repository.impl
+package com.kerencev.messenger.model.repository
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -9,7 +9,7 @@ import com.kerencev.messenger.data.remote.dto.NotificationData
 import com.kerencev.messenger.data.remote.dto.PushNotification
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
+import com.kerencev.messenger.model.repository.MessagesRepository
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.utils.ChatMessageMapper
 import com.kerencev.messenger.utils.MyDate
@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
+class MessagesRepositoryImpl : MessagesRepository {
 
     override fun getCurrentUser(): Single<User> {
         return Single.create { emitter ->
@@ -274,75 +274,6 @@ class FirebaseMessagesRepositoryImpl : FirebaseMessagesRepository {
                 .addOnFailureListener {
                     emitter.onError(it)
                 }
-        }
-    }
-
-    override fun listenForLatestMessages(): Observable<ChatMessage> {
-        return Observable.create { emitter ->
-            val fromId = FirebaseAuth.getInstance().uid
-            val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
-            ref.addChildEventListener(object : ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val latestMessage = snapshot.getValue(ChatMessage::class.java)
-                    latestMessage?.let { message ->
-                        message.chatPartnerIsOnline =
-                            System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
-                        if (message.message.isNotEmpty()) {
-                            emitter.onNext(message)
-                        }
-                    }
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    val latestMessage = snapshot.getValue(ChatMessage::class.java)
-                    latestMessage?.let { message ->
-                        message.chatPartnerIsOnline =
-                            System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
-                        if (message.message.isNotEmpty()) {
-                            emitter.onNext(message)
-                        }
-                    }
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) = Unit
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) = Unit
-                override fun onCancelled(error: DatabaseError) = Unit
-            })
-        }
-    }
-
-    /**
-     * Function to update all latest messages with a period
-     * to update chat partner status for all chat partners
-     */
-    override fun updateAllLatestMessages(): Observable<List<ChatMessage>> {
-        return Observable.create { emitter ->
-            val fromId = FirebaseAuth.getInstance().uid
-            val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
-            val result = ArrayList<ChatMessage>()
-            while (true) {
-                Thread.sleep(StatusWorkManager.LIMIT)
-                ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        result.clear()
-                        snapshot.children.forEach { latestMessage ->
-                            val message = latestMessage.getValue(ChatMessage::class.java)
-                            message?.let {
-                                message.chatPartnerIsOnline =
-                                    System.currentTimeMillis() - message.chatPartnerWasOnline <= StatusWorkManager.LIMIT
-                                if (message.message.isNotEmpty()) {
-                                    result.add(message)
-                                }
-                            }
-                        }
-                        emitter.onNext(result)
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        emitter.onError(error.toException())
-                    }
-                })
-            }
         }
     }
 

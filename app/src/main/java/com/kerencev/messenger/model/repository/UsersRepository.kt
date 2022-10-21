@@ -4,7 +4,7 @@ import com.kerencev.messenger.model.entities.User
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
-interface FirebaseAllUsersRepository {
+interface UsersRepository {
     fun getAllUsers(): Single<List<User>>
     fun checkValidityLogin(text: String, listOfUsers: List<User>): Single<Boolean>
     fun updateUserLogin(newLogin: String): Completable

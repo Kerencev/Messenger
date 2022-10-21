@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseMessagesRepository
+import com.kerencev.messenger.model.repository.MessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
@@ -16,7 +16,7 @@ import com.kerencev.messenger.utils.subscribeByDefault
 private const val TAG = "ChatPresenter"
 
 class ChatPresenter(
-    private val repository: FirebaseMessagesRepository,
+    private val repository: MessagesRepository,
     private val wallPaperRepository: WallpapersRepository,
     private val router: Router
 ) : BasePresenter<ChatView>(

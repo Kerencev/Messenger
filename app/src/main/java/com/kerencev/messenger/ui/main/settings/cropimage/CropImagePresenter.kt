@@ -2,7 +2,7 @@ package com.kerencev.messenger.ui.main.settings.cropimage
 
 import android.graphics.Bitmap
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.repository.impl.MediaStoreRepository
+import com.kerencev.messenger.model.repository.MediaStoreRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log

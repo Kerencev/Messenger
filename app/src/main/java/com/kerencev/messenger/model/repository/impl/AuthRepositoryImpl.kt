@@ -7,13 +7,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseAuthRepository
+import com.kerencev.messenger.model.repository.AuthRepository
 import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
-class FirebaseAuthRepositoryImpl : FirebaseAuthRepository {
+class AuthRepositoryImpl : AuthRepository {
     override fun verifyUserIsLoggedIn(): Single<String> {
         return Single.create { emitter ->
             val uid = FirebaseAuth.getInstance().uid

@@ -1,7 +1,7 @@
 package com.kerencev.messenger.ui.login.signin
 
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.repository.FirebaseAuthRepository
+import com.kerencev.messenger.model.repository.AuthRepository
 import com.kerencev.messenger.navigation.login.SignUpScreen
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
@@ -10,7 +10,7 @@ import moxy.MvpPresenter
 
 class SignInPresenter(
     private val router: Router,
-    private val repository: FirebaseAuthRepository
+    private val repository: AuthRepository
 ) : MvpPresenter<SignInView>() {
 
     private val bag = CompositeDisposable()

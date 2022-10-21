@@ -6,12 +6,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.FirebaseAllUsersRepository
+import com.kerencev.messenger.model.repository.UsersRepository
 import com.kerencev.messenger.utils.MyDate
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
-class FirebaseAllUsersRepositoryImpl : FirebaseAllUsersRepository {
+class UsersRepositoryImpl : UsersRepository {
     override fun getAllUsers(): Single<List<User>> {
         return Single.create { emitter ->
             val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
