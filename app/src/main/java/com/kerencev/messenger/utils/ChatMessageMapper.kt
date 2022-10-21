@@ -8,7 +8,7 @@ object ChatMessageMapper {
 
     private const val TAG = "ChatMessageMapper"
 
-    fun mapToChatMessage(message: String, user: User, chatPartner: User): ChatMessage {
+    fun mapToChatMessageForUserNode(message: String, user: User, chatPartner: User): ChatMessage {
         val time = System.currentTimeMillis()
         return ChatMessage(
             id = UUID.randomUUID().toString(),
@@ -28,6 +28,26 @@ object ChatMessageMapper {
         )
     }
 
+    fun mapToChatMessageForPartnerNode(message: String, user: User, chatPartner: User): ChatMessage {
+        val time = System.currentTimeMillis()
+        return ChatMessage(
+            id = UUID.randomUUID().toString(),
+            message = message,
+            fromId = user.uid,
+            toId = chatPartner.uid,
+            timesTamp = time,
+            countOfUnread = 0,
+            chatPartnerId = user.uid,
+            chatPartnerNotificationId = user.notificationId,
+            chatPartnerLogin = user.login,
+            chatPartnerEmail = user.email,
+            chatPartnerWasOnline = user.wasOnline,
+            chatPartnerIsOnline = true,
+            chatPartnerIsTyping = false,
+            chatPartnerAvatarUrl = user.avatarUrl
+        )
+    }
+
     fun mapToLatestMessageForChatPartner(countOfUnread: Long, chatMessage: ChatMessage, chatPartner: User): ChatMessage {
         return ChatMessage(
             id = chatMessage.id,
@@ -44,6 +64,25 @@ object ChatMessageMapper {
             chatPartnerIsOnline = true,
             chatPartnerIsTyping = false,
             chatPartnerAvatarUrl = chatPartner.avatarUrl
+        )
+    }
+
+    fun mapToLatestMessageForChatPartner(currentUser: User, chatPartner: User, message: String, countOfUnread: Long): ChatMessage {
+        return ChatMessage(
+            id = UUID.randomUUID().toString(),
+            message = message,
+            fromId = currentUser.uid,
+            toId = chatPartner.uid,
+            timesTamp = System.currentTimeMillis(),
+            countOfUnread = countOfUnread,
+            chatPartnerId = currentUser.uid,
+            chatPartnerNotificationId = currentUser.notificationId,
+            chatPartnerLogin = currentUser.login,
+            chatPartnerEmail = currentUser.email,
+            chatPartnerWasOnline = currentUser.wasOnline,
+            chatPartnerIsOnline = true,
+            chatPartnerIsTyping = false,
+            chatPartnerAvatarUrl = currentUser.avatarUrl
         )
     }
 }

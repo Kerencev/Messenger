@@ -2,8 +2,8 @@ package com.kerencev.messenger.ui.main.settings.changename
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.kerencev.messenger.model.repository.UsersRepository
 import com.kerencev.messenger.model.repository.AuthRepository
+import com.kerencev.messenger.model.repository.UsersRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log

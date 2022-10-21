@@ -8,10 +8,8 @@ import com.kerencev.messenger.model.repository.MessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
-import com.kerencev.messenger.utils.MyDate
-import com.kerencev.messenger.utils.StatusOfSendingMessage
-import com.kerencev.messenger.utils.disposeBy
-import com.kerencev.messenger.utils.subscribeByDefault
+import com.kerencev.messenger.utils.*
+import io.reactivex.rxjava3.core.Completable
 
 private const val TAG = "ChatPresenter"
 
@@ -30,41 +28,88 @@ class ChatPresenter(
         if (message.isEmpty()) return
         chatPartner.wasOnline = partnerWasOnline
         repository.getCurrentUser()
-            .subscribeByDefault()
+            .flatMap { currentUser ->
+                repository.getCountOfUnreadMessages(currentUser.uid, chatPartner.uid)
+                    .flatMap { countOfUnread ->
+                        Completable.concat(
+                            listOf(
+                                repository.saveMessageToUserMessagesNode(
+                                    message = message,
+                                    currentUser = currentUser,
+                                    chatPartner = chatPartner
+                                ),
+                                repository.saveMessageToPartnerMessagesNode(
+                                    message = message,
+                                    currentUser = currentUser,
+                                    chatPartner = chatPartner
+                                ),
+                                repository.saveMessageToUserLatestMessagesNode(
+                                    message = message,
+                                    currentUser = currentUser,
+                                    chatPartner = chatPartner
+                                ),
+                                repository.saveMessageToPartnerLatestMessagesNode(
+                                    message = message,
+                                    currentUser = currentUser,
+                                    chatPartner = chatPartner,
+                                    countOfUnread = countOfUnread + 1
+                                )
+                            )
+                        ).toSingle {
+                            Triple(
+                                first = countOfUnread + 1,
+                                second = currentUser,
+                                third = chatPartner
+                            )
+                        }
+                    }
+            }
             .subscribe(
-                { currentUser ->
-                    repository.saveMessageForAllNodes(message, currentUser, chatPartner)
-                        .subscribeByDefault()
-                        .subscribe(
-                            { statusOfSending ->
-                                when (statusOfSending) {
-                                    is StatusOfSendingMessage.Status1 -> {
-                                    }
-                                    is StatusOfSendingMessage.Status2 -> {
-                                    }
-                                    is StatusOfSendingMessage.Status3 -> {
-                                    }
-                                    is StatusOfSendingMessage.Status4 -> {
-                                        repository.sendPushToChatPartner(
-                                            message,
-                                            currentUser,
-                                            chatPartner
-                                        )
-                                            .subscribeByDefault()
-                                            .subscribe()
-                                    }
-                                }
-                            },
-                            {
-                                Log.d(TAG, "Failed to save message for all nodes")
-                            }
-                        )
+                {
+                    sendPushNotificationToChatPartner(
+                        countOfUnread = it.first,
+                        currentUser = it.second,
+                        chatPartner = it.third
+                    )
                 },
                 {
-                    Log.d(TAG, it.message.toString())
+                    log(it.stackTraceToString())
                 }
-            )
-        //Don't dispose because user can close the fragment but message needs to be delivered
+            ).disposeBy(bag)
+    }
+
+    private fun sendPushNotificationToChatPartner(
+        countOfUnread: Long,
+        currentUser: User,
+        chatPartner: User
+    ) {
+        repository.getTokenById(chatPartner.uid)
+            .flatMap { recipientToken ->
+                repository.getUnreadMessages(
+                    currentUser = currentUser,
+                    chatPartner = chatPartner,
+                    countOfUnread = countOfUnread
+                )
+                    .map { listOfUnreadMessages ->
+                        PushMapper.mapToPushNotification(
+                            listOfMessages = listOfUnreadMessages,
+                            currentUser = currentUser,
+                            partnerToken = recipientToken
+                        )
+                    }
+                    .flatMap { pushNotification ->
+                        repository.sendPushToChatPartner(pushNotification).toSingle {}
+                    }
+            }
+            .subscribeByDefault()
+            .subscribe(
+                {
+
+                },
+                {
+                    log(it.stackTraceToString())
+                }
+            ).disposeBy(bag)
     }
 
     fun updateChatPartnerInfo(chatPartner: User) {

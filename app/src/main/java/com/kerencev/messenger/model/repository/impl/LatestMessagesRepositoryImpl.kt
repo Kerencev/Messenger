@@ -48,7 +48,7 @@ class LatestMessagesRepositoryImpl : LatestMessagesRepository {
 
     /**
      * Function to update all latest messages with a period
-     * to update chat partner status for all chat partners
+     * to update chat partners info
      */
     override fun updateAllLatestMessages(): Observable<List<ChatMessage>> {
         return Observable.create { emitter ->

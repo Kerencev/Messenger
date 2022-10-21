@@ -9,7 +9,6 @@ import com.kerencev.messenger.databinding.FragmentChatListBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.impl.LatestMessagesRepositoryImpl
-import com.kerencev.messenger.model.repository.impl.MessagesRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView

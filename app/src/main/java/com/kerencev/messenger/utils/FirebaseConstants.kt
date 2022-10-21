@@ -7,8 +7,11 @@ class FirebaseConstants {
         const val USER_WAS_ONLINE = "wasOnline"
         const val USER_STATUS_ONLINE = "Онлайн"
         const val USER_STATUS_OFFLINE = "Оффлайн"
+        const val USER_MESSAGES = "user-messages"
         const val LATEST_MESSAGES = "latest-messages"
         const val CHAT_PARTNER_WAS_ONLINE = "chatPartnerWasOnline"
         const val CHAT_PARTNER_IS_ONLINE = "chatPartnerIsOnline"
+        const val COUNT_OF_UNREAD = "countOfUnread"
+        const val TOKEN = "token"
     }
 }

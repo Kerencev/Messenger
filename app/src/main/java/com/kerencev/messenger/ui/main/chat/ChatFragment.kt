@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
+import com.kerencev.messenger.data.remote.RetrofitInstance
 import com.kerencev.messenger.databinding.FragmentChatBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
@@ -26,7 +27,9 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     private val presenter: ChatPresenter by moxyPresenter {
         ChatPresenter(
-            MessagesRepositoryImpl(),
+            MessagesRepositoryImpl(
+                notificationAPI = RetrofitInstance.api
+            ),
             WallpapersRepositoryImpl(),
             MessengerApp.instance.router
         )
