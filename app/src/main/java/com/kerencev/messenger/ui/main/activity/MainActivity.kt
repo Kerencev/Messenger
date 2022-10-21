@@ -72,7 +72,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun onStop() {
-        updateStatusRequest?.let { WorkManager.getInstance(this).cancelWorkById(it.id) }
+        updateStatusRequest?.let { WorkManager.getInstance(this).cancelAllWork() }
         super.onStop()
     }
 
@@ -128,6 +128,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun updateUserAvatar(newAvatarUrl: String) {
         val ivAvatar = binding.navigation.getHeaderView(0)
             .findViewById<CircleImageView>(R.id.ivNavHeaderAvatar)
+        val tvLetter = binding.navigation.getHeaderView(0)
+            .findViewById<TextView>(R.id.tvNavHeaderLetter)
+        ivAvatar.visibility = View.VISIBLE
+        tvLetter.visibility = View.GONE
         Glide.with(this).load(newAvatarUrl).into(ivAvatar)
     }
 

@@ -9,6 +9,7 @@ import com.kerencev.messenger.databinding.FragmentWalkthroughs3Binding
 class WalkthroughsFragment3 : WalkthroughsFragment() {
 
     private var _binding: FragmentWalkthroughs3Binding? = null
+
     private val binding: FragmentWalkthroughs3Binding get() = _binding!!
 
     override fun onCreateView(

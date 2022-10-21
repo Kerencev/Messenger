@@ -17,26 +17,24 @@ class UpdateAvatarWorkManager(context: Context, workerParams: WorkerParameters) 
     Worker(context, workerParams) {
 
     override fun doWork(): Result {
-        Thread {
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
-            val userRef = FirebaseDatabase.getInstance().getReference("/$USERS/$userId/$AVATAR_URL")
-            userRef.get()
-                .addOnSuccessListener {
-                    val userAvatar = it.value
-                    val latestMessagesRef =
-                        FirebaseDatabase.getInstance().getReference("/$LATEST_MESSAGES/$userId")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userRef = FirebaseDatabase.getInstance().getReference("/$USERS/$userId/$AVATAR_URL")
+        userRef.get()
+            .addOnSuccessListener {
+                val userAvatar = it.value
+                val latestMessagesRef =
+                    FirebaseDatabase.getInstance().getReference("/$LATEST_MESSAGES/$userId")
 
-                    //updating the avatar for all chat partners
-                    latestMessagesRef.get()
-                        .addOnSuccessListener { chatPartners ->
-                            chatPartners.children.forEach { chatPartner ->
-                                val chatPartnerLatestMessageRef = FirebaseDatabase.getInstance()
-                                    .getReference("/$LATEST_MESSAGES/${chatPartner.key.toString()}/$userId/$CHAT_PARTNER_AVATAR_URL")
-                                chatPartnerLatestMessageRef.setValue(userAvatar)
-                            }
+                //updating the avatar for all chat partners
+                latestMessagesRef.get()
+                    .addOnSuccessListener { chatPartners ->
+                        chatPartners.children.forEach { chatPartner ->
+                            val chatPartnerLatestMessageRef = FirebaseDatabase.getInstance()
+                                .getReference("/$LATEST_MESSAGES/${chatPartner.key.toString()}/$userId/$CHAT_PARTNER_AVATAR_URL")
+                            chatPartnerLatestMessageRef.setValue(userAvatar)
                         }
-                }
-        }.start()
+                    }
+            }
         return Result.success()
     }
 }
