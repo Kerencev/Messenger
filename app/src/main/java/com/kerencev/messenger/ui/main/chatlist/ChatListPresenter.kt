@@ -8,6 +8,7 @@ import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.navigation.main.NewMessageScreen
 import com.kerencev.messenger.utils.SortChatListData
 import com.kerencev.messenger.utils.disposeBy
+import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
@@ -29,7 +30,7 @@ class ChatListPresenter(
                     viewState.updateAdapterData(sortedData)
                 },
                 {
-                    Log.d(TAG, "Failed to listen for latest messages from FireBase")
+                    log(it.stackTraceToString())
                 }
             ).disposeBy(bag)
     }

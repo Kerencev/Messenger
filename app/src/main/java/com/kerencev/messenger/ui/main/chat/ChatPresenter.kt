@@ -1,7 +1,6 @@
 package com.kerencev.messenger.ui.main.chat
 
 import android.content.Context
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.MessagesRepository
@@ -10,8 +9,6 @@ import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.*
 import io.reactivex.rxjava3.core.Completable
-
-private const val TAG = "ChatPresenter"
 
 class ChatPresenter(
     private val repository: MessagesRepository,
@@ -115,12 +112,17 @@ class ChatPresenter(
     fun updateChatPartnerInfo(chatPartner: User) {
         repository.updateChatPartnerInfo(chatPartner.uid)
             .subscribeByDefault()
-            .subscribe { partner ->
-                partnerWasOnline = partner.wasOnline
-                viewState.updateChatPartnerStatus(status = MyDate.getChatPartnerStatus(partner.wasOnline))
-                viewState.updateChatPartnerLogin(login = partner.login)
-                viewState.updateChatPartnerAvatar(avatarUrl = partner.avatarUrl)
-            }.disposeBy(bag)
+            .subscribe(
+                { partner ->
+                    partnerWasOnline = partner.wasOnline
+                    viewState.updateChatPartnerStatus(status = MyDate.getChatPartnerStatus(partner.wasOnline))
+                    viewState.updateChatPartnerLogin(login = partner.login)
+                    viewState.updateChatPartnerAvatar(avatarUrl = partner.avatarUrl)
+                },
+                {
+                    log(it.stackTraceToString())
+                }
+            ).disposeBy(bag)
     }
 
     fun loadAllMessagesFromFirebase(toId: String) {
@@ -138,7 +140,7 @@ class ChatPresenter(
                     listenForNewMessagesFromFirebase(toId, skipCount)
                 },
                 {
-                    Log.d(TAG, "Failed to load all messages from Firebase")
+                    log(it.stackTraceToString())
                 }
             ).disposeBy(bag)
     }
@@ -146,6 +148,9 @@ class ChatPresenter(
     fun resetUnreadMessagesWithFirebase(toId: String) {
         repository.resetUnreadMessages(toId)
             .subscribeByDefault()
+            .doOnError {
+                log(it.stackTraceToString())
+            }
             .subscribe()
             .disposeBy(bag)
     }
@@ -160,7 +165,7 @@ class ChatPresenter(
                     viewState.addMessage(it)
                 },
                 {
-                    Log.d(TAG, "Failed to load new message from Firebase")
+                    log(it.stackTraceToString())
                 }
             ).disposeBy(bag)
     }
@@ -181,6 +186,7 @@ class ChatPresenter(
     fun updateUserTypingStatusWithFirebase(chatPartnerId: String, isTyping: Boolean) {
         repository.updateUserTypingStatus(chatPartnerId, isTyping)
             .subscribeByDefault()
+            .doOnError { log(it.stackTraceToString()) }
             .subscribe()
             .disposeBy(bag)
     }
@@ -190,7 +196,6 @@ class ChatPresenter(
             .subscribeByDefault()
             .subscribe { isTyping ->
                 viewState.setChatPartnerIsTyping(isTyping)
-            }
-            .disposeBy(bag)
+            }.disposeBy(bag)
     }
 }

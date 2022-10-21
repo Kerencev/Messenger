@@ -41,7 +41,9 @@ class LatestMessagesRepositoryImpl : LatestMessagesRepository {
 
                 override fun onChildRemoved(snapshot: DataSnapshot) = Unit
                 override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) = Unit
-                override fun onCancelled(error: DatabaseError) = Unit
+                override fun onCancelled(error: DatabaseError) {
+                    emitter.onError(error.toException())
+                }
             })
         }
     }
