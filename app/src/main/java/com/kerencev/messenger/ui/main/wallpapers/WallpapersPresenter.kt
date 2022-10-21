@@ -1,4 +1,4 @@
-package com.kerencev.messenger.ui.main.chat.wallpapers
+package com.kerencev.messenger.ui.main.wallpapers
 
 import android.content.Context
 import com.github.terrakok.cicerone.Router

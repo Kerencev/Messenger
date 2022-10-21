@@ -9,9 +9,7 @@ import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.navigation.main.SettingsScreen
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 class MainPresenter(

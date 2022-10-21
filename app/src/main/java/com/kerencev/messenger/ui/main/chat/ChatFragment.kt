@@ -31,8 +31,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             MessengerApp.instance.router
         )
     }
+
     private val adapter = ChatAdapter()
+
     private var chatPartner: User? = null
+
     private var isSmileIcon = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,42 +46,39 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpEmoji()
         chatPartner = arguments?.getParcelable(BUNDLE_KEY_USER)
         chatPartner?.let {
-            FirebaseService.notifManager?.cancel(chatPartner!!.notificationId)
-            presenter.loadAllMessagesFromFirebase(it.uid)
-            presenter.updateChatPartnerInfo(it)
-            presenter.listenForChatPartnerIsTyping(chatPartner!!.uid)
-            binding.chatEditText.addTextChangedListener {
-                presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, true)
-            }
-            RxTextView.textChanges(binding.chatEditText)
-                .debounce(1000, TimeUnit.MILLISECONDS)
-                .subscribe {
-                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
-                }
-        }
-        setToolbarClicks()
-        scrollRvWhenShowKeyboard()
-        with(binding) {
-            chatPartner?.let {
+            with(binding) {
                 chatToolbarTitle.text = it.login
                 updateChatPartnerAvatar(chatPartner!!.avatarUrl)
-            }
-            chatRv.adapter = adapter
-            chatCardSend.setOnClickListener { _ ->
-                val text = chatEditText.text.toString()
-                chatPartner?.let {
+                chatRv.adapter = adapter
+                // Cancel notification from the chat partner
+                FirebaseService.notifManager?.cancel(chatPartner!!.notificationId)
+                presenter.loadAllMessagesFromFirebase(it.uid)
+                presenter.updateChatPartnerInfo(it)
+                presenter.listenForChatPartnerIsTyping(chatPartner!!.uid)
+                chatEditText.addTextChangedListener {
+                    presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, true)
+                }
+                RxTextView.textChanges(chatEditText)
+                    .debounce(1000, TimeUnit.MILLISECONDS)
+                    .subscribe {
+                        presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
+                    }
+                chatCardSend.setOnClickListener { _ ->
+                    val text = chatEditText.text.toString()
                     presenter.performSendMessages(
                         message = text,
                         chatPartner = it
                     )
                     presenter.updateUserTypingStatusWithFirebase(chatPartner!!.uid, false)
+                    chatEditText.text?.clear()
                 }
-                chatEditText.text?.clear()
             }
         }
+        setUpEmoji()
+        setToolbarClicks()
+        scrollRvWhenShowKeyboard()
     }
 
     override fun onResume() {

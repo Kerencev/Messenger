@@ -123,7 +123,6 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="@dimen/fragment_chat_card_edit_icon_margin_start"
                 android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
-                android:background="@color/white"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
                 app:cardElevation="0dp"

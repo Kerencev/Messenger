@@ -5,12 +5,12 @@ import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.ui.main.chat.ChatFragment
-import com.kerencev.messenger.ui.main.chat.wallpapers.WallpapersFragment
 import com.kerencev.messenger.ui.main.chatlist.ChatListFragment
 import com.kerencev.messenger.ui.main.newmessage.NewMessageFragment
 import com.kerencev.messenger.ui.main.settings.SettingsFragment
 import com.kerencev.messenger.ui.main.settings.changename.ChangeNameFragment
 import com.kerencev.messenger.ui.main.settings.cropimage.CropImageFragment
+import com.kerencev.messenger.ui.main.wallpapers.WallpapersFragment
 
 object ChatListScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {

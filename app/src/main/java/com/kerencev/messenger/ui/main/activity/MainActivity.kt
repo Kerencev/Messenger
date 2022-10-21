@@ -1,6 +1,5 @@
 package com.kerencev.messenger.ui.main.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color

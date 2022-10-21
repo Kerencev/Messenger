@@ -1,4 +1,4 @@
-package com.kerencev.messenger.ui.main.chat.wallpapers
+package com.kerencev.messenger.ui.main.wallpapers
 
 import android.os.Bundle
 import android.view.View

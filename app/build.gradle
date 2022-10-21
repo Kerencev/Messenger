@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.8'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

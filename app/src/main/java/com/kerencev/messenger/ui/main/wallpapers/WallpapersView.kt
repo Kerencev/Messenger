@@ -1,4 +1,4 @@
-package com.kerencev.messenger.ui.main.chat.wallpapers
+package com.kerencev.messenger.ui.main.wallpapers
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

@@ -62,8 +62,8 @@ class FirebaseService : FirebaseMessagingService() {
             .setCustomContentView(remoteView)
             .setContentTitle(chatPartner.login)
             .setContentText(chatMessage)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
 
         notificationManager.notify(notificationID, notification)
