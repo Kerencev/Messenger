@@ -1,11 +1,9 @@
 package com.kerencev.messenger.ui.login.walkthroughs
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentWalkthroughs2Binding
 
 class WalkthroughsFragment2 : WalkthroughsFragment() {

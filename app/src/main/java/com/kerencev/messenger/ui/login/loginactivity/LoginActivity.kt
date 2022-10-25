@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R

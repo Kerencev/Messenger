@@ -54,7 +54,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.navigation.itemIconTintList = null
         setContentView(binding.root)
-        presenter.navigateToChatList(getChatPartnerFromPush())
+        if (savedInstanceState == null) {
+            presenter.navigateToChatList(getChatPartnerFromPush())
+        }
         presenter.verifyUserIsLoggedIn()
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         setNavigationDrawerClicks()

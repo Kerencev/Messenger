@@ -7,8 +7,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.UsersRepository
-import com.kerencev.messenger.utils.FirebaseConstants
-import com.kerencev.messenger.utils.FirebaseConstants.Companion.CHAT_PARTNER_AVATAR_URL
 import com.kerencev.messenger.utils.FirebaseConstants.Companion.CHAT_PARTNER_LOGIN
 import com.kerencev.messenger.utils.FirebaseConstants.Companion.LATEST_MESSAGES
 import com.kerencev.messenger.utils.FirebaseConstants.Companion.LOGIN

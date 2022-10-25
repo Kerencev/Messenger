@@ -1,14 +1,12 @@
 package com.kerencev.messenger.ui.main.settings
 
 import android.content.Context
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.Screen
 import com.kerencev.messenger.model.repository.AuthRepository
 import com.kerencev.messenger.model.repository.MediaStoreRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
-import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
 
 class SettingsPresenter(
