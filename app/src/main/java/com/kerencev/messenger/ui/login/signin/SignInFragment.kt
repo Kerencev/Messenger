@@ -6,10 +6,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignInBinding
-import com.kerencev.messenger.model.FirebaseRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.presenters.login.SignInPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView
+import com.kerencev.messenger.utils.hideKeyboard
 import moxy.ktx.moxyPresenter
 
 class SignInFragment :
@@ -20,17 +21,25 @@ class SignInFragment :
     private val presenter by moxyPresenter {
         SignInPresenter(
             MessengerApp.instance.router,
-            FirebaseRepositoryImpl()
+            AuthRepositoryImpl()
         )
+    }
+
+    private var loginActivity: LoginActivityView? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loginActivity = (activity as? LoginActivityView)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            signInActionBack.setOnClickListener {
+            signInToolbar.setNavigationOnClickListener {
                 presenter.onBackPressed()
             }
             signInBtnEnter.setOnClickListener {
+                requireActivity().hideKeyboard(signInEditEmail)
                 presenter.signInWithFirebase(
                     signInEditEmail.text.toString(),
                     signInEditPassword.text.toString()
@@ -58,6 +67,10 @@ class SignInFragment :
             getString(R.string.faild_to_enter_check_validity_of_the_data),
             Snackbar.LENGTH_SHORT
         ).show()
+    }
+
+    override fun startMainActivity() {
+        loginActivity?.startMainActivity()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

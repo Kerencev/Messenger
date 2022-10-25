@@ -8,4 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface SignInView : MvpView {
     fun showEmptyFieldsMessage()
     fun showErrorMessage()
+    fun startMainActivity()
 }

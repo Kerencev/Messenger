@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/tvItemChatDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/tv_item_chat_date_margin_vertical"
+        android:background="@drawable/background_chat_date"
+        android:fontFamily="@font/roboto_regular"
+        android:paddingHorizontal="@dimen/tv_item_chat_date_padding_horizontal"
+        android:textColor="@color/item_chat_date_text_color"
+        tools:text="24.05.2022" />
+
+</FrameLayout>

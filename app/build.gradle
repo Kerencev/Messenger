@@ -40,7 +40,7 @@ android {
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
@@ -51,24 +51,49 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
     //Image loaders
     implementation 'io.coil-kt:coil:2.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //Moxy
-    implementation "com.github.moxy-community:moxy:2.2.2"
-    implementation "com.github.moxy-community:moxy-ktx:2.2.2"
-    implementation "com.github.moxy-community:moxy:2.2.2"
-    kapt "com.github.moxy-community:moxy-compiler:2.2.2"
-    implementation "com.github.moxy-community:moxy-ktx:2.2.2"
-    implementation "com.github.moxy-community:moxy-androidx:2.2.2"
-    annotationProcessor "com.github.moxy-community:moxy-compiler:2.2.2"
+    def moxy_version = "2.2.2"
+    implementation "com.github.moxy-community:moxy:$moxy_version"
+    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
+    implementation "com.github.moxy-community:moxy:$moxy_version"
+    kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
+    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
+    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
+    annotationProcessor "com.github.moxy-community:moxy-compiler:$moxy_version"
 
     //Cicerone
     implementation("com.github.terrakok:cicerone:7.1")
 
     //RxJava
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    def rx_version = "3.0.0"
+    implementation "io.reactivex.rxjava3:rxjava:$rx_version"
+    implementation "io.reactivex.rxjava3:rxandroid:$rx_version"
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+
+    //WorkManager
+    def work_version = "2.7.1"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    // RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_version"
+
+    //Emoji
+    implementation 'com.vanniktech:emoji-google:0.15.0'
+
+    //Crop image
+    implementation 'com.github.takusemba:cropme:2.0.8'
 }

@@ -8,6 +8,8 @@ import moxy.viewstate.strategy.StateStrategyType
 interface SignUpView : MvpView {
     fun showEmptyFieldsMessage()
     fun showNotCorrectPasswordMessage()
-    fun navigateToChatFragment()
     fun showErrorMessage()
+    fun showProgressBar()
+    fun hideProgressBar()
+    fun startMainActivity()
 }

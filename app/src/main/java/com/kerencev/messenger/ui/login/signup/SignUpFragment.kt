@@ -6,10 +6,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignUpBinding
-import com.kerencev.messenger.model.FirebaseRepositoryImpl
+import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
-import com.kerencev.messenger.presenters.login.SignUpPresenter
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView
+import com.kerencev.messenger.utils.hideKeyboard
 import moxy.ktx.moxyPresenter
 
 class SignUpFragment :
@@ -20,17 +21,25 @@ class SignUpFragment :
     private val presenter by moxyPresenter {
         SignUpPresenter(
             MessengerApp.instance.router,
-            FirebaseRepositoryImpl()
+            AuthRepositoryImpl()
         )
+    }
+
+    private var loginActivity: LoginActivityView? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loginActivity = (activity as? LoginActivityView)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            signUpActionBack.setOnClickListener {
+            signUpToolbar.setNavigationOnClickListener {
                 presenter.onBackPressed()
             }
             signUpBtn.setOnClickListener {
+                requireActivity().hideKeyboard(signUpEditLogin)
                 presenter.authWithFirebase(
                     login = signUpEditLogin.text.toString(),
                     email = signUpEditEmail.text.toString(),
@@ -59,15 +68,6 @@ class SignUpFragment :
         ).show()
     }
 
-    override fun navigateToChatFragment() {
-        Snackbar.make(
-            requireContext(),
-            binding.root,
-            "Перешли во фрагмент чата",
-            Snackbar.LENGTH_SHORT
-        ).show()
-    }
-
     override fun showErrorMessage() {
         Snackbar.make(
             requireContext(),
@@ -77,10 +77,27 @@ class SignUpFragment :
         ).show()
     }
 
+    override fun showProgressBar() {
+        with(binding) {
+            signUpBtn.visibility = View.GONE
+            signUpProgress.visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideProgressBar() {
+        with(binding) {
+            signUpBtn.visibility = View.VISIBLE
+            signUpProgress.visibility = View.GONE
+        }
+    }
+
+    override fun startMainActivity() {
+        loginActivity?.startMainActivity()
+    }
+
     override fun onBackPressed() = presenter.onBackPressed()
 
     companion object {
-        private const val TAG = "SignUpFragment"
         fun getInstance(): SignUpFragment {
             return SignUpFragment()
         }

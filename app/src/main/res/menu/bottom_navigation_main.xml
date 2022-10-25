@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@drawable/bot_nav_icon_chat"
+        android:title="@string/chats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/bot_nav_icon_groups"
+        android:title="@string/groups"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/bot_nav_icon_contacts"
+        android:title="@string/contacts"
+        app:showAsAction="always|withText" />
+</menu>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary_background">#00ACC1</color>
+    <color name="primary_background_transparency">#8000ACC1</color>
+    <color name="status_bar">#80000000</color>
+    <color name="unselected_white">#DEFFFFFF</color>
+    <color name="btn_sign_in">#FFCC80</color>
+    <color name="mtrl_textinput_default_box_stroke_color" override="true" tools:ignore="PrivateResource">#DEFFFFFF</color>
+    <color name="bottom_navigation_text">#9E9E9E</color>
+    <color name="fab_background">#02C2A5</color>
+    <color name="user_name_text">#DE000000</color>
+    <color name="user_status_online">#00C147</color>
+    <color name="typing_text_color">#CCFFFFFF</color>
+    <color name="hint_message">#BDBDBD</color>
+    <color name="background_chat_from_user">#86F1D5</color>
+    <color name="tv_time_from_user">#32AE8D</color>
+    <color name="tv_time_to_user">#AFAFAF</color>
+    <color name="item_chat_list_message">#626262</color>
+    <color name="item_chat_list_time">#9E9E9E</color>
+    <color name="btn_skip_walkthroughs1">#FFCC80</color>
+    <color name="btn_skip_walkthroughs2">#FF8A65</color>
+    <color name="background_walkthroughs2">#FFCC80</color>
+    <color name="background_walkthroughs3">#FF8A65</color>
+    <color name="background_nav_drawer">#FF8A65</color>
+    <color name="completely_transparent">#00FFFFFF</color>
+    <color name="ripple_card_settings">#A3A1A1</color>
+    <color name="change_name_info_text">#636363</color>
+    <color name="change_name_hint_error">#B00020</color>
+    <color name="highlight_error">#80C6C6C6</color>
+    <color name="background_settings_icon">#ADADAD</color>
+    <color name="background_item_chat_date">#80ADADAD</color>
+    <color name="item_chat_date_text_color">#F2FFFFFF</color>
+    <color name="chat_edit_icons_color">#717171</color>
+    <color name="chat_edit_hint_color">#717171</color>
+    <color name="icon_add_camera">#636363</color>
+    <color name="chat_list_card_ripple">#1A000000</color>
+    <color name="transparent">#1AFFFFFF</color>
+    <color name="notification_title">#DEFFFFFF</color>
+    <color name="notification_message">#B3FFFFFF</color>
+</resources>

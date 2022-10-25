@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settingsAppbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_settings_app_bar_height">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/settingsCollapsingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleTextAppearance="@style/TitleToolbarTextAppearance"
+            app:collapsedTitleTextColor="@color/white"
+            app:contentScrim="@color/primary_background"
+            app:expandedTitleTextColor="@color/completely_transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="@integer/material_motion_duration_short_1"
+            app:scrimVisibleHeightTrigger="@dimen/fragment_settings_collapsing_scrim_visible_height_trigger"
+            app:title="@string/settings"
+            app:titleCollapseMode="fade"
+            app:toolbarId="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/background_settings"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background_settings"
+                    android:visibility="visible" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivSettingsAvatar"
+                    android:layout_width="@dimen/fragment_settings_iv_avatar_width"
+                    android:layout_height="@dimen/fragment_settings_iv_avatar_height"
+                    android:layout_marginStart="@dimen/fragment_settings_iv_avatar_margin_start"
+                    android:layout_marginBottom="@dimen/fragment_settings_iv_avatar_margin_bottom"
+                    android:background="@drawable/background_chat_toolbar_avatar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSettingsLetter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fragment_settings_tv_letter_text_size"
+                    app:layout_constraintBottom_toBottomOf="@id/ivSettingsAvatar"
+                    app:layout_constraintEnd_toEndOf="@id/ivSettingsAvatar"
+                    app:layout_constraintStart_toStartOf="@id/ivSettingsAvatar"
+                    app:layout_constraintTop_toTopOf="@id/ivSettingsAvatar"
+                    tools:text="S" />
+
+                <TextView
+                    android:id="@+id/tvSettingsLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/fragment_settings_tv_login_margin_start"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fragment_settings_tv_login_text_size"
+                    app:layout_constraintStart_toEndOf="@id/ivSettingsAvatar"
+                    app:layout_constraintTop_toTopOf="@id/ivSettingsAvatar" />
+
+                <TextView
+                    android:id="@+id/tvSettingsEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fragment_settings_tv_email_margin_top"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/fragment_settings_tv_email_text_size"
+                    app:layout_constraintStart_toStartOf="@id/tvSettingsLogin"
+                    app:layout_constraintTop_toBottomOf="@id/tvSettingsLogin" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/settingsToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:menu="@menu/settings"
+                app:navigationIcon="@drawable/icon_back">
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/settingsScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/settingsLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_settings_tv_header_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_main_header_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingHorizontal="@dimen/fragment_settings_tv_items_padding_horizontal"
+                android:text="@string/profile"
+                android:textColor="@color/primary_background"
+                android:textSize="@dimen/fragment_settings_tv_header_text_size" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfilePhone"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfilePhone"
+                    style="@style/TextSettingsStyle"
+                    android:text="@string/holder_phone" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileLogin"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfileLogin"
+                    style="@style/TextSettingsStyle"
+                    tools:text="Sergo" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="@dimen/fragment_settings_tv_items_padding_horizontal"
+                    android:contentDescription="@string/redact_login"
+                    android:src="@drawable/icon_create" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileEmail"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfileEmail"
+                    style="@style/TextSettingsStyle"
+                    tools:text="Sergo1996@mail.com" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fragment_settings_tv_header_height"
+                android:layout_marginTop="@dimen/fragment_settings_tv_header_second_margin_top"
+                android:fontFamily="@font/roboto_regular"
+                android:paddingHorizontal="@dimen/fragment_settings_tv_items_padding_horizontal"
+                android:text="@string/general"
+                android:textColor="@color/primary_background"
+                android:textSize="@dimen/fragment_settings_tv_header_text_size" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileLanguage"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfileLanguage"
+                    style="@style/TextSettingsStyle"
+                    android:text="@string/language" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileBackground"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfileBackground"
+                    style="@style/TextSettingsStyle"
+                    android:text="@string/background" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileNotification"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfileNotification"
+                    style="@style/TextSettingsStyle"
+                    android:text="@string/notification" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileAnimation"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchSettingsProfileAnimation"
+                    style="@style/TextSettingsStyle"
+                    android:clickable="false"
+                    android:text="@string/autoplay_animation" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSettingsProfileStickers"
+                style="@style/CardSettingsStyle"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tvSettingsProfileStickers"
+                    style="@style/TextSettingsStyle"
+                    android:text="@string/stickers" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_settings_fab_margin_end"
+        android:contentDescription="@string/select_profile_photo"
+        android:src="@drawable/icon_camera"
+        app:layout_anchor="@id/settingsAppbarLayout"
+        app:layout_anchorGravity="bottom|end" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

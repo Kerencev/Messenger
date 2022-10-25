@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="@dimen/item_user_iv_avatar_width"
+        android:layout_height="@dimen/item_user_iv_avatar_height"
+        android:layout_marginStart="@dimen/item_user_iv_avatar_margin_start"
+        android:layout_marginTop="@dimen/item_user_iv_avatar_margin_top"
+        android:background="@drawable/background_chat_list_user_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLetter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_user_tv_letter_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+        app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+        app:layout_constraintStart_toStartOf="@id/ivAvatar"
+        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+        tools:text="S" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_user_tv_user_name_margin_start"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/user_name_text"
+        android:textSize="@dimen/item_user_tv_user_name_text_size"
+        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+        tools:text="Sergo1996" />
+
+    <TextView
+        android:id="@+id/tvUserStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_user_tv_user_status_margin_top"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/user_status_online"
+        android:textSize="@dimen/item_user_tv_user_status_text_size"
+        app:layout_constraintStart_toStartOf="@id/tvUserName"
+        app:layout_constraintTop_toBottomOf="@id/tvUserName"
+        tools:text="Онлайн" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

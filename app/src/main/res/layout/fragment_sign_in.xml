@@ -9,91 +9,114 @@
     tools:context=".ui.login.signin.SignInFragment"
     tools:ignore="ScrollViewCount">
 
-    <ImageView
-        android:id="@+id/signInActionBack"
-        android:layout_width="@dimen/sign_in_iv_back_width"
-        android:layout_height="@dimen/sign_in_iv_back_height"
-        android:layout_marginStart="@dimen/sign_in_iv_back_margin_start"
-        android:layout_marginTop="@dimen/sign_in_iv_back_margin_top"
-        android:contentDescription="@string/come_back"
-        android:src="@drawable/icon_back"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/signInToolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/icon_back"
+        app:title="@string/enter"
+        app:titleTextAppearance="@style/TitleToolbarTextAppearance"
+        app:titleTextColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/sign_in_tv_enter_margin_start"
-        android:layout_marginTop="@dimen/sign_in_tv_enter_margin_top"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="top"
-        android:text="@string/enter"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sign_in_tv_enter_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/signInEditEmail"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_in_iv_et_login_height"
-        android:layout_marginHorizontal="@dimen/sign_in_iv_et_login_margin_horizontal"
-        android:layout_marginTop="@dimen/sign_in_et_login_margin_top"
-        android:backgroundTint="@color/unselected_white"
-        android:fontFamily="@font/roboto_regular"
-        android:hint="@string/email"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/unselected_white"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/signInToolbar">
 
-    <EditText
-        android:id="@+id/signInEditPassword"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sign_in_edit_text_password_height"
-        android:layout_marginHorizontal="@dimen/sign_in_edit_text_password_margin_horizontal"
-        android:layout_marginTop="@dimen/sign_in_edit_text_password_margin_top"
-        android:backgroundTint="@color/unselected_white"
-        android:fontFamily="@font/roboto_regular"
-        android:hint="@string/password"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:textColorHint="@color/unselected_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scroll_padding_bottom">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signInBtnEnter"
-        android:layout_width="@dimen/sign_in_btn_enter_width"
-        android:layout_height="@dimen/sign_in_btn_enter_height"
-        android:layout_marginHorizontal="@dimen/sign_in_btn_enter_margin_horizontal"
-        android:layout_marginTop="@dimen/sign_in_btn_enter_margin_top"
-        android:backgroundTint="@color/btn_sign_in"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/sign_in"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sign_in_btn_enter_text_size"
-        app:cornerRadius="@dimen/activity_login_btn_sign_in_corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/RegisterTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sign_in_iv_et_login_height"
+                android:layout_marginHorizontal="@dimen/sign_up_iv_edit_login_margin_horizontal"
+                android:layout_marginTop="@dimen/sign_in_et_login_margin_top"
+                android:hint="@string/email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/signInTvRegister"
-        android:layout_width="@dimen/sign_in_tv_register_width"
-        android:layout_height="@dimen/sign_in_tv_register_height"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="@dimen/sign_in_tv_register_margin_top"
-        android:fontFamily="@font/roboto_medium"
-        android:gravity="center"
-        android:text="@string/do_not_have_account"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sign_in_tv_register_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signInEditEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary_background"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/unselected_white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/sign_up_input_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/RegisterTextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sign_in_edit_text_password_height"
+                android:layout_marginHorizontal="@dimen/sign_in_edit_text_password_margin_horizontal"
+                android:layout_marginTop="@dimen/sign_in_edit_text_password_margin_top"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/unselected_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/signInEditPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary_background"
+                    android:fontFamily="@font/roboto_regular"
+                    android:inputType="textPassword"
+                    android:textColor="@color/unselected_white"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/sign_up_input_text_size" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signInBtnEnter"
+                android:layout_width="@dimen/sign_in_btn_enter_width"
+                android:layout_height="@dimen/sign_in_btn_enter_height"
+                android:layout_marginHorizontal="@dimen/sign_in_btn_enter_margin_horizontal"
+                android:layout_marginTop="@dimen/sign_in_btn_enter_margin_top"
+                android:backgroundTint="@color/btn_sign_in"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/sign_in"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_in_btn_enter_text_size"
+                app:cornerRadius="@dimen/activity_login_btn_sign_in_corner_radius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/signInTvRegister"
+                android:layout_width="@dimen/sign_in_tv_register_width"
+                android:layout_height="@dimen/sign_in_tv_register_height"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="@dimen/sign_in_tv_register_margin_top"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/do_not_have_account"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_in_tv_register_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
