@@ -14,7 +14,6 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins
 class MessengerApp : Application() {
 
     private val cicerone: Cicerone<Router> by lazy { Cicerone.create() }
-    val navigationHolder = cicerone.getNavigatorHolder()
     val router = cicerone.router
     var chatPartner: User? = null
 
