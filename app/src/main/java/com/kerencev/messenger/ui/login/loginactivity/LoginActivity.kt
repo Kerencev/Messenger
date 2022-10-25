@@ -23,7 +23,7 @@ class LoginActivity : MvpAppCompatActivity(), LoginActivityView {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
     private val presenter by moxyPresenter {
-        LoginPresenter().apply { MessengerApp.instance.appComponent.inject(this) }
+        LoginActivityPresenter().apply { MessengerApp.instance.appComponent.inject(this) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

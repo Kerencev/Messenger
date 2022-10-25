@@ -5,7 +5,7 @@ import com.kerencev.messenger.navigation.login.LoginScreen
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class LoginPresenter() : MvpPresenter<LoginActivityView>() {
+class LoginActivityPresenter() : MvpPresenter<LoginActivityView>() {
 
     @Inject
     lateinit var router: Router

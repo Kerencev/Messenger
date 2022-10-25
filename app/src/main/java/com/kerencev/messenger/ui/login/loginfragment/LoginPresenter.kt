@@ -4,10 +4,12 @@ import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.navigation.login.SignInScreen
 import com.kerencev.messenger.navigation.login.SignUpScreen
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class LoginPresenter(
-    private val router: Router
-) : MvpPresenter<LoginView>() {
+class LoginPresenter() : MvpPresenter<LoginView>() {
+
+    @Inject
+    lateinit var router: Router
 
     fun onBackPressed(): Boolean {
         router.exit()

@@ -19,10 +19,7 @@ class SignUpFragment :
     OnBackPressedListener {
 
     private val presenter by moxyPresenter {
-        SignUpPresenter(
-            MessengerApp.instance.router,
-            AuthRepositoryImpl()
-        )
+        SignUpPresenter().apply { MessengerApp.instance.appComponent.inject(this) }
     }
 
     private var loginActivity: LoginActivityView? = null

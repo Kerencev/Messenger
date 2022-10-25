@@ -14,7 +14,7 @@ class LoginFragment :
     OnBackPressedListener {
 
     private val presenter: LoginPresenter by moxyPresenter {
-        LoginPresenter(MessengerApp.instance.router)
+        LoginPresenter().apply { MessengerApp.instance.appComponent.inject(this) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
