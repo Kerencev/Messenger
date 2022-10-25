@@ -6,8 +6,6 @@ import java.util.*
 
 object ChatMessageMapper {
 
-    private const val TAG = "ChatMessageMapper"
-
     fun mapToChatMessageForUserNode(message: String, user: User, chatPartner: User): ChatMessage {
         val time = System.currentTimeMillis()
         return ChatMessage(
@@ -45,25 +43,6 @@ object ChatMessageMapper {
             chatPartnerIsOnline = true,
             chatPartnerIsTyping = false,
             chatPartnerAvatarUrl = user.avatarUrl
-        )
-    }
-
-    fun mapToLatestMessageForChatPartner(countOfUnread: Long, chatMessage: ChatMessage, chatPartner: User): ChatMessage {
-        return ChatMessage(
-            id = chatMessage.id,
-            message = chatMessage.message,
-            fromId = chatMessage.fromId,
-            toId = chatMessage.toId,
-            timesTamp = chatMessage.timesTamp,
-            countOfUnread = countOfUnread,
-            chatPartnerId = chatPartner.uid,
-            chatPartnerNotificationId = chatPartner.notificationId,
-            chatPartnerLogin = chatPartner.login,
-            chatPartnerEmail = chatPartner.email,
-            chatPartnerWasOnline = chatPartner.wasOnline,
-            chatPartnerIsOnline = true,
-            chatPartnerIsTyping = false,
-            chatPartnerAvatarUrl = chatPartner.avatarUrl
         )
     }
 

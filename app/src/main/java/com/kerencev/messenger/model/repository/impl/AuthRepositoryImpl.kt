@@ -14,6 +14,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 class AuthRepositoryImpl : AuthRepository {
+
     override fun verifyUserIsLoggedIn(): Single<String> {
         return Single.create { emitter ->
             val uid = FirebaseAuth.getInstance().uid

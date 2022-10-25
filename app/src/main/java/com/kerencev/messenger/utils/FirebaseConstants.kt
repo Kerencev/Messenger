@@ -1,6 +1,7 @@
 package com.kerencev.messenger.utils
 
 class FirebaseConstants {
+
     companion object {
         const val USERS = "users"
         const val USER_STATUS = "status"
