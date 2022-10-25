@@ -11,11 +11,15 @@ import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class MainPresenter(
-    private val router: Router,
-    private val repoAuth: AuthRepository
-) : MvpPresenter<MainView>() {
+class MainPresenter : MvpPresenter<MainView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repoAuth: AuthRepository
 
     private val bag = CompositeDisposable()
 

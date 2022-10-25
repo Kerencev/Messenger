@@ -14,12 +14,12 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.bumptech.glide.Glide
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ActivityMainBinding
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_AVATAR
@@ -32,24 +32,28 @@ import com.kerencev.messenger.ui.login.loginactivity.LoginActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
-
     private val navigator = AppNavigator(this, R.id.activityMainContainer)
 
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
     private val presenter by moxyPresenter {
-        MainPresenter(
-            MessengerApp.instance.router,
-            AuthRepositoryImpl()
-        )
+        MainPresenter().apply {
+            MessengerApp.instance.appComponent.inject(
+                this
+            )
+        }
     }
 
     private var updateStatusRequest: WorkRequest? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MessengerApp.instance.appComponent.inject(this)
         setTheme(R.style.Theme_Messenger)
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.navigation.itemIconTintList = null
@@ -69,7 +73,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun onPause() {
-        MessengerApp.instance.navigationHolder.removeNavigator()
+        navigatorHolder.removeNavigator()
         super.onPause()
     }
 
@@ -80,7 +84,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        MessengerApp.instance.navigationHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onBackPressed() {
