@@ -7,14 +7,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import com.jakewharton.rxbinding.widget.RxTextView
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChangeNameBinding
-import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
-import com.kerencev.messenger.model.repository.impl.UsersRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.settings.SettingsFragment
+import com.kerencev.messenger.utils.app
 import com.kerencev.messenger.utils.hideKeyboard
 import com.kerencev.messenger.utils.showKeyBoard
 import moxy.ktx.moxyPresenter
@@ -29,11 +27,7 @@ class ChangeNameFragment :
     ChangeNameView {
 
     private val presenter by moxyPresenter {
-        ChangeNamePresenter(
-            MessengerApp.instance.router,
-            AuthRepositoryImpl(),
-            UsersRepositoryImpl()
-        )
+        ChangeNamePresenter().apply { app.appComponent.inject(this) }
     }
     private lateinit var handler: Handler
 
@@ -89,9 +83,11 @@ class ChangeNameFragment :
     }
 
     override fun setResultForSettingsFragment(newLogin: String) {
-        parentFragmentManager.setFragmentResult(SettingsFragment.FRAGMENT_RESULT_KEY, Bundle().apply {
-            putString(LOGIN_BUNDLE_KEY, newLogin)
-        })
+        parentFragmentManager.setFragmentResult(
+            SettingsFragment.FRAGMENT_RESULT_KEY,
+            Bundle().apply {
+                putString(LOGIN_BUNDLE_KEY, newLogin)
+            })
     }
 
     private fun setToolbarClicks() = with(binding) {

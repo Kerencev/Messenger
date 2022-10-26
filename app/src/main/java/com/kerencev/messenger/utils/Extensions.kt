@@ -7,8 +7,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
@@ -66,3 +68,6 @@ fun Activity.hideKeyboard(editText: EditText) {
 fun Any.log(message: String) {
     Log.d(this::class.java.simpleName, message)
 }
+
+val Context.app: MessengerApp get() = applicationContext as MessengerApp
+val Fragment.app: MessengerApp get() = requireContext().applicationContext as MessengerApp

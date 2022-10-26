@@ -24,12 +24,9 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import com.bumptech.glide.Glide
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSettingsBinding
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
-import com.kerencev.messenger.model.repository.impl.MediaStoreRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.navigation.main.ChangeNameScreen
 import com.kerencev.messenger.navigation.main.CropImageScreen
@@ -39,6 +36,7 @@ import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
 import com.kerencev.messenger.ui.main.settings.changename.LOGIN_BUNDLE_KEY
 import com.kerencev.messenger.ui.main.settings.cropimage.CropImageFragment
+import com.kerencev.messenger.utils.app
 import com.kerencev.messenger.utils.showComingSoonSnack
 import moxy.ktx.moxyPresenter
 
@@ -49,11 +47,7 @@ class SettingsFragment :
 
     private var mainActivity: MainView? = null
     private val presenter by moxyPresenter {
-        SettingsPresenter(
-            MediaStoreRepositoryImpl(),
-            AuthRepositoryImpl(),
-            MessengerApp.instance.router
-        )
+        SettingsPresenter().apply { app.appComponent.inject(this) }
     }
     private lateinit var activityLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>

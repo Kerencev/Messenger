@@ -3,13 +3,12 @@ package com.kerencev.messenger.ui.main.newmessage
 import android.os.Bundle
 import android.view.View
 import androidx.transition.TransitionInflater
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentNewMessageBinding
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.UsersRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.utils.app
 import moxy.ktx.moxyPresenter
 
 class NewMessageFragment :
@@ -17,7 +16,7 @@ class NewMessageFragment :
     NewMessageView, OnBackPressedListener {
 
     private val presenter: NewMessagePresenter by moxyPresenter {
-        NewMessagePresenter(MessengerApp.instance.router, UsersRepositoryImpl())
+        NewMessagePresenter().apply { app.appComponent.inject(this) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

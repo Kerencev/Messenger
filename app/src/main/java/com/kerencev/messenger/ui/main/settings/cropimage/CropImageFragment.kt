@@ -8,14 +8,13 @@ import androidx.core.net.toUri
 import androidx.transition.Fade
 import androidx.transition.TransitionInflater
 import androidx.transition.TransitionManager
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentCropImageBinding
-import com.kerencev.messenger.model.repository.impl.MediaStoreRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
 import com.kerencev.messenger.ui.main.settings.SettingsFragment
+import com.kerencev.messenger.utils.app
 import com.kerencev.messenger.utils.log
 import com.takusemba.cropme.OnCropListener
 import moxy.ktx.moxyPresenter
@@ -26,10 +25,7 @@ class CropImageFragment :
 
     private var mainActivity: MainView? = null
     private val presenter by moxyPresenter {
-        CropImagePresenter(
-            MessengerApp.instance.router,
-            MediaStoreRepositoryImpl()
-        )
+        CropImagePresenter().apply { app.appComponent.inject(this) }
     }
     private lateinit var handler: Handler
 

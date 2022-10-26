@@ -7,11 +7,15 @@ import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
+import javax.inject.Inject
 
-class CropImagePresenter(
-    private val router: Router,
-    private val repoMedia: MediaStoreRepository
-) : BasePresenter<CropImageView>(router) {
+class CropImagePresenter() : BasePresenter<CropImageView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repoMedia: MediaStoreRepository
 
     fun saveAvatarToFirebase(bitmap: Bitmap) {
         viewState.showLoading(bitmap)
@@ -30,5 +34,10 @@ class CropImagePresenter(
     fun cancelDownload() {
         bag.clear()
         viewState.hideLoading()
+    }
+
+    fun onBackPressed(): Boolean {
+        router.exit()
+        return true
     }
 }

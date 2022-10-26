@@ -16,11 +16,11 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.ui.main.activity.MainActivity
 import com.kerencev.messenger.utils.CircleImage
+import com.kerencev.messenger.utils.app
 
 private const val CHANNEL_ID = "my_channel"
 
@@ -36,7 +36,7 @@ class FirebaseService : FirebaseMessagingService() {
         val chatPartner = getChatPartner(message.data)
         val chatMessage = message.data["message"]
 
-        if (MessengerApp.instance.chatPartner?.uid == chatPartner.uid) return
+        if (app.chatPartner?.uid == chatPartner.uid) return
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

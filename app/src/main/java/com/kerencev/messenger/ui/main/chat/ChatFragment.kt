@@ -8,16 +8,17 @@ import androidx.core.widget.addTextChangedListener
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding.widget.RxTextView
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
-import com.kerencev.messenger.data.remote.RetrofitInstance
 import com.kerencev.messenger.databinding.FragmentChatBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.*
+import com.kerencev.messenger.model.repository.impl.WALLPAPERS_ONE
+import com.kerencev.messenger.model.repository.impl.WALLPAPERS_THREE
+import com.kerencev.messenger.model.repository.impl.WALLPAPERS_TWO
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.services.FirebaseService
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.utils.app
 import com.vanniktech.emoji.EmojiPopup
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit
@@ -26,13 +27,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     ChatView, OnBackPressedListener {
 
     private val presenter: ChatPresenter by moxyPresenter {
-        ChatPresenter(
-            MessagesRepositoryImpl(
-                notificationAPI = RetrofitInstance.api
-            ),
-            WallpapersRepositoryImpl(),
-            MessengerApp.instance.router
-        )
+        ChatPresenter().apply {
+            app.appComponent.inject(
+                this
+            )
+        }
     }
 
     private val adapter = ChatAdapter()
@@ -86,12 +85,12 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun onResume() {
         presenter.getCurrentWallpaper(requireContext())
-        MessengerApp.instance.chatPartner = chatPartner
+        app.chatPartner = chatPartner
         super.onResume()
     }
 
     override fun onPause() {
-        MessengerApp.instance.chatPartner = null
+        app.chatPartner = null
         super.onPause()
     }
 

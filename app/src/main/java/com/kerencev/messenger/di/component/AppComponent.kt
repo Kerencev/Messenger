@@ -9,6 +9,13 @@ import com.kerencev.messenger.ui.login.signup.SignUpPresenter
 import com.kerencev.messenger.ui.login.welcome.WelcomePresenter
 import com.kerencev.messenger.ui.main.activity.MainActivity
 import com.kerencev.messenger.ui.main.activity.MainPresenter
+import com.kerencev.messenger.ui.main.chat.ChatPresenter
+import com.kerencev.messenger.ui.main.chatlist.ChatListPresenter
+import com.kerencev.messenger.ui.main.newmessage.NewMessagePresenter
+import com.kerencev.messenger.ui.main.settings.SettingsPresenter
+import com.kerencev.messenger.ui.main.settings.changename.ChangeNamePresenter
+import com.kerencev.messenger.ui.main.settings.cropimage.CropImagePresenter
+import com.kerencev.messenger.ui.main.wallpapers.WallpapersPresenter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -34,4 +41,11 @@ interface AppComponent {
     fun inject(signInPresenter: SignInPresenter)
     fun inject(signUpPresenter: SignUpPresenter)
     fun inject(welcomePresenter: WelcomePresenter)
+    fun inject(chatPresenter: ChatPresenter)
+    fun inject(chatListPresenter: ChatListPresenter)
+    fun inject(newMessagePresenter: NewMessagePresenter)
+    fun inject(changeNamePresenter: ChangeNamePresenter)
+    fun inject(cropImagePresenter: CropImagePresenter)
+    fun inject(settingsPresenter: SettingsPresenter)
+    fun inject(wallpapersPresenter: WallpapersPresenter)
 }

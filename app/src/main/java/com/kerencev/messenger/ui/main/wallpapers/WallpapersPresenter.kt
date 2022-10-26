@@ -4,11 +4,15 @@ import android.content.Context
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.ui.base.BasePresenter
+import javax.inject.Inject
 
-class WallpapersPresenter(
-    private val repository: WallpapersRepository,
-    router: Router
-) : BasePresenter<WallpapersView>(router) {
+class WallpapersPresenter() : BasePresenter<WallpapersView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repository: WallpapersRepository
 
     fun saveWallpaper(context: Context, wallpaper: String) {
         repository.saveWallpaper(context, wallpaper)
@@ -18,5 +22,10 @@ class WallpapersPresenter(
     fun loadWallpaper(context: Context) {
         val wallpaper = repository.getWallpaper(context)
         viewState.setChosenWallpaper(wallpaper)
+    }
+
+    fun onBackPressed(): Boolean {
+        router.exit()
+        return true
     }
 }

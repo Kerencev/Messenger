@@ -16,7 +16,6 @@ import androidx.work.WorkRequest
 import com.bumptech.glide.Glide
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ActivityMainBinding
 import com.kerencev.messenger.model.entities.User
@@ -29,6 +28,7 @@ import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PAR
 import com.kerencev.messenger.services.FirebaseService.Companion.PUSH_INTENT_PARTNER_NOTIFICATION_ID
 import com.kerencev.messenger.services.StatusWorkManager
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivity
+import com.kerencev.messenger.utils.app
 import de.hdodenhof.circleimageview.CircleImageView
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -42,18 +42,14 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
     private val presenter by moxyPresenter {
-        MainPresenter().apply {
-            MessengerApp.instance.appComponent.inject(
-                this
-            )
-        }
+        MainPresenter().apply { app.appComponent.inject(this) }
     }
 
     private var updateStatusRequest: WorkRequest? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MessengerApp.instance.appComponent.inject(this)
+        app.appComponent.inject(this)
         setTheme(R.style.Theme_Messenger)
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.navigation.itemIconTintList = null

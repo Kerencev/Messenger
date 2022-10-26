@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.databinding.FragmentChatListBinding
 import com.kerencev.messenger.model.entities.ChatMessage
 import com.kerencev.messenger.model.entities.User
-import com.kerencev.messenger.model.repository.impl.LatestMessagesRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.main.activity.MainView
 import com.kerencev.messenger.ui.main.chatlist.recycler.ChatListAdapter
 import com.kerencev.messenger.ui.main.chatlist.recycler.OnItemClick
+import com.kerencev.messenger.utils.app
 import moxy.ktx.moxyPresenter
 
 //TODO: Add Room Cache
@@ -24,10 +23,7 @@ class ChatListFragment :
 
     private var mainActivity: MainView? = null
     private val presenter: ChatListPresenter by moxyPresenter {
-        ChatListPresenter(
-            MessengerApp.instance.router,
-            LatestMessagesRepositoryImpl()
-        )
+        ChatListPresenter().apply { app.appComponent.inject(this) }
     }
     private val adapter = ChatListAdapter(object : OnItemClick {
         override fun onClick(user: User) {

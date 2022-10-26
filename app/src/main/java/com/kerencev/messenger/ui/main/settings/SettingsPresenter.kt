@@ -8,12 +8,18 @@ import com.kerencev.messenger.model.repository.MediaStoreRepository
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
+import javax.inject.Inject
 
-class SettingsPresenter(
-    private val repoMedia: MediaStoreRepository,
-    private val repoAuth: AuthRepository,
-    private val router: Router
-) : BasePresenter<SettingsView>(router) {
+class SettingsPresenter() : BasePresenter<SettingsView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repoAuth: AuthRepository
+
+    @Inject
+    lateinit var repoMedia: MediaStoreRepository
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -38,6 +44,11 @@ class SettingsPresenter(
             .subscribe { listOfAllImages ->
                 viewState.showChoosePhotoDialog(listOfAllImages)
             }.disposeBy(bag)
+    }
+
+    fun onBackPressed(): Boolean {
+        router.exit()
+        return true
     }
 
     private fun getUserWithFirebase() {

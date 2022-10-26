@@ -6,8 +6,8 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.kerencev.messenger.ui.login.loginfragment.LoginFragment
 import com.kerencev.messenger.ui.login.signin.SignInFragment
 import com.kerencev.messenger.ui.login.signup.SignUpFragment
-import com.kerencev.messenger.ui.login.welcome.WelcomeFragment
 import com.kerencev.messenger.ui.login.walkthroughs.ViewPagerWalkthroughsFragment
+import com.kerencev.messenger.ui.login.welcome.WelcomeFragment
 
 object LoginScreen : FragmentScreen {
     override fun createFragment(factory: FragmentFactory): Fragment {

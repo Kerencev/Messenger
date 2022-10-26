@@ -3,13 +3,12 @@ package com.kerencev.messenger.ui.login.signup
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentSignUpBinding
-import com.kerencev.messenger.model.repository.impl.AuthRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
 import com.kerencev.messenger.ui.login.loginactivity.LoginActivityView
+import com.kerencev.messenger.utils.app
 import com.kerencev.messenger.utils.hideKeyboard
 import moxy.ktx.moxyPresenter
 
@@ -19,7 +18,7 @@ class SignUpFragment :
     OnBackPressedListener {
 
     private val presenter by moxyPresenter {
-        SignUpPresenter().apply { MessengerApp.instance.appComponent.inject(this) }
+        SignUpPresenter().apply { app.appComponent.inject(this) }
     }
 
     private var loginActivity: LoginActivityView? = null

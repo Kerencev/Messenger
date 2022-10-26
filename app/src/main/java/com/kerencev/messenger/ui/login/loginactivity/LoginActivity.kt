@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.View
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ActivityLoginContainerBinding
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.main.activity.MainActivity
+import com.kerencev.messenger.utils.app
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -23,12 +23,12 @@ class LoginActivity : MvpAppCompatActivity(), LoginActivityView {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
     private val presenter by moxyPresenter {
-        LoginActivityPresenter().apply { MessengerApp.instance.appComponent.inject(this) }
+        LoginActivityPresenter().apply { app.appComponent.inject(this) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MessengerApp.instance.appComponent.inject(this)
+        app.appComponent.inject(this)
         binding = ActivityLoginContainerBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }

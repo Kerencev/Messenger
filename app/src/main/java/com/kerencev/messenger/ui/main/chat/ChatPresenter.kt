@@ -9,14 +9,18 @@ import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.*
 import io.reactivex.rxjava3.core.Completable
+import javax.inject.Inject
 
-class ChatPresenter(
-    private val repository: MessagesRepository,
-    private val wallPaperRepository: WallpapersRepository,
-    private val router: Router
-) : BasePresenter<ChatView>(
-    router
-) {
+class ChatPresenter : BasePresenter<ChatView>() {
+
+    @Inject
+    lateinit var messagesRepository: MessagesRepository
+
+    @Inject
+    lateinit var wallPaperRepository: WallpapersRepository
+
+    @Inject
+    lateinit var router: Router
 
     private var partnerWasOnline: Long = -1
 
@@ -24,28 +28,28 @@ class ChatPresenter(
     fun performSendMessages(message: String, chatPartner: User) {
         if (message.isEmpty()) return
         chatPartner.wasOnline = partnerWasOnline
-        repository.getCurrentUser()
+        messagesRepository.getCurrentUser()
             .flatMap { currentUser ->
-                repository.getCountOfUnreadMessages(currentUser.uid, chatPartner.uid)
+                messagesRepository.getCountOfUnreadMessages(currentUser.uid, chatPartner.uid)
                     .flatMap { countOfUnread ->
                         Completable.concat(
                             listOf(
-                                repository.saveMessageToUserMessagesNode(
+                                messagesRepository.saveMessageToUserMessagesNode(
                                     message = message,
                                     currentUser = currentUser,
                                     chatPartner = chatPartner
                                 ),
-                                repository.saveMessageToPartnerMessagesNode(
+                                messagesRepository.saveMessageToPartnerMessagesNode(
                                     message = message,
                                     currentUser = currentUser,
                                     chatPartner = chatPartner
                                 ),
-                                repository.saveMessageToUserLatestMessagesNode(
+                                messagesRepository.saveMessageToUserLatestMessagesNode(
                                     message = message,
                                     currentUser = currentUser,
                                     chatPartner = chatPartner
                                 ),
-                                repository.saveMessageToPartnerLatestMessagesNode(
+                                messagesRepository.saveMessageToPartnerLatestMessagesNode(
                                     message = message,
                                     currentUser = currentUser,
                                     chatPartner = chatPartner,
@@ -80,9 +84,9 @@ class ChatPresenter(
         currentUser: User,
         chatPartner: User
     ) {
-        repository.getTokenById(chatPartner.uid)
+        messagesRepository.getTokenById(chatPartner.uid)
             .flatMap { recipientToken ->
-                repository.getUnreadMessages(
+                messagesRepository.getUnreadMessages(
                     currentUser = currentUser,
                     chatPartner = chatPartner,
                     countOfUnread = countOfUnread
@@ -95,7 +99,7 @@ class ChatPresenter(
                         )
                     }
                     .flatMap { pushNotification ->
-                        repository.sendPushToChatPartner(pushNotification).toSingle {}
+                        messagesRepository.sendPushToChatPartner(pushNotification).toSingle {}
                     }
             }
             .subscribeByDefault()
@@ -110,7 +114,7 @@ class ChatPresenter(
     }
 
     fun updateChatPartnerInfo(chatPartner: User) {
-        repository.updateChatPartnerInfo(chatPartner.uid)
+        messagesRepository.updateChatPartnerInfo(chatPartner.uid)
             .subscribeByDefault()
             .subscribe(
                 { partner ->
@@ -126,7 +130,7 @@ class ChatPresenter(
     }
 
     fun loadAllMessagesFromFirebase(toId: String) {
-        repository.getAllMessages(toId)
+        messagesRepository.getAllMessages(toId)
             .subscribeByDefault()
             .subscribe(
                 { result ->
@@ -146,7 +150,7 @@ class ChatPresenter(
     }
 
     fun resetUnreadMessagesWithFirebase(toId: String) {
-        repository.resetUnreadMessages(toId)
+        messagesRepository.resetUnreadMessages(toId)
             .subscribeByDefault()
             .doOnError {
                 log(it.stackTraceToString())
@@ -156,7 +160,7 @@ class ChatPresenter(
     }
 
     private fun listenForNewMessagesFromFirebase(toId: String, skipCount: Long) {
-        repository.listenForNewMessages(toId)
+        messagesRepository.listenForNewMessages(toId)
             .subscribeByDefault()
             //Skip already uploaded messages
             .skip(skipCount)
@@ -184,7 +188,7 @@ class ChatPresenter(
     }
 
     fun updateUserTypingStatusWithFirebase(chatPartnerId: String, isTyping: Boolean) {
-        repository.updateUserTypingStatus(chatPartnerId, isTyping)
+        messagesRepository.updateUserTypingStatus(chatPartnerId, isTyping)
             .subscribeByDefault()
             .doOnError { log(it.stackTraceToString()) }
             .subscribe()
@@ -192,10 +196,15 @@ class ChatPresenter(
     }
 
     fun listenForChatPartnerIsTyping(chatPartnerId: String) {
-        repository.listenForChatPartnerIsTyping(chatPartnerId)
+        messagesRepository.listenForChatPartnerIsTyping(chatPartnerId)
             .subscribeByDefault()
             .subscribe { isTyping ->
                 viewState.setChatPartnerIsTyping(isTyping)
             }.disposeBy(bag)
+    }
+
+    fun onBackPressed(): Boolean {
+        router.exit()
+        return true
     }
 }

@@ -6,19 +6,21 @@ import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.LatestMessagesRepository
 import com.kerencev.messenger.navigation.main.ChatScreen
 import com.kerencev.messenger.navigation.main.NewMessageScreen
+import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.SortChatListData
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.log
 import com.kerencev.messenger.utils.subscribeByDefault
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import moxy.MvpPresenter
+import javax.inject.Inject
 
-class ChatListPresenter(
-    private val router: Router,
-    private val repository: LatestMessagesRepository
-) : MvpPresenter<ChatListView>() {
+class ChatListPresenter() : BasePresenter<ChatListView>() {
 
-    private val bag = CompositeDisposable()
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repository: LatestMessagesRepository
+
     private val sortChatList = SortChatListData()
 
     fun listenForLatestMessagesFromFireBase() {
@@ -60,11 +62,6 @@ class ChatListPresenter(
     fun onBackPressed(): Boolean {
         router.exit()
         return true
-    }
-
-    override fun onDestroy() {
-        bag.dispose()
-        super.onDestroy()
     }
 
     companion object {

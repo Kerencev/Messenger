@@ -5,15 +5,14 @@ import android.view.View
 import androidx.transition.Fade
 import androidx.transition.TransitionInflater
 import androidx.transition.TransitionManager
-import com.kerencev.messenger.MessengerApp
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentWallpapersBinding
 import com.kerencev.messenger.model.repository.impl.WALLPAPERS_ONE
 import com.kerencev.messenger.model.repository.impl.WALLPAPERS_THREE
 import com.kerencev.messenger.model.repository.impl.WALLPAPERS_TWO
-import com.kerencev.messenger.model.repository.impl.WallpapersRepositoryImpl
 import com.kerencev.messenger.navigation.OnBackPressedListener
 import com.kerencev.messenger.ui.base.ViewBindingFragment
+import com.kerencev.messenger.utils.app
 import moxy.ktx.moxyPresenter
 
 class WallpapersFragment :
@@ -21,10 +20,7 @@ class WallpapersFragment :
     WallpapersView, OnBackPressedListener {
 
     private val presenter by moxyPresenter {
-        WallpapersPresenter(
-            WallpapersRepositoryImpl(),
-            MessengerApp.instance.router
-        )
+        WallpapersPresenter().apply { app.appComponent.inject(this) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

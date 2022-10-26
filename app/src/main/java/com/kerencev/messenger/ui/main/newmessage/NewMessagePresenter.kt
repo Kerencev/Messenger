@@ -4,17 +4,18 @@ import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.model.repository.UsersRepository
 import com.kerencev.messenger.navigation.main.ChatScreen
+import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.disposeBy
 import com.kerencev.messenger.utils.subscribeByDefault
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import moxy.MvpPresenter
+import javax.inject.Inject
 
-class NewMessagePresenter(
-    private val router: Router,
-    private val repository: UsersRepository
-) : MvpPresenter<NewMessageView>() {
+class NewMessagePresenter() : BasePresenter<NewMessageView>() {
 
-    private val bag = CompositeDisposable()
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repository: UsersRepository
 
     fun getAllUsersWithFirestore() {
         repository.getAllUsers()
@@ -31,10 +32,5 @@ class NewMessagePresenter(
     fun onBackPressed(): Boolean {
         router.exit()
         return true
-    }
-
-    override fun onDestroy() {
-        bag.dispose()
-        super.onDestroy()
     }
 }
