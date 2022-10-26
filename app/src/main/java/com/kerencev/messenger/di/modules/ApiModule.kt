@@ -1,7 +1,5 @@
 package com.kerencev.messenger.di.modules
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.kerencev.messenger.BuildConfig
 import com.kerencev.messenger.data.remote.NotificationAPI
 import dagger.Module
@@ -22,19 +20,11 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(gson: Gson): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.FCM_API_URL)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideGson(): Gson {
-        return GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
-            .create()
     }
 }

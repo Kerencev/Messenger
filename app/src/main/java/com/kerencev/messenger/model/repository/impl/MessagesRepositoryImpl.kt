@@ -22,7 +22,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
-class MessagesRepositoryImpl(private val notificationAPI: NotificationAPI) : MessagesRepository {
+class MessagesRepositoryImpl (private val notificationAPI: NotificationAPI) : MessagesRepository {
 
     override fun getCurrentUser(): Single<User> {
         return Single.create { emitter ->
