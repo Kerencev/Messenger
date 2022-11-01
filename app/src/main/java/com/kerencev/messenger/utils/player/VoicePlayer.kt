@@ -1,7 +1,6 @@
 package com.kerencev.messenger.utils.player
 
 import android.media.MediaPlayer
-import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import java.io.File
 

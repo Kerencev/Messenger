@@ -3,7 +3,6 @@ package com.kerencev.messenger.utils.record
 import android.content.Context
 import android.media.MediaRecorder
 import android.os.Build
-import com.kerencev.messenger.utils.log
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import java.io.File

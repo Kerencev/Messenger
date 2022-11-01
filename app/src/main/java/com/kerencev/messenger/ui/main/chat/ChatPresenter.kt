@@ -11,11 +11,7 @@ import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.*
 import com.kerencev.messenger.utils.player.Player
 import com.kerencev.messenger.utils.record.Recorder
-import com.kerencev.messenger.utils.vibration.Vibration
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.disposables.Disposable
-import java.io.File
 import javax.inject.Inject
 
 
@@ -224,14 +220,6 @@ class ChatPresenter : BasePresenter<ChatView>() {
         return true
     }
 
-    fun uploadFileToFirebase(file: File) {
-        mediaStoreRepository.saveFileToFirebaseStorage(file)
-            .subscribeByDefault()
-            .subscribe { fileUrl ->
-
-            }.disposeBy(bag)
-    }
-
     fun startVoiceRecord() {
         recorder.startRecord()
             .subscribeByDefault()
@@ -244,13 +232,14 @@ class ChatPresenter : BasePresenter<ChatView>() {
 
     fun saveVoiceRecord() {
         recorder.stopRecord()
+            .flatMap { file ->
+                mediaStoreRepository.saveFileToFirebaseStorage(file = file)
+                    .map { Pair(file, it) }
+            }
             .subscribeByDefault()
             .subscribe(
-                { file ->
-//                    uploadFileToFirebase(file = file)
-                    player.play(file)
-                        .subscribeByDefault()
-                        .subscribe()
+                { pairFileToFileUrl ->
+                    // todo send Message with fileUrl and fileName to check if file exist when user will play this file
                 },
                 {
                     viewState.showVoiceRecordInfo()

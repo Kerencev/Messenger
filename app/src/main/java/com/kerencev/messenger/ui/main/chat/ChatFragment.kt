@@ -6,19 +6,15 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.transition.Fade
 import androidx.transition.TransitionInflater
-import androidx.transition.TransitionManager
-import com.bumptech.glide.Glide
 import com.jakewharton.rxbinding.widget.RxTextView
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.FragmentChatBinding
@@ -36,7 +32,6 @@ import com.kerencev.messenger.utils.vibration.Vibration
 import com.vanniktech.emoji.EmojiPopup
 import moxy.ktx.moxyPresenter
 import java.util.concurrent.TimeUnit
-import com.kerencev.messenger.utils.postDelayed as postDelayed
 
 // If the user swipes to the left by less than -200 on the x axis, the voice message will be deleted
 private const val SWIPE_LENGTH_TO_DELETE = -200
@@ -134,36 +129,27 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
     }
 
     override fun setChatPartnerIsTyping(isTyping: Boolean) = with(binding) {
-        when (isTyping) {
-            true -> {
-                chatToolbarSubtitle.visibility = View.GONE
-                chatToolbarTvTyping.visibility = View.VISIBLE
-            }
-            false -> {
-                chatToolbarSubtitle.visibility = View.VISIBLE
-                chatToolbarTvTyping.visibility = View.GONE
-            }
-        }
+        chatToolbarSubtitle.isVisible = !isTyping
+        chatToolbarTvTyping.isVisible = isTyping
     }
 
     override fun updateChatPartnerLogin(login: String) {
         binding.chatToolbarTitle.text = login
     }
 
+    @SuppressLint("ResourceType")
     override fun updateChatPartnerAvatar(avatarUrl: String?) {
         with(binding) {
             when (avatarUrl) {
                 null -> {
-                    ivAvatar.visibility = View.GONE
-                    tvChatLetter.visibility = View.VISIBLE
+                    ivAvatar.makeGone()
+                    tvChatLetter.makeVisible()
                     tvChatLetter.text = chatPartner?.login?.first().toString()
                 }
                 else -> {
-                    tvChatLetter.visibility = View.GONE
-                    ivAvatar.visibility = View.VISIBLE
-                    Glide.with(requireContext()).load(avatarUrl)
-                        .placeholder(R.drawable.ic_user_place_holder)
-                        .into(binding.ivAvatar)
+                    tvChatLetter.makeGone()
+                    ivAvatar.makeVisible()
+                    ivAvatar.load(avatarUrl, R.drawable.ic_user_place_holder)
                 }
             }
         }
@@ -181,10 +167,10 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     override fun showVoiceRecordInfo() {
         with(binding) {
-            root.finishAndAnimateWithDelayFade()
+            root.finishAndAnimateWithDelayedFading()
             tvVoiceRecordInfo.makeVisible()
             postDelayed(1000) {
-                root.finishAndAnimateWithDelayFade()
+                root.finishAndAnimateWithDelayedFading()
                 tvVoiceRecordInfo.makeGone()
             }
         }
@@ -204,9 +190,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
         timer = Stopwatch()
         recordTimer = object : CountDownTimer(1000000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                TransitionManager.beginDelayedTransition(binding.root, Fade())
-                binding.imgMicRed.reverseVisibility()
-                binding.tvSecRecord.text = timer?.getTime()
+                with(binding) {
+                    root.animateWithDelayedFading()
+                    imgMicRed.reverseVisibility()
+                    tvSecRecord.text = timer?.getTime()
+                }
                 timer?.increment()
             }
 
@@ -262,13 +250,13 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             if (checkRecordPermission()) {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        vibration?.vibrate(10)
                         startRecord()
+                        vibration?.vibrate(10)
                         recordTimer?.start()
                     }
                     MotionEvent.ACTION_UP -> {
-                        vibration?.vibrate(10)
                         stopRecord(event.x >= SWIPE_LENGTH_TO_DELETE)
+                        vibration?.vibrate(10)
                         recordTimer?.cancel()
                         timer?.resetTimer()
                         binding.tvDeleteVoiceInfo.makeGone()
@@ -292,7 +280,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     private fun startRecord() {
         with(binding) {
-            root.finishAndAnimateWithDelayFade()
+            root.finishAndAnimateWithDelayedFading()
             linearSendAudio.makeVisible()
             linearSendText.makeGone()
             imgRecordBackground.makeVisible()
@@ -302,7 +290,7 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
 
     private fun stopRecord(isSaveRecord: Boolean) {
         with(binding) {
-            root.finishAndAnimateWithDelayFade()
+            root.finishAndAnimateWithDelayedFading()
             linearSendAudio.makeGone()
             linearSendText.makeVisible()
             imgRecordBackground.makeGone()
@@ -334,12 +322,11 @@ class ChatFragment : ViewBindingFragment<FragmentChatBinding>(FragmentChatBindin
             chatRoot,
             chatEditText
         )
-
         chatCardSmile.setOnClickListener {
-            when (isSmileIcon) {
-                true -> chatIvSmile.setImageResource(R.drawable.icon_keyboard)
-                false -> chatIvSmile.setImageResource(R.drawable.icon_smile)
-            }
+            chatIvSmile.setImageResource(
+                if (isSmileIcon) R.drawable.icon_keyboard
+                else R.drawable.icon_smile
+            )
             isSmileIcon = !isSmileIcon
             popup.toggle()
         }

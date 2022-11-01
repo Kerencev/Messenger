@@ -3,12 +3,13 @@ package com.kerencev.messenger.ui.main.newmessage
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.kerencev.messenger.R
 import com.kerencev.messenger.databinding.ItemNewMessageUserRvBinding
 import com.kerencev.messenger.model.entities.User
 import com.kerencev.messenger.utils.STATUS_ONLINE
-import com.kerencev.messenger.utils.loadUserImageWithGlide
+import com.kerencev.messenger.utils.load
 
 interface OnUserClickListener {
     fun onItemClick(user: User)
@@ -46,12 +47,22 @@ class UsersListAdapter(private val onUserClickListener: OnUserClickListener) :
         fun bind(item: User) = with(binding) {
             when (item.avatarUrl) {
                 null -> tvLetter.text = item.login.first().toString()
-                else -> ivAvatar.loadUserImageWithGlide(item.avatarUrl)
+                else -> ivAvatar.load(item.avatarUrl)
             }
             tvUserName.text = item.login
             when (item.status) {
-                STATUS_ONLINE -> tvUserStatus.setTextColor(context.resources.getColor(R.color.user_status_online))
-                else -> tvUserStatus.setTextColor(context.resources.getColor(R.color.hint_message))
+                STATUS_ONLINE -> tvUserStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.user_status_online
+                    )
+                )
+                else -> tvUserStatus.setTextColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.hint_message
+                    )
+                )
             }
             tvUserStatus.text = item.status
             binding.root.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.kerencev.messenger.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Handler
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.transition.Fade
@@ -26,7 +28,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-fun <T> Single<T>.subscribeByDefault(): Single<T> {
+fun <T : Any> Single<T>.subscribeByDefault(): Single<T> {
     return this
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -38,7 +40,7 @@ fun Completable.subscribeByDefault(): Completable {
         .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T> Observable<T>.subscribeByDefault(): Observable<T> {
+fun <T : Any> Observable<T>.subscribeByDefault(): Observable<T> {
     return this
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -48,10 +50,18 @@ fun Disposable.disposeBy(bag: CompositeDisposable) {
     bag.add(this)
 }
 
-fun ImageView.loadUserImageWithGlide(url: String) {
+fun ImageView.load(url: String) {
     Glide.with(context)
         .load(url)
         .placeholder(R.drawable.ic_user_place_holder)
+        .into(this)
+}
+
+@SuppressLint("ResourceType")
+fun ImageView.load(url: String, @StringRes placeHolder: Int) {
+    Glide.with(context)
+        .load(url)
+        .placeholder(placeHolder)
         .into(this)
 }
 
@@ -95,7 +105,7 @@ fun View.reverseVisibility() {
     }
 }
 
-fun ViewGroup.animateWithDelayFade() {
+fun ViewGroup.animateWithDelayedFading() {
     TransitionManager.beginDelayedTransition(this, Fade())
 }
 
@@ -103,12 +113,12 @@ fun ViewGroup.finishAnimation() {
     TransitionManager.endTransitions(this)
 }
 
-fun ViewGroup.finishAndAnimateWithDelayFade() {
+fun ViewGroup.finishAndAnimateWithDelayedFading() {
     this.finishAnimation()
-    this.animateWithDelayFade()
+    this.animateWithDelayedFading()
 }
 
-fun Fragment.postDelayed(delay: Long, function: () -> Unit) {
+fun postDelayed(delay: Long, function: () -> Unit) {
     Handler(Looper.getMainLooper()).postDelayed({
         function()
     }, delay)
