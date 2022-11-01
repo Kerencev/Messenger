@@ -3,13 +3,21 @@ package com.kerencev.messenger.ui.main.chat
 import android.content.Context
 import com.github.terrakok.cicerone.Router
 import com.kerencev.messenger.model.entities.User
+import com.kerencev.messenger.model.repository.MediaStoreRepository
 import com.kerencev.messenger.model.repository.MessagesRepository
 import com.kerencev.messenger.model.repository.WallpapersRepository
 import com.kerencev.messenger.navigation.main.WallpapersScreen
 import com.kerencev.messenger.ui.base.BasePresenter
 import com.kerencev.messenger.utils.*
+import com.kerencev.messenger.utils.player.Player
+import com.kerencev.messenger.utils.record.Recorder
+import com.kerencev.messenger.utils.vibration.Vibration
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.Disposable
+import java.io.File
 import javax.inject.Inject
+
 
 class ChatPresenter : BasePresenter<ChatView>() {
 
@@ -17,10 +25,19 @@ class ChatPresenter : BasePresenter<ChatView>() {
     lateinit var messagesRepository: MessagesRepository
 
     @Inject
+    lateinit var mediaStoreRepository: MediaStoreRepository
+
+    @Inject
     lateinit var wallPaperRepository: WallpapersRepository
 
     @Inject
     lateinit var router: Router
+
+    @Inject
+    lateinit var recorder: Recorder
+
+    @Inject
+    lateinit var player: Player
 
     private var partnerWasOnline: Long = -1
 
@@ -190,7 +207,6 @@ class ChatPresenter : BasePresenter<ChatView>() {
     fun updateUserTypingStatusWithFirebase(chatPartnerId: String, isTyping: Boolean) {
         messagesRepository.updateUserTypingStatus(chatPartnerId, isTyping)
             .subscribeByDefault()
-            .doOnError { log(it.stackTraceToString()) }
             .subscribe()
             .disposeBy(bag)
     }
@@ -206,5 +222,49 @@ class ChatPresenter : BasePresenter<ChatView>() {
     fun onBackPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    fun uploadFileToFirebase(file: File) {
+        mediaStoreRepository.saveFileToFirebaseStorage(file)
+            .subscribeByDefault()
+            .subscribe { fileUrl ->
+
+            }.disposeBy(bag)
+    }
+
+    fun startVoiceRecord() {
+        recorder.startRecord()
+            .subscribeByDefault()
+            .doOnError {
+                viewState.showVoiceRecordInfo()
+            }
+            .subscribe()
+            .disposeBy(bag)
+    }
+
+    fun saveVoiceRecord() {
+        recorder.stopRecord()
+            .subscribeByDefault()
+            .subscribe(
+                { file ->
+//                    uploadFileToFirebase(file = file)
+                    player.play(file)
+                        .subscribeByDefault()
+                        .subscribe()
+                },
+                {
+                    viewState.showVoiceRecordInfo()
+                }
+            ).disposeBy(bag)
+    }
+
+    fun deleteVoiceRecord() {
+        recorder.deleteRecord()
+            .subscribeByDefault()
+            .doOnError {
+                viewState.showVoiceRecordInfo()
+            }
+            .subscribe()
+            .disposeBy(bag)
     }
 }

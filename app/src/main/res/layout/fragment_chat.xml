@@ -5,7 +5,8 @@
     android:id="@+id/chatRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/completely_transparent">
+    android:background="@color/completely_transparent"
+    tools:background="@drawable/background_1">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/chatAppbarLayout"
@@ -112,11 +113,59 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
+            android:id="@+id/linearSendAudio"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_chat_linea_audio_height"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imgMicRed"
+                android:layout_width="@dimen/fragment_chat_img_mic_red_width"
+                android:layout_height="@dimen/fragment_chat_img_mic_red_height"
+                android:layout_marginStart="@dimen/fragment_chat_img_mic_red_margin_start"
+                android:layout_marginTop="@dimen/fragment_chat_img_mic_red_margin_top"
+                android:contentDescription="@string/record"
+                android:scaleType="center"
+                android:src="@drawable/icon_mic_red"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvSecRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/fragment_chat_tv_sec_record_margin_start"
+                android:gravity="center_vertical"
+                android:textColor="@color/stopwatch_color"
+                android:textSize="@dimen/fragment_chat_tv_sec_record_text_size"
+                android:visibility="visible"
+                tools:text="00:00" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_back_small"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@string/delete_record"
+                android:layout_marginStart="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Удалить запись"
+                android:textSize="16sp"
+                android:textColor="@color/stopwatch_color"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearSendText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chatCardSmile"
                 android:layout_width="@dimen/fragment_chat_card_edit_icon_width"
                 android:layout_height="@dimen/fragment_chat_card_edit_icon_height"
@@ -137,7 +186,7 @@
                     android:contentDescription="@string/smile"
                     android:src="@drawable/icon_smile" />
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.vanniktech.emoji.EmojiEditText
                 android:id="@+id/chatEditText"
@@ -152,6 +201,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/chat_edit_hint_color"
                 android:textSize="@dimen/chat_edit_text"
+                android:visibility="visible"
                 app:emojiSize="@dimen/emoji_size" />
 
             <com.google.android.material.card.MaterialCardView
@@ -163,6 +213,7 @@
                 android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
                 android:background="@color/white"
                 android:backgroundTint="@color/white"
+                android:visibility="gone"
                 app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
                 app:cardElevation="0dp"
                 app:rippleColor="@color/highlight_error"
@@ -178,8 +229,78 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chatCardMic"
+                android:layout_width="@dimen/fragment_chat_card_edit_icon_width"
+                android:layout_height="@dimen/fragment_chat_card_edit_icon_height"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="@dimen/fragment_chat_card_edit_icon_margin_end"
+                android:layout_marginBottom="@dimen/fragment_chat_card_edit_icon_margin_bottom"
+                android:background="@color/white"
+                android:backgroundTint="@color/white"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/fragment_chat_card_edit_icon_corners"
+                app:cardElevation="0dp"
+                app:rippleColor="@color/highlight_error"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/chatIvMic"
+                    android:layout_width="@dimen/fragment_chat_iv_edit_icon_width"
+                    android:layout_height="@dimen/fragment_chat_iv_edit_icon_height"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/smile"
+                    android:src="@drawable/icon_mic" />
+
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvDeleteVoiceInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/textInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="@dimen/fragment_chat_tv_delete_info_text_size"
+        android:text="@string/release_to_delete"
+        android:layout_margin="@dimen/fragment_chat_tv_delete_info_margin"
+        android:background="@drawable/background_delete_record_info"
+        android:padding="@dimen/fragment_chat_tv_delete_info_padding"
+        android:visibility="gone"
+        tools:visibility="gone"
+        android:textColor="@color/change_name_hint_error"/>
+
+    <TextView
+        android:id="@+id/tvVoiceRecordInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="@dimen/fragment_chat_tv_delete_info_text_size"
+        android:text="@string/hold_to_record"
+        android:layout_margin="@dimen/fragment_chat_tv_delete_info_margin"
+        android:gravity="center"
+        android:background="@drawable/background_delete_record_info"
+        android:padding="@dimen/fragment_chat_tv_delete_info_padding"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textColor="@color/white"/>
+
+    <ImageView
+        android:id="@+id/imgRecordBackground"
+        android:layout_width="@dimen/fragment_chat_img_record_background_width"
+        android:layout_height="@dimen/fragment_chat_img_record_background_height"
+        android:background="@drawable/record_backgrond"
+        android:contentDescription="@string/record"
+        android:scaleType="center"
+        android:src="@drawable/icon_mic"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

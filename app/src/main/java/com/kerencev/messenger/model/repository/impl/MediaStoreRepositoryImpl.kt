@@ -1,18 +1,22 @@
 package com.kerencev.messenger.model.repository.impl
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.core.net.toUri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.kerencev.messenger.model.repository.MediaStoreRepository
 import io.reactivex.rxjava3.core.Single
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 class MediaStoreRepositoryImpl : MediaStoreRepository {
+    @SuppressLint("Recycle")
     override fun getImagesFromExternalStorage(context: Context): Single<List<String>> {
         return Single.create {
             val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -61,6 +65,25 @@ class MediaStoreRepositoryImpl : MediaStoreRepository {
                 }
                 .addOnFailureListener { exception ->
                     emitter.onError(exception)
+                }
+        }
+    }
+
+    override fun saveFileToFirebaseStorage(file: File): Single<String> {
+        return Single.create { emitter ->
+            val storageRef = FirebaseStorage.getInstance().getReference("/files/${file.name}")
+            storageRef.putFile(file.toUri())
+                .addOnSuccessListener {
+                    storageRef.downloadUrl
+                        .addOnSuccessListener { fileUrl ->
+                            emitter.onSuccess(fileUrl.toString())
+                        }
+                        .addOnFailureListener {
+                            emitter.onError(it)
+                        }
+                }
+                .addOnFailureListener {
+                    emitter.onError(it)
                 }
         }
     }

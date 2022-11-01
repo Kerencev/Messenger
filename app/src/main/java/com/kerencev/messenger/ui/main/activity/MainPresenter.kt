@@ -21,6 +21,7 @@ class MainPresenter : BasePresenter<MainView>() {
 
     fun verifyUserIsLoggedIn() {
         repoAuth.verifyUserIsLoggedIn().flatMap { userId ->
+            //todo do not continue if the user isn't logged in
             if (userId.isEmpty()) viewState.startLoginActivity()
             repoAuth.updateFirebaseToken(userId).flatMap { repoAuth.getUserById(userId) }
         }

@@ -75,4 +75,9 @@
     <string name="picture_is_saved_to_the_gallery">Снимок сохранён в галерею</string>
     <string name="updating_photo">Обновление фотографии...</string>
     <string name="name">Имя</string>
+    <string name="need_record_permission">Необходимо разрешение на запись аудио</string>
+    <string name="record">Запись</string>
+    <string name="delete_record">Удалить запись</string>
+    <string name="release_to_delete">Отпустите, чтобы удалить</string>
+    <string name="hold_to_record">Удерживайте для записи</string>
 </resources>

@@ -15,6 +15,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_chat_input_text.xml" value="0.1625" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_chat_list_user_avatar.xml" value="0.151" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_chat_toolbar_avatar.xml" value="0.112" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_delete_record_info.xml" value="0.1305" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_fragment_crop_progress.xml" value="0.136" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_input.xml" value="0.1295" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/background_input_login.xml" value="0.1955" />
@@ -40,6 +41,7 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/ic_vector_backgroun1.xml" value="0.1325" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_add_photo.xml" value="0.1355" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_back.xml" value="0.124" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_back_small.xml" value="0.1305" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_camera_choose_photo.xml" value="0.1355" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_chats.xml" value="0.1325" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_chats_active.xml" value="0.1325" />
@@ -47,11 +49,14 @@
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_done.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_group.xml" value="0.1325" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_keyboard.xml" value="0.141" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_mic.xml" value="0.132" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_mic_red.xml" value="0.1305" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_online.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_send.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/icon_smile.xml" value="0.1285" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/keyboard_to_smile.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/push_small_icon.xml" value="0.1375" />
+        <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/record_backgrond.xml" value="0.1305" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/settings_photo_dialog_background.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/smile_to_keyboard.xml" value="0.1" />
         <entry key="..\:/Users/Keren/AndroidStudioProjects/Messenger/app/src/main/res/drawable/splash.xml" value="0.1" />

@@ -225,4 +225,16 @@
     <dimen name="notification_view_message_margin_start">48dp</dimen>
     <dimen name="notification_view_message_margin_top">20dp</dimen>
     <dimen name="notification_view_message_text_size">14sp</dimen>
+    <dimen name="fragment_chat_linea_audio_height">54dp</dimen>
+    <dimen name="fragment_chat_img_mic_red_width">40dp</dimen>
+    <dimen name="fragment_chat_img_mic_red_height">40dp</dimen>
+    <dimen name="fragment_chat_img_mic_red_margin_start">8dp</dimen>
+    <dimen name="fragment_chat_img_mic_red_margin_top">8dp</dimen>
+    <dimen name="fragment_chat_tv_sec_record_text_size">20sp</dimen>
+    <dimen name="fragment_chat_img_record_background_width">72dp</dimen>
+    <dimen name="fragment_chat_img_record_background_height">72dp</dimen>
+    <dimen name="fragment_chat_tv_sec_record_margin_start">16dp</dimen>
+    <dimen name="fragment_chat_tv_delete_info_text_size">14sp</dimen>
+    <dimen name="fragment_chat_tv_delete_info_margin">8dp</dimen>
+    <dimen name="fragment_chat_tv_delete_info_padding">8dp</dimen>
 </resources>

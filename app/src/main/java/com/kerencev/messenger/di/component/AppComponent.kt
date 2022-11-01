@@ -22,6 +22,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
+        AppModule::class,
         ApiModule::class,
         AuthRepositoryModule::class,
         CiceroneModule::class,
@@ -29,7 +30,9 @@ import javax.inject.Singleton
         MediaStoreRepositoryModule::class,
         MessagesRepositoryModule::class,
         UsersRepositoryModule::class,
-        WallpapersRepositoryModule::class
+        WallpapersRepositoryModule::class,
+        VibrationModule::class,
+        PlayerModule::class
     ]
 )
 interface AppComponent {
